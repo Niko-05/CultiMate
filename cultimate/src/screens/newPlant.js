@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const HomeScreen = () => {
+const NewPlant = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Welcome to the HomeScreen!</Text>
+      <Text>Sexo duro por el culo</Text>
     </View>
   );
 }
 
-export default HomeScreen;
+export default NewPlant;
