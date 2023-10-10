@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-
+import { createStackNavigator } from '@react-navigation/stack';
 //screens
 import homescreen from '../screens/homescreen';
 import shop from '../screens/shop';
@@ -9,17 +9,40 @@ import newPlant from '../screens/newPlant';
 import user from '../screens/user';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import Infoplanta from '../screens/infoplanta';
+import { View } from 'react-native';
+import ButtonTabs from './stacknavigator';
 
 const Tab = createBottomTabNavigator();
-
+const Stack = createStackNavigator();
+const ButtonTabs = () =>{
+  return(
+    
+    <Stack.Navigator initialRouteName='newPlant'
+    screenOptions={{
+        headerShown: false}}>
+          <Stack.Screen 
+            name = 'newPlant'
+            component={NewPlant}
+          />
+      <Stack.Screen
+        name='Infoplanta' 
+        component={Infoplanta} 
+       />
+    </Stack.Navigator>
+    
+  )
+}
 function MyTabs() {
     return (
+        
         <Tab.Navigator
             initialRouteName='Home'
             screenOptions={{
                 tabBarActiveTintColor: 'green',
             }}
         >
+            
             <Tab.Screen 
                 name='Usuario' 
                 component={user} 
@@ -39,11 +62,11 @@ function MyTabs() {
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name='home' color={color} size={size} />
                     ),
-                    headerShown: false
+                    headerShown: false, 
                 }}
             />
             <Tab.Screen 
-                name='Nueva planta' 
+                name='Nueva Planta' 
                 component={newPlant} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
@@ -52,6 +75,7 @@ function MyTabs() {
                     headerTintColor: 'green'
                 }}
             />
+            
             <Tab.Screen 
                 name='Tienda' 
                 component={shop} 
@@ -69,8 +93,15 @@ function MyTabs() {
 
 export default function Navigation() {
     return (
+      
+        
+          
         <NavigationContainer>
+            
+            
             <MyTabs />
         </NavigationContainer>
+                
+       
     )
 }
