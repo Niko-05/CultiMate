@@ -11,28 +11,11 @@ import user from '../screens/user';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Infoplanta from '../screens/infoplanta';
 import { View } from 'react-native';
-import ButtonTabs from './stacknavigator';
+import ButtonTabs from './ventanas';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-const ButtonTabs = () =>{
-  return(
-    
-    <Stack.Navigator initialRouteName='newPlant'
-    screenOptions={{
-        headerShown: false}}>
-          <Stack.Screen 
-            name = 'newPlant'
-            component={NewPlant}
-          />
-      <Stack.Screen
-        name='Infoplanta' 
-        component={Infoplanta} 
-       />
-    </Stack.Navigator>
-    
-  )
-}
+
 function MyTabs() {
     return (
         
@@ -42,7 +25,7 @@ function MyTabs() {
                 tabBarActiveTintColor: 'green',
             }}
         >
-            
+     
             <Tab.Screen 
                 name='Usuario' 
                 component={user} 
@@ -92,16 +75,8 @@ function MyTabs() {
 }
 
 export default function Navigation() {
-    return (
-      
-        
-          
-        <NavigationContainer>
-            
-            
-            <MyTabs />
-        </NavigationContainer>
-                
-       
+    return (       
+              
+            <MyTabs />     
     )
 }

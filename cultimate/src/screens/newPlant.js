@@ -5,25 +5,28 @@ import ListaPlanta from '../components/ListaPlanta';
 import { createStackNavigator } from '@react-navigation/stack';
 import infoplanta from './infoplanta';
 import { useNavigation } from '@react-navigation/native';
-import ButtonTabs from '../navigation/stacknavigator';
+import ButtonTabs from '../navigation/ventanas';
+import Infoplanta from './infoplanta';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+const Tab = createBottomTabNavigator();
 
-
-const NewPlant = () => {
+const NewPlant = ({navigation}) => {
   const data = [
     { nombre: 'Juan' },
     { nombre: 'María' },
     { nombre: 'Pedro' },
   ]
- const navigation =ButtonTabs();
 
   return (
     
    
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
    
+   
     <ListaPlanta data = {data} navigation = {navigation}/>
-  
+    
+      
     </View>
     );
 }

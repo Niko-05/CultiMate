@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, Button,StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Infoplanta from '../screens/infoplanta';
 
 
@@ -8,7 +8,7 @@ import Infoplanta from '../screens/infoplanta';
 
 const ListaPlanta = ({ data, navigation}) => {
   const renderItem = ({ item }) => (
-      <TouchableOpacity onPress={() => handleButtonPress(navigation)}>
+      <TouchableOpacity onPress={() => handleButtonPress()}>
       <View style = {styles.boton}>
       <Text style = {styles.texto}> {item.nombre}</Text>
       </View>
@@ -16,8 +16,8 @@ const ListaPlanta = ({ data, navigation}) => {
       
       );
 
-  const handleButtonPress = (navigation) => {
-    navigation.navigate(Infoplanta);
+  const handleButtonPress = () => {
+    navigation.navigate('Infoplanta');
     }
   
 
@@ -27,6 +27,7 @@ const ListaPlanta = ({ data, navigation}) => {
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}
     />
+    
   );
 }
 const styles = StyleSheet.create({boton:{backgroundColor: 'lightgreen', 
