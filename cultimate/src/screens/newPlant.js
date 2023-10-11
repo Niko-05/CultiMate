@@ -22,11 +22,7 @@ const NewPlant = ({navigation}) => {
     
    
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-   
-   
-    <ListaPlanta data = {data} navigation = {navigation}/>
-    
-      
+      <ListaPlanta data = {data} navigation = {navigation}/>
     </View>
     );
 }

@@ -8,17 +8,13 @@ import Infoplanta from '../screens/infoplanta';
 
 const ListaPlanta = ({ data, navigation}) => {
   const renderItem = ({ item }) => (
-      <TouchableOpacity onPress={() => handleButtonPress()}>
-      <View style = {styles.boton}>
-      <Text style = {styles.texto}> {item.nombre}</Text>
-      </View>
-     </TouchableOpacity>    
+      <TouchableOpacity onPress={() => navigation.navigate('Infoplanta', {id:item.id, data: data})}>
+        <View style = {styles.boton}>
+          <Text style = {styles.texto}> {item.nombre}</Text>
+        </View>
+     </TouchableOpacity>
       
       );
-
-  const handleButtonPress = () => {
-    navigation.navigate('GrowingCalendar');
-    }
   
 
   return (
@@ -30,13 +26,17 @@ const ListaPlanta = ({ data, navigation}) => {
     
   );
 }
-const styles = StyleSheet.create({boton:{backgroundColor: 'lightgreen', 
-                                    padding: 10, 
-                                    width: 350,
-                                    borderRadius: 15, 
-                                    marginTop: 10 },
-                                   texto:{                      
-                                 color: 'white' }
-                                   })
+const styles = StyleSheet.create({
+  boton:{
+    backgroundColor: 'lightgreen', 
+    padding: 10, 
+    width: 350,
+    borderRadius: 15, 
+    marginTop: 10 
+  },
+  texto:{                      
+    color: 'white' 
+  }
+  })
 export default ListaPlanta;
   
