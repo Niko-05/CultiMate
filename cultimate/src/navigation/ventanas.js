@@ -10,7 +10,7 @@ const Ventanas = () =>{
     
     <Stack.Navigator initialRouteName='navigation'>
     {/* Otras pantallas */}
-    <Stack.Screen name='navigation' component={Navigation} />
+    <Stack.Screen name='navigation' component={Navigation}  options={{ headerShown: false }}/>
     <Stack.Screen name='Infoplanta' component={Infoplanta} />
     <Stack.Screen name='GrowingCalendar' component={growingCalendar} />  
       
