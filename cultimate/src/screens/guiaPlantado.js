@@ -3,6 +3,6 @@ import { View, Text, FlatList, TouchableOpacity, Button, StyleSheet } from 'reac
 
   
 
-const growingCalendar = () => {}
+const GuiaPlantado = () => {}
 
-export default growingCalendar;
+export default GuiaPlantado;
