@@ -30,6 +30,9 @@ export const SuggestionModal = ({ isVisible, closeModal }) => {
       >
         <View
           style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
             backgroundColor: "white",
             margin: 20,
             borderRadius: 20,
