@@ -7,13 +7,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Infoplanta from './src/screens/infoplanta';
 import Ventanas from './src/navigation/ventanas';
+import LoginScreen from './src/screens/login/loginScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 const Stack = createStackNavigator();
 export default function App() {
   return (
-  
-    <NavigationContainer>
-     <Ventanas></Ventanas>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <LoginScreen/>
+    {/* // <NavigationContainer>
+    //  <Ventanas></Ventanas>
+    // </NavigationContainer> */}
+    </SafeAreaProvider>
    
     );
 }
