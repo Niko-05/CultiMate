@@ -17,7 +17,7 @@ const ListaPlanta = ({ data, navigation}) => {
       );
 
   const handleButtonPress = () => {
-    navigation.navigate('Infoplanta');
+    navigation.navigate('GrowingCalendar');
     }
   
 
