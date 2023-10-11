@@ -13,15 +13,16 @@ const Tab = createBottomTabNavigator();
 
 const NewPlant = ({navigation}) => {
   const data = [
-    { nombre: 'Juan' },
-    { nombre: 'María' },
-    { nombre: 'Pedro' },
+    { nombre: 'Juan'},
+    { nombre: 'María'},
+    { nombre: 'Pedro'},
+
   ]
 
   return (
     
    
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center-top' }}>
    
    
     <ListaPlanta data = {data} navigation = {navigation}/>

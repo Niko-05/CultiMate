@@ -14,11 +14,12 @@ const ListaPlanta = ({ data, navigation}) => {
       </View>
      </TouchableOpacity>    
       
+
       );
 
   const handleButtonPress = () => {
     navigation.navigate('Infoplanta');
-    }
+    }  
   
 
   return (
@@ -27,7 +28,6 @@ const ListaPlanta = ({ data, navigation}) => {
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}
     />
-    
   );
 }
 const styles = StyleSheet.create({boton:{backgroundColor: 'lightgreen', 
