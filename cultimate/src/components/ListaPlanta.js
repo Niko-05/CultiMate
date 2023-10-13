@@ -20,10 +20,6 @@ const ListaPlanta = ({ data, navigation}) => {
      </TouchableOpacity>    
       
       );
-
-  const handleButtonPress = () => {
-    navigation.navigate('Infoplanta');
-    }
   
 
   return (

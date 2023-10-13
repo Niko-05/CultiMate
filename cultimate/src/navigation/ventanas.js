@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import NewPlant from '../screens/newPlant';
 import Infoplanta from '../screens/infoplanta';
 import Navigation from './navigation';
+import GuiaPlantado from '../screens/guiaPlantado';
 import { NavigationContainer } from '@react-navigation/native';
 const Stack = createStackNavigator();
 const Ventanas = () =>{
@@ -9,9 +10,11 @@ const Ventanas = () =>{
     
     <Stack.Navigator initialRouteName='navigation'>
     {/* Otras pantallas */}
-    <Stack.Screen name='navigation' component={Navigation} options= {{headerShown: false}}  />
+    <Stack.Screen name='navigation' component={Navigation}  options={{ headerShown: false }}/>
     <Stack.Screen name='Infoplanta' component={Infoplanta} />
-    </Stack.Navigator>
+    <Stack.Screen name='GuiaPlantado' component={GuiaPlantado} />  
+      
+  </Stack.Navigator>
     
   )
 }

@@ -26,6 +26,7 @@ function MyTabs() {
             }}
         >
      
+    
             <Tab.Screen 
                 name='Usuario' 
                 component={user} 
