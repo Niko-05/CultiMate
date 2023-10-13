@@ -7,28 +7,22 @@ import Infoplanta from '../screens/infoplanta';
 
 const ListaPlanta = ({ data, navigation}) => {
   const renderItem = ({ item }) => (
-
-      <TouchableOpacity onPress={() => handleButtonPress(item)}>
-      <View style = {styles.boton}>
-      <View style={styles.innerContainer}>
-          <View style={styles.viewimage}>
-            <Image
-              source={item.Image}
-              style={styles.imagen}
-            />
-          </View>
-          <View style={styles.viewtexto}>
-            <Text style={styles.texto}>{item.nombre}</Text>
+    <TouchableOpacity onPress={() => navigation.navigate('Infoplanta', {id:item.id, data: data})}>
+    <View style = {styles.boton}>
+    <View style={styles.innerContainer}>
+        <View style={styles.viewimage}>
+          <Image
+            source={item.Image}
+            style={styles.imagen}
+          />
         </View>
+        <View style={styles.viewtexto}>
+          <Text style={styles.texto}>{item.nombre}</Text>
       </View>
-      </View>
-     </TouchableOpacity>    
-      
-      );
-      function handleButtonPress({item}){
-        navigation.navigate('Infoplanta')
-
-      } 
+    </View>
+    </View>
+    </TouchableOpacity>    
+  );
 
   return (
     <FlatList
