@@ -48,8 +48,8 @@ const styles = StyleSheet.create({boton:{backgroundColor: 'lightgreen',
                                     justifyContent: 'center'
                                   },
                                   innerContainer: {
-                                      flexDirection: 'row',
-                                      alignItems: 'center'
+                                      flexDirection:'row',
+                                      alignItems:'center'
                                   },
                                   viewimage:{
                                       justifyContent: 'center',
