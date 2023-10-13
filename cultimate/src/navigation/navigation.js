@@ -7,6 +7,10 @@ import newPlant from '../screens/newPlant';
 import user from '../screens/user';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import Infoplanta from '../screens/infoplanta';
+import { View } from 'react-native';
+import ButtonTabs from './ventanas';
+import GuiaPlantado from '../screens/guiaPlantado';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,6 +70,19 @@ function MyTabs() {
                     headerTintColor: 'green'
                 }}
             />
+
+            <Tab.Screen 
+                name='Guia de Plantado'
+                component={GuiaPlantado} 
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name='format-list-checks' color={color} size={size} />
+                    ),
+                    
+                    headerTintColor: 'green'
+                }}
+            />
+
         </Tab.Navigator>
     );
 }
