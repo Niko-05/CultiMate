@@ -11,7 +11,7 @@ const Ventanas = () =>{
     {/* Otras pantallas */}
     <Stack.Screen name='navigation' component={Navigation} options= {{headerShown: false}}  />
     <Stack.Screen name='Infoplanta' component={Infoplanta} />
-  </Stack.Navigator>
+    </Stack.Navigator>
     
   )
 }
