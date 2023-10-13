@@ -1,7 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 //screens
 import homescreen from '../screens/homescreen';
 import shop from '../screens/shop';
@@ -9,12 +7,9 @@ import newPlant from '../screens/newPlant';
 import user from '../screens/user';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import Infoplanta from '../screens/infoplanta';
-import { View } from 'react-native';
-import ButtonTabs from './ventanas';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+
 
 function MyTabs() {
     return (
@@ -26,7 +21,7 @@ function MyTabs() {
             }}
         >
      
-    
+
             <Tab.Screen 
                 name='Usuario' 
                 component={user} 
