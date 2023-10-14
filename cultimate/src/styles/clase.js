@@ -4,7 +4,7 @@ export const GuiaPlantadoStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'top',
   },
   headerText: {
     fontSize: 20,
@@ -12,6 +12,8 @@ export const GuiaPlantadoStyles = StyleSheet.create({
   },
   plantInfoContainer: {
     marginVertical: 10,
+    flexDirection: 'row',
+
   },
   infoLabel: {
     fontSize: 16,
@@ -19,6 +21,19 @@ export const GuiaPlantadoStyles = StyleSheet.create({
     marginBottom: 5,
   },
   infoText: {
-    fontSize: 14,
+    fontSize: 16,
+  },
+  containerFila:{
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+  image:{
+    height: 50,
+    width: 50,
+    margin: '5%'
+  },
+  button:{
+    color: '#71d772', 
   },
 });
