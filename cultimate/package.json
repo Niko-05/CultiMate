@@ -15,6 +15,7 @@
     "@react-navigation/native-stack": "^6.9.14",
     "@react-navigation/stack": "^6.3.18",
     "classnames": "^2.3.2",
+    "classnames": "^2.3.2",
     "expo": "~49.0.13",
     "expo-status-bar": "~1.6.0",
     "nativewind": "^2.0.11",
@@ -25,7 +26,7 @@
     "react-native-element-dropdown": "^2.10.0",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-picker-select": "^8.1.0",
-    "react-native-safe-area-context": "4.6.3",
+    "react-native-safe-area-context": "^4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.19.6"
