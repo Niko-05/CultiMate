@@ -1,14 +1,22 @@
 import React from "react";
-import { TextInput, StyleSheet } from "react-native";
+import { TextInput, View, Text } from "react-native";
 
-const TextInputLogin = ({ placeholder, secureTextEntry, onChangeText }) => {
+const TextInputLogin = ({
+  label,
+  placeholder,
+  secureTextEntry,
+  onChangeText,
+}) => {
   return (
-    <TextInput
-      className="h-10 m-3 p-2 border-2 border-solid border-black rounded-md"
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
-      onChangeText={onChangeText}
-    />
+    <View className="mb-3">
+      <Text className="text-green-700 font-bold text-md">{label}</Text>
+      <TextInput
+        className="border-b-2 border-gray-300 py-2"
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        onChangeText={onChangeText}
+      />
+    </View>
   );
 };
 
