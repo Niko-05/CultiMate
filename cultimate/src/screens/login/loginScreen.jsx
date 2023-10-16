@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
+import FacebookF from "../../../assets/facebook-f.svg";
+import TwitterX from "../../../assets/x-twitter.svg";
 import classnames from "classnames";
 
 const LoginScreen = () => {
@@ -14,7 +16,7 @@ const LoginScreen = () => {
         className="flex-1 bg-blue-100 justify-center mx-8"
       >
         <View className="space-y-2 mb-6">
-          <Text className="font-bold text-xl">Sign In</Text>
+          <Text className="font-bold text-2xl">Sign In</Text>
           <Text className="text-sm text-gray-500">
             Hi there! Nice to see you again.
           </Text>

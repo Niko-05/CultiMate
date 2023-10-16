@@ -9,12 +9,13 @@ import Infoplanta from './src/screens/infoplanta';
 import Ventanas from './src/navigation/ventanas';
 import LoginScreen from './src/screens/login/LoginScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import RegisterScreen from './src/screens/login/RegisterScreen';
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
     <SafeAreaProvider>
-      <LoginScreen/>
+      <RegisterScreen/>
     {/* // <NavigationContainer>
     //  <Ventanas></Ventanas>
     // </NavigationContainer> */}
