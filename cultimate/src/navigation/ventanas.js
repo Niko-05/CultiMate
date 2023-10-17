@@ -1,15 +1,18 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import NewPlant from '../screens/newPlant';
 import Infoplanta from '../screens/infoplanta';
 import Navigation from './navigation';
 import GuiaPlantado from '../screens/guiaPlantado';
-import { NavigationContainer } from '@react-navigation/native';
+import RegisterScreen from '../screens/login/RegisterScreen';
+import LoginScreen from '../screens/login/LoginScreen';
+
 const Stack = createStackNavigator();
 const Ventanas = () =>{
   return(
     
-    <Stack.Navigator initialRouteName='navigation'>
+    <Stack.Navigator initialRouteName='LoginScreen'>
     {/* Otras pantallas */}
+    <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }}/>
+    <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }}/>
     <Stack.Screen name='navigation' component={Navigation}  options={{ headerShown: false }}/>
     <Stack.Screen name='Infoplanta' component={Infoplanta} />
     <Stack.Screen name='GuiaPlantado' component={GuiaPlantado} />  
