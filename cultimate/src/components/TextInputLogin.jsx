@@ -3,8 +3,9 @@ import { TextInput, View, Text } from "react-native";
 
 const TextInputLogin = ({
   label,
+  icon,
+  inputMode,
   placeholder,
-  secureTextEntry,
   onChangeText,
 }) => {
   return (
@@ -12,9 +13,11 @@ const TextInputLogin = ({
       <Text className="text-green-700 font-bold text-md">{label}</Text>
       <TextInput
         className="border-b-2 border-gray-300 py-2"
+        label={label}
+        icon={icon}
+        inputMode={inputMode}
         placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        onChangeText={onChangeText}
+        onChangeText={(value) => onChangeText(value)}
       />
     </View>
   );

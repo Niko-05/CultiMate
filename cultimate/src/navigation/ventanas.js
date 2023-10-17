@@ -9,13 +9,13 @@ const Stack = createStackNavigator();
 const Ventanas = () =>{
   return(
     
-    <Stack.Navigator initialRouteName='navigation'>
+    <Stack.Navigator initialRouteName='LoginScreen'>
     {/* Otras pantallas */}
+    <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }}/>
+    <Stack.Screen name='RegisterScreen' component={RegisterScreen} options={{ headerShown: false }}/>
     <Stack.Screen name='navigation' component={Navigation}  options={{ headerShown: false }}/>
     <Stack.Screen name='Infoplanta' component={Infoplanta} />
     <Stack.Screen name='GuiaPlantado' component={GuiaPlantado} />  
-    <Stack.Screen name='RegisterScreen' component={GuiaPlantado} /> 
-    <Stack.Screen name='LoginScreen' component={LoginScreen} />
       
   </Stack.Navigator>
     
