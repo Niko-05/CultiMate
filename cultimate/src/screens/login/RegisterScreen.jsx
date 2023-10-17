@@ -5,6 +5,7 @@ import TextInputLogin from "../../components/TextInputLogin";
 import { CheckBox } from "@rneui/themed";
 import FacebookF from "../../../assets/facebook-f.svg";
 import TwitterX from "../../../assets/x-twitter.svg";
+import CheckIcon from "../../../assets/check-solid.svg";
 import classnames from "classnames";
 
 const RegisterScreen = () => {
@@ -24,15 +25,31 @@ const RegisterScreen = () => {
           <TextInputLogin label={"E-mail"} placeholder={"E-mail"} />
           <TextInputLogin label={"Password"} placeholder={"Password"} />
         </View>
-        <TouchableOpacity checked={check} onChange={() => setCheck(!check)}>
-          <Text>Hola</Text>
-        </TouchableOpacity>
+        <View className="mb-4 flex-row space-x-2">
+          <TouchableOpacity
+            accessibilityRole={"checkbox"}
+            checked={check}
+            onPress={() => setCheck(!check)}
+            className={classnames(
+              "w-7 h-7 border-2 rounded-md p-0.5",
+              check ? "border-green-700 bg-green-700" : "border-gray-400"
+            )}
+          >
+            {check ? <CheckIcon fill="white" /> : <CheckIcon fill="gray" />}
+          </TouchableOpacity>
+          <Text className="flex-1" numberOfLines={2}>
+            I agree to the Terms of Services and Privacy Policy
+          </Text>
+        </View>
         <TouchableOpacity className="items-center bg-green-700 py-3 rounded-lg">
           <Text className="text-white font-bold text-lg">Continue</Text>
         </TouchableOpacity>
         <View className="flex-row my-8 justify-center space-x-1">
           <Text className="text-gray-500">Have an account?</Text>
-          <TouchableOpacity className="">
+          <TouchableOpacity
+            className=""
+            onPress={() => navigation.navigate("LoginScreen")}
+          >
             <Text className="text-green-700 font-bold">Sign In</Text>
           </TouchableOpacity>
         </View>
