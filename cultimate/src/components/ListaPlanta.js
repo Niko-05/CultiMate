@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, Image } from 'react-native';
 import Infoplanta from '../screens/infoplanta';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const ListaPlanta = ({ data, navigation }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -17,8 +18,21 @@ const ListaPlanta = ({ data, navigation }) => {
 
   const handleFilterChange = (selectedValue) => {
     setValue(selectedValue);
+    setSearchTerm(''); // Restablece el término de búsqueda
+    filterData(selectedValue, '');
   };
-
+  const filterData = (selectedValue, searchTerm) => {
+    let filteredItems = data;
+    if (selectedValue !== null) {
+      filteredItems = data.filter((item) => item.EstacionRecomendada === selectedValue);
+    }
+    if (searchTerm) {
+      filteredItems = filteredItems.filter(
+        (item) => item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    setFilteredData(filteredItems);
+  };
   useEffect(() => {
     if (value === null) {
       // Si seleccionas "Todos", muestra todos los elementos
@@ -47,6 +61,15 @@ const ListaPlanta = ({ data, navigation }) => {
 
   return (
     <View>
+      <TextInput
+     style={styles.searchInput}
+     placeholder="Buscar planta..."
+     onChangeText={(text) => {
+       setSearchTerm(text);
+       filterData(value, text);
+     }}
+    value={searchTerm}
+    />
       <Text style={{ justifyContent: 'center' }}>Seleccionar Filtro:</Text>
       <DropDownPicker
         open={open}
@@ -89,6 +112,16 @@ const styles = StyleSheet.create({
   imagen: {
     width: 50, // Ancho de la imagen
     height: 50, // Alto de la imagen
+  },
+  searchInput:{
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    margin: 10,
+
+
   },
 });
 
