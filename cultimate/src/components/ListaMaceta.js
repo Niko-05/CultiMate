@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   viewimage: {
     justifyContent: 'center',
-    marginRight: 10,
+    marginRight: 20,
   },
   viewtexto: {
     width: '100%',
