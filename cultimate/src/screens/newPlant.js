@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, FlatList, TouchableOpacity, Button, StyleSheet, Pressable } from 'react-native';
 import ListaPlanta from '../components/ListaPlanta';
 import ButtonTabs from '../navigation/ventanas';
 import Infoplanta from './infoplanta';
@@ -27,14 +27,13 @@ const NewPlant = ({ navigation }) => {
           backgroundColor: "lightgreen",
           padding: 10,
           borderRadius: 20,
-          elevation: 2,
+          bottom: 40,
         }}
         onPress={toggleModal}
       >
         <Text>Suggest new plant</Text>
       </Pressable>
       <SuggestionModal isVisible={isModalVisible} closeModal={toggleModal}/>
-
     </View>
   );
 };
