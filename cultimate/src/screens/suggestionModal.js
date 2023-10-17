@@ -25,14 +25,11 @@ export const SuggestionModal = ({ isVisible, closeModal }) => {
           alignItems: "center",
           justifyContent: "center",
           marginTop: 22,
-          backgroundColor: "trasnparent",
+          backgroundColor: "transparent",
         }}
       >
         <View
           style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
             backgroundColor: "white",
             margin: 20,
             borderRadius: 20,
@@ -40,12 +37,8 @@ export const SuggestionModal = ({ isVisible, closeModal }) => {
             elevation: 5,
             width: Dimensions.get("window").width - 50,
           }}
+          className="flex-1 items-center"
         >
-          <Text style={styles.titleText}>Surgencias</Text>
-          <Text>Nombre de la planta</Text>
-          <TextInput style={styles.input} placeholder="Nombre" />
-          <Text>Descripción</Text>
-          <TextInput style={styles.input} placeholder="Max 30 caracteres." />
           <Pressable
             onPress={closeModal}
             style={{
@@ -54,9 +47,39 @@ export const SuggestionModal = ({ isVisible, closeModal }) => {
               borderRadius: 20,
               elevation: 2,
             }}
+            className="absolute left-3 top-6"
           >
-            <Text>Hide Modal</Text>
+            <Text>Back</Text>
           </Pressable>
+
+          <Text style={styles.titleText}>Surgencias</Text>
+          <View className="flex-1 justify-center">
+            <View className="space-y-2 mb-6">
+              <Text>Nombre de la planta</Text>
+              <TextInput style={styles.input} placeholder="Nombre" />
+            </View>
+            <View className="space-y-2 mb-6">
+              <Text>Descripción</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Max 30 caracteres."
+              />
+            </View>
+            <View className="space-y-2 mb-6 items-center">
+              <Pressable
+                onPress={closeModal}
+                style={{
+                  backgroundColor: "lightgreen",
+                  padding: 10,
+                  borderRadius: 20,
+                  elevation: 2,
+                }}
+                className="px-6"
+              >
+                <Text>Enviar</Text>
+              </Pressable>
+            </View>
+          </View>
         </View>
       </View>
     </Modal>
