@@ -1,55 +1,68 @@
 import React from 'react';
 import { ScrollView, View, Text, FlatList, TouchableOpacity, Button, StyleSheet, Image } from 'react-native';
 import { GuiaPlantadoStyles } from '../styles/clase.js';
+import { useRoute } from '@react-navigation/native';
 
   
 
 const GuiaPlantado = () => {
-return (
+  const route = useRoute();
+  const { id, data } = route.params;
+  const item = data.find(item => item.id === id);
+
+  if (!item) {
+    return (
+      <View style={styles.container}>
+        <Text>Elemento no encontrado</Text>
+      </View>
+    );
+  }
+
+  return (
     <ScrollView style={GuiaPlantadoStyles.pagina}>
       <View style={GuiaPlantadoStyles.plantInfoContainer}>
         <Text style={GuiaPlantadoStyles.titulo}>Planta: </Text>
-        <Text style={GuiaPlantadoStyles.infoText}>Tomate</Text>
+        <Text style={GuiaPlantadoStyles.infoText}>{item.nombre}</Text>
       </View>
 
       <View style={GuiaPlantadoStyles.plantInfoContainer}>
         <Text style={GuiaPlantadoStyles.titulo}>Fecha de Plantado: </Text>
-        <Text style={GuiaPlantadoStyles.infoText}>25 de octubre, 2023</Text>
+        <Text style={GuiaPlantadoStyles.infoText}>{item.FechaPlantado}</Text>
       </View>
 
       
       <View style={GuiaPlantadoStyles.container2}>
         <Image style = {GuiaPlantadoStyles.image} source= {require("../../assets/regar.png")}/>
-        <Text style={GuiaPlantadoStyles.infoText}>Regar 2 veces al día</Text>
+        <Text style={GuiaPlantadoStyles.infoText}>Regar {item.PeriodicidadRegado} veces al día</Text>
       </View>
 
 
       <View style={GuiaPlantadoStyles.container2}>
         <Image style = {GuiaPlantadoStyles.image} source= {require("../../assets/termometro.png")}/>
-        <Text style={GuiaPlantadoStyles.infoText}>20ºC - 25ºC </Text>
+        <Text style={GuiaPlantadoStyles.infoText}>{item.CondTemperatura}</Text>
       </View>
 
 
       <View style={GuiaPlantadoStyles.container2}>
         <Image style = {GuiaPlantadoStyles.image} source= {require("../../assets/planta.png")}/>
-        <Text style={GuiaPlantadoStyles.infoText}>Maceta mediana</Text>
+        <Text style={GuiaPlantadoStyles.infoText}>Maceta {item.TamMaceta}</Text>
       </View>
 
         
       <View>
         <View style={GuiaPlantadoStyles.plantInfoContainer}>
           <Text style={GuiaPlantadoStyles.titulo}>Paso: </Text>
-          <Text style={GuiaPlantadoStyles.infoText}> 1</Text>
+          <Text style={GuiaPlantadoStyles.infoText}>{item.Paso}</Text>
         </View>
         
         <View style={GuiaPlantadoStyles.plantInfoContainer}>
           <Text style={GuiaPlantadoStyles.titulo}>Detalles: </Text>
-          <Text style={GuiaPlantadoStyles.infoText}>Preparar la maceta y el sustrato </Text>
+          <Text style={GuiaPlantadoStyles.infoText}>{item.Detalles}</Text>
         </View>
 
         <View style={GuiaPlantadoStyles.plantInfoContainer}>
           <Text style={GuiaPlantadoStyles.titulo}>Estado de la Planta: </Text>
-          <Text style={GuiaPlantadoStyles.infoText}>Preparar la maceta y el sustrato </Text>
+          <Text style={GuiaPlantadoStyles.infoText}>{item.Estado}</Text>
         </View>
 
         <View style={GuiaPlantadoStyles.separador} />
@@ -64,7 +77,7 @@ return (
 
       </View>
     </ScrollView>
-    );
+  );
 }
 
 export default GuiaPlantado;

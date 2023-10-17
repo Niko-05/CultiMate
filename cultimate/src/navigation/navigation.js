@@ -5,6 +5,7 @@ import homescreen from '../screens/homescreen';
 import shop from '../screens/shop';
 import newPlant from '../screens/newPlant';
 import user from '../screens/user';
+import GuiasPlantado from '../screens/guiasPlantado';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Infoplanta from '../screens/infoplanta';
@@ -73,7 +74,7 @@ function MyTabs() {
 
             <Tab.Screen 
                 name='Guias de Plantado'
-                component={GuiaPlantado} 
+                component={GuiasPlantado} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name='format-list-checks' color={color} size={size} />
