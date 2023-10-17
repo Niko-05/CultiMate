@@ -25,6 +25,7 @@ export const GuiaPlantadoStyles = StyleSheet.create({
     marginBottom: '5%',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#c0e8c0',
   },
 

@@ -72,7 +72,7 @@ function MyTabs() {
             />
 
             <Tab.Screen 
-                name='Guia de Plantado'
+                name='Guias de Plantado'
                 component={GuiaPlantado} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
