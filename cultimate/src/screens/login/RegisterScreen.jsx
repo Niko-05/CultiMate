@@ -13,6 +13,7 @@ const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [check, setCheck] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleContinue = () => {
     check ? navigation.navigate("navigation") : null;
@@ -33,7 +34,11 @@ const RegisterScreen = ({ navigation }) => {
             placeholder={"E-mail"}
             onChangeText={setEmail}
           />
-          <TextInputLogin label={"Password"} placeholder={"Password"} />
+          <TextInputLogin
+            label={"Password"}
+            placeholder={"Password"}
+            onChangeText={setPassword}
+          />
         </View>
         <View className="mb-4 flex-row space-x-2">
           <TouchableOpacity

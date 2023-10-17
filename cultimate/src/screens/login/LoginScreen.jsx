@@ -35,13 +35,13 @@ const LoginScreen = ({ navigation }) => {
             label={"E-mail"}
             placeholder={"E-mail"}
             inputMode={"email"}
-            onChangeText={(value) => setEmail(value)}
+            onChangeText={setEmail}
           />
           <TextInputLogin
             label={"Password"}
             placeholder={"Password"}
             inputMode={"text"}
-            onChangeText={(value) => setPassword(value)}
+            onChangeText={setPassword}
           />
         </View>
         <TouchableOpacity
