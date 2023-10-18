@@ -20,12 +20,6 @@ const NewPlant = ({ navigation }) => {
     {id: 13, nombre: 'Limón', Image: require('../../assets/limon.png'), FechaPlantado: '10/04/2023', PeriodicidadRegado: 3, CondTemperatura: '20ºC-30ºC', TamMaceta: 'Grande', Paso: 3, Detalles: 'Cuidar brotes y aplicar fertilizante', Estado: 'En desarrollo' }
 ]
 
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <ListaPlanta data={data} navigation={navigation} />
