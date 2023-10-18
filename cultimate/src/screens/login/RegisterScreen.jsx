@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
-import { CheckBox } from "@rneui/themed";
-import FacebookF from "../../../assets/facebook-f.svg";
-import TwitterX from "../../../assets/x-twitter.svg";
 import CheckIcon from "../../../assets/check-solid.svg";
 import classnames from "classnames";
-import { useNavigation } from "@react-navigation/native";
 
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();

@@ -1,27 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, Image } from 'react-native';
-import Infoplanta from '../screens/infoplanta';
-import DropDownPicker from 'react-native-dropdown-picker';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Image,
+} from "react-native";
 
 const ListaPlantaSinFiltro = ({ data, navigation }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [filteredData, setFilteredData] = useState(data);
 
   const handleFilterChange = (selectedValue) => {
     setValue(selectedValue);
-    setSearchTerm(''); // Restablece el término de búsqueda
-    filterData(selectedValue, '');
+    setSearchTerm(""); // Restablece el término de búsqueda
+    filterData(selectedValue, "");
   };
   const filterData = (selectedValue, searchTerm) => {
     let filteredItems = data;
     if (selectedValue !== null) {
-      filteredItems = data.filter((item) => item.EstacionRecomendada === selectedValue);
+      filteredItems = data.filter(
+        (item) => item.EstacionRecomendada === selectedValue
+      );
     }
     if (searchTerm) {
-      filteredItems = filteredItems.filter(
-        (item) => item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      filteredItems = filteredItems.filter((item) =>
+        item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
     setFilteredData(filteredItems);
@@ -32,13 +40,19 @@ const ListaPlantaSinFiltro = ({ data, navigation }) => {
       setFilteredData(data);
     } else {
       // Filtra los elementos basados en el valor seleccionado
-      const filteredItems = data.filter((item) => item.EstacionRecomendada === value);
+      const filteredItems = data.filter(
+        (item) => item.EstacionRecomendada === value
+      );
       setFilteredData(filteredItems);
     }
   }, [value, data]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('GuiaPlantado', { id: item.id, data: data })}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("GuiaPlantado", { id: item.id, data: data })
+      }
+    >
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
           <View style={styles.viewimage}>
@@ -55,57 +69,60 @@ const ListaPlantaSinFiltro = ({ data, navigation }) => {
   return (
     <View>
       <TextInput
-     style={styles.searchInput}
-     placeholder="Buscar planta..."
-     onChangeText={(text) => {
-       setSearchTerm(text);
-       filterData(value, text);
-      }}
-      value={searchTerm}
+        style={styles.searchInput}
+        placeholder="Buscar planta..."
+        onChangeText={(text) => {
+          setSearchTerm(text);
+          filterData(value, text);
+        }}
+        value={searchTerm}
       />
-        <FlatList data={filteredData} renderItem={renderItem} keyExtractor={(item, index) => index.toString()} />
+      <FlatList
+        data={filteredData}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
-    
   );
 };
 
 const styles = StyleSheet.create({
   boton: {
-    backgroundColor: 'lightgreen',
-    padding: '7%',
-    width: '96%',
+    backgroundColor: "lightgreen",
+    padding: "7%",
+    width: "96%",
     borderRadius: 15,
-    marginTop: '3%',
-    marginLeft: '2%',
-    justifyContent: 'center',
+    marginTop: "3%",
+    marginLeft: "2%",
+    justifyContent: "center",
   },
   innerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   viewimage: {
-    justifyContent: 'center',
+    justifyContent: "center",
     marginRight: 20,
   },
   viewtexto: {
-    width: '100%',
+    width: "100%",
   },
   texto: {
-    color: 'white',
+    color: "white",
     fontSize: 24,
   },
   imagen: {
     width: 50, // Ancho de la imagen
     height: 50, // Alto de la imagen
   },
-  searchInput:{
+  searchInput: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     margin: 10,
-  }
+  },
 });
 
 export default ListaPlantaSinFiltro;

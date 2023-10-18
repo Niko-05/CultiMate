@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
 import FacebookF from "../../../assets/facebook-f.svg";
 import TwitterX from "../../../assets/x-twitter.svg";
-import classnames from "classnames";
 
 const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
