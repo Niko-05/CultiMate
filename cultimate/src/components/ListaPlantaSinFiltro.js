@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, Image } 
 import Infoplanta from '../screens/infoplanta';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const ListaMaceta = ({ data, navigation }) => {
+const ListaPlantaSinFiltro = ({ data, navigation }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -108,4 +108,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ListaMaceta;
+export default ListaPlantaSinFiltro;

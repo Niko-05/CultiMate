@@ -15,9 +15,9 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <SafeAreaProvider>
-    <NavigationContainer>
-    <Ventanas/>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Ventanas/>
+      </NavigationContainer>
     </SafeAreaProvider>
    
     );

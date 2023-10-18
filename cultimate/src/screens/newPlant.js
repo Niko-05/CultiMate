@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, SafeAreaView, Text, Pressable } from "react-native";
 import ListaPlanta from "../components/ListaPlanta";
 import { SuggestionModal } from "./suggestionModal";
 
@@ -26,7 +26,7 @@ const NewPlant = ({ navigation }) => {
     };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <ListaPlanta data={data} navigation={navigation} />
       <Pressable
         style={{
@@ -42,7 +42,7 @@ const NewPlant = ({ navigation }) => {
         <Text>Suggest new plant</Text>
       </Pressable>
       <SuggestionModal isVisible={isModalVisible} closeModal={toggleModal} />
-    </View>
+    </SafeAreaView>
   );
 };
 
