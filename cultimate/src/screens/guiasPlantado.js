@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, FlatList, TouchableOpacity, Button, StyleSheet, Image } from 'react-native';
-import ListaMaceta from '../components/ListaMaceta';
+import ListaPlantaSinFiltro from '../components/ListaPlantaSinFiltro';
 
 const GuiasPlantado = ({navigation}) => {
     const data = [
@@ -16,10 +16,10 @@ const GuiasPlantado = ({navigation}) => {
         {id:10, nombre:'Calabacín', Image:require('../../assets/calabacin.png'), FechaPlantado:'20/06/2023', PeriodicidadRegado:4, CondTemperatura:'18ºC-30ºC', TamMaceta:'Mediana', Paso:4, Detalles:'Podar para un crecimiento controlado y aumentar riego', Estado:'Produciendo frutos'},
         {id:12, nombre:'Brócoli', Image:require('../../assets/brocoli.png'), FechaPlantado:'08/11/2022', PeriodicidadRegado:3, CondTemperatura:'15ºC-25ºC', TamMaceta:'Mediana', Paso:4, Detalles:'Cuidar de los brotes y aplicar fertilizante', Estado:'Formando cabezas'},
         {id:11, nombre:'Frambuesa', Image:require('../../assets/frambuesa.png'), FechaPlantado:'15/03/2022', PeriodicidadRegado:2, CondTemperatura:'15ºC-30ºC', TamMaceta:'Grande', Paso:3, Detalles:'Proporcionar soporte vertical y riego moderado', Estado:'Cosechando frutos'},
-        { id: 13, nombre: 'Limón', Image: require('../../assets/limon.png'), FechaPlantado: '10/04/2023', PeriodicidadRegado: 3, CondTemperatura: '20ºC-30ºC', TamMaceta: 'Grande', Paso: 3, Detalles: 'Cuidar brotes y aplicar fertilizante', Estado: 'En desarrollo' }
+        {id: 13, nombre: 'Limón', Image: require('../../assets/limon.png'), FechaPlantado: '10/04/2023', PeriodicidadRegado: 3, CondTemperatura: '20ºC-30ºC', TamMaceta: 'Grande', Paso: 3, Detalles: 'Cuidar brotes y aplicar fertilizante', Estado: 'En desarrollo' }
     ]
         return (
-        <ListaMaceta data = {data} navigation={navigation} />
+        <ListaPlantaSinFiltro data = {data} navigation={navigation} />
     )
 }
 

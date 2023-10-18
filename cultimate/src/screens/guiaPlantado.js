@@ -42,12 +42,6 @@ const GuiaPlantado = () => {
         <Text style={GuiaPlantadoStyles.infoText}>{item.CondTemperatura}</Text>
       </View>
 
-
-      <View style={GuiaPlantadoStyles.container2}>
-        <Image style = {GuiaPlantadoStyles.image} source= {require("../../assets/planta.png")}/>
-        <Text style={GuiaPlantadoStyles.infoText}>Maceta {item.TamMaceta}</Text>
-      </View>
-
         
       <View>
         <View style={GuiaPlantadoStyles.plantInfoContainer}>
