@@ -1,5 +1,6 @@
 import React from "react";
 import ListaPlantaSinFiltro from "../components/ListaPlantaSinFiltro";
+import { SafeAreaView, Text } from "react-native";
 
 const GuiasPlantado = ({ navigation }) => {
   const data = [
@@ -160,7 +161,13 @@ const GuiasPlantado = ({ navigation }) => {
       Estado: "En desarrollo",
     },
   ];
-  return <ListaPlantaSinFiltro data={data} navigation={navigation} />;
+
+  return (
+    <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#FFFFFF", marginBottom: 15}}>
+      <ListaPlantaSinFiltro data={data} navigation={navigation} />
+    </SafeAreaView>
+  
+  );
 };
 
 export default GuiasPlantado;
