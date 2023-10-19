@@ -19,7 +19,7 @@ const ListaPlanta = ({ data, navigation }) => {
     { label: "Invierno", value: "Invierno" },
     { label: "Verano", value: "Verano" },
     { label: "Primavera", value: "Primavera" },
-    { label: "Otoño", value: "Otonio" },
+    { label: "Otoño", value: "Otoño" },
   ]);
   const [filteredData, setFilteredData] = useState(data);
 
