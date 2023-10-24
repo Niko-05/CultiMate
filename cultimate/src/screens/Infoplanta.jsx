@@ -7,6 +7,7 @@ const Infoplanta = () => {
   const route = useRoute();
   const { id, data } = route.params;
   const item = data.find((item) => item.id === id);
+  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
   if (!item) {
     return (
@@ -92,6 +93,40 @@ const Infoplanta = () => {
           <Text style={styles.infoText}>Categoría: fruta</Text>
         </View>
       </View>
+
+      <Text style={styles.gCalendarFont}>Growing calendar</Text>
+
+      <View style = {{marginHorizontal: 10}}>
+        <View style={styles.calendarCont}>
+          <Text style={styles.month}>JAN</Text>
+          <Text style={styles.month}>FEB</Text>
+          <Text style={styles.month}>MAR</Text>
+          <Text style={styles.month}>APR</Text>
+          <Text style={styles.month}>MAY</Text>
+          <Text style={styles.month}>JUN</Text>
+          <Text style={styles.month}>JUL</Text>
+          <Text style={styles.month}>AUG</Text>
+          <Text style={styles.month}>SEP</Text>
+          <Text style={styles.month}>OCT</Text>
+          <Text style={styles.month}>NOV</Text>
+          <Text style={styles.month}>DEC</Text>
+        </View>
+        <View style={styles.calendarCont}>
+          {months.map((month, index) => {
+            const isMonthActive =
+              (item.IniFechaPlantado <= item.FinFechaPlantado &&
+                index + 1 >= item.IniFechaPlantado && index + 1 <= item.FinFechaPlantado) ||
+              (item.IniFechaPlantado > item.FinFechaPlantado &&
+                (index + 1 >= item.IniFechaPlantado || index + 1 <= item.FinFechaPlantado));
+            
+            return (
+              <View style={[styles.monthLine, isMonthActive ? styles.activeMonth : null]} key={month}>
+                <Text> </Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
     </View>
   );
 };
@@ -107,6 +142,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    fontWeight: "bold",
+    color: "black",
+    marginBottom: 10,
+  },
+  gCalendarFont: {
+    fontSize: 18,
     fontWeight: "bold",
     color: "black",
     marginBottom: 10,
@@ -132,6 +173,23 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     color: "gray",
+  },
+  calendarCont: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  month: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  monthLine: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  activeMonth: {
+    backgroundColor: 'green',
   },
 });
 
