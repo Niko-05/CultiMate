@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   Text,
@@ -10,6 +10,19 @@ import {
 } from "react-native";
 
 export const SuggestionModal = ({ isVisible, closeModal }) => {
+  const [plantName, setPlantName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const checkInput = () => {
+    if (!plantName || !description) {
+      alert("Por favor ingrese todos los campos");
+    } else {
+      setPlantName("");
+      setDescription("");
+      closeModal();
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -56,18 +69,27 @@ export const SuggestionModal = ({ isVisible, closeModal }) => {
           <View className="flex-1 justify-center">
             <View className="space-y-2 mb-6">
               <Text>Nombre de la planta</Text>
-              <TextInput style={styles.input} placeholder="Nombre" />
+              <TextInput
+                style={styles.input}
+                placeholder="Nombre"
+                onChangeText={(newPlantName) => setPlantName(newPlantName)}
+                defaultValue={plantName}
+              />
             </View>
             <View className="space-y-2 mb-6">
               <Text>Descripción</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Max 30 caracteres."
+                onChangeText={(newDescription) =>
+                  setDescription(newDescription)
+                }
+                defaultValue={description}
               />
             </View>
             <View className="space-y-2 mb-6 items-center">
               <Pressable
-                onPress={closeModal}
+                onPress={checkInput}
                 style={{
                   backgroundColor: "lightgreen",
                   padding: 10,
