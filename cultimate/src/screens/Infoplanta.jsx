@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -18,7 +18,7 @@ const Infoplanta = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{item.nombre}</Text>
         <View style={styles.roundedContainer}>
@@ -127,7 +127,7 @@ const Infoplanta = () => {
           })}
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
