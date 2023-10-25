@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, Pressable } from "react-native";
 import ListaPlanta from "../components/ListaPlanta";
-import { SuggestionModal } from "./SuggestionModal";
+import { SuggestionModal } from "../components/SuggestionModal";
 
 const NewPlant = ({ navigation }) => {
   const data = [
