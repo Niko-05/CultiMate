@@ -8,6 +8,7 @@ import {
   TextInput,
   Image,
 } from "react-native";
+import PlantListItem from "./PlantListItem";
 
 const ListaPlantaSinFiltro = ({ data, navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,22 +49,7 @@ const ListaPlantaSinFiltro = ({ data, navigation }) => {
   }, [value, data]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate("GuiaPlantado", { id: item.id, data: data })
-      }
-    >
-      <View style={styles.boton}>
-        <View style={styles.innerContainer}>
-          <View style={styles.viewimage}>
-            <Image source={item.Image} style={styles.imagen} />
-          </View>
-          <View style={styles.viewtexto}>
-            <Text style={styles.texto}>{item.nombre}</Text>
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <PlantListItem item={item} navigation={navigation} data={data} />
   );
 
   return (
