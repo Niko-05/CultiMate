@@ -177,9 +177,9 @@ const GuiasPlantado = ({ navigation }) => {
 ];
 
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#FFFFFF", marginBottom: 15}}>
+    
       <ListaPlantaSinFiltro data={data} navigation={navigation} />
-    </SafeAreaView>
+    
   
   );
 };

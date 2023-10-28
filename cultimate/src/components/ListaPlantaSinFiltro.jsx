@@ -8,8 +8,7 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import PlantListItem from "./PlantListItem";
-
+import GuiaPlantadoItem from "./GuiaPlantadoItem";
 const ListaPlantaSinFiltro = ({ data, navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
@@ -49,7 +48,7 @@ const ListaPlantaSinFiltro = ({ data, navigation }) => {
   }, [value, data]);
 
   const renderItem = ({ item }) => (
-    <PlantListItem item={item} navigation={navigation} data={data} />
+    <GuiaPlantadoItem item={item} navigation={navigation} data={data} />
   );
 
   return (
