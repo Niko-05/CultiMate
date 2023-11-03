@@ -21,20 +21,27 @@ const ListaPlanta = ({ data, navigation }) => {
     { label: "Verano", value: "Verano" },
     { label: "Primavera", value: "Primavera" },
     { label: "Otoño", value: "Otoño" },
+    { label: "Favoritos", value: "Favoritos"}
   ]);
   const [filteredData, setFilteredData] = useState(data);
 
   const handleFilterChange = (selectedValue) => {
+    if (selectedValue !== value) {
     setValue(selectedValue);
-    setSearchTerm(""); // Restablece el término de búsqueda
-    filterData(selectedValue, "");
-  };
+    setSearchTerm(""); 
+  }
+};
   const filterData = (selectedValue, searchTerm) => {
     let filteredItems = data;
     if (selectedValue !== null) {
+      if(selectedValue !== "Favoritos"){
       filteredItems = data.filter(
-        (item) => item.EstacionRecomendada === selectedValue
+        (item) => item.EstacionRecomendada == selectedValue
       );
+      }else{
+        filteredItems = data.filter(
+          (item) => item.Fav == true);
+      }
     }
     if (searchTerm) {
       filteredItems = filteredItems.filter((item) =>
@@ -44,17 +51,8 @@ const ListaPlanta = ({ data, navigation }) => {
     setFilteredData(filteredItems);
   };
   useEffect(() => {
-    if (value === null) {
-      // Si seleccionas "Todos", muestra todos los elementos
-      setFilteredData(data);
-    } else {
-      // Filtra los elementos basados en el valor seleccionado
-      const filteredItems = data.filter(
-        (item) => item.EstacionRecomendada === value
-      );
-      setFilteredData(filteredItems);
-    }
-  }, [value, data]);
+      filterData(value, searchTerm);
+    }, [value, data, searchTerm]);
 
   const renderItem = ({ item }) => (
     <PlantListItem item={item} navigation={navigation} data={data} />

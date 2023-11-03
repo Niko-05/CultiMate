@@ -22,10 +22,10 @@ function PlantListItem({ item, navigation, data }) {
           <TouchableOpacity
             accessibilityRole={"checkbox"}
             checked={check}
-            onPress={() => setCheck(!check)}
+            onPress={() =>{setCheck(!check); item.Fav = !item.Fav}}
             className="w-7 h-7"
           >
-            {check ? <Star fill="yellow" /> : <Star fill="white" />}
+            {item.Fav ? <Star fill="yellow" /> : <Star fill="white" />}
           </TouchableOpacity>
         </View>
       </View>

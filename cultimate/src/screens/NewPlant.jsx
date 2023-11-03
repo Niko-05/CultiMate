@@ -17,7 +17,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 3,
       Detalles: "Cuidar brotes y aplicar fertilizante",
       Estado: "En desarrollo",
-      EstacionRecomendada: "Primavera"
+      EstacionRecomendada: "Primavera",
+      Fav: false,
     },
     {
       id: 2,
@@ -31,7 +32,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 1,
       Detalles: "Proporcionar soporte vertical y riego moderado",
       Estado: "Creciendo fuerte",
-      EstacionRecomendada: "Otoño"
+      EstacionRecomendada: "Otoño",
+      Fav: false,
     },
     {
       id: 3,
@@ -45,7 +47,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 4,
       Detalles: "Podar para un crecimiento óptimo",
       Estado: "En floración",
-      EstacionRecomendada: "Verano"
+      EstacionRecomendada: "Verano",
+      Fav: false,
     },
     {
       id: 4,
@@ -59,7 +62,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 2,
       Detalles: "Fomentar ramificación y proporcionar sombra",
       Estado: "Desarrollando frutos",
-      EstacionRecomendada: "Verano"
+      EstacionRecomendada: "Verano",
+      Fav: false,
     },
     {
       id: 5,
@@ -73,7 +77,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 5,
       Detalles: "Asegurar polinización y aumentar riego",
       Estado: "Madurando frutos",
-      EstacionRecomendada: "Verano"
+      EstacionRecomendada: "Verano",
+      Fav: false,
     },
     {
       id: 6,
@@ -87,7 +92,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 3,
       Detalles: "Cosechar hojas exteriores y mantener humedad",
       Estado: "Listo para cosecha",
-      EstacionRecomendada: "Primavera"
+      EstacionRecomendada: "Primavera",
+      Fav: false,
     },
     {
       id: 7,
@@ -101,7 +107,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 3,
       Detalles: "Cuidar del bulbo y proporcionar riego moderado",
       Estado: "Formando bulbos",
-      EstacionRecomendada: "Invierno"
+      EstacionRecomendada: "Invierno",
+      Fav: false,
     },
     {
       id: 8,
@@ -115,7 +122,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 2,
       Detalles: "Aflojar el suelo y proporcionar riego regular",
       Estado: "Desarrollando raíces",
-      EstacionRecomendada: "Otoño"
+      EstacionRecomendada: "Otoño",
+      Fav: false,
     },
     {
       id: 9,
@@ -129,7 +137,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 3,
       Detalles: "Cosechar hojas y mantener suelo húmedo",
       Estado: "En crecimiento continuo",
-      EstacionRecomendada: "Otoño"
+      EstacionRecomendada: "Otoño",
+      Fav: false,
     },
     {
       id: 10,
@@ -143,7 +152,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 4,
       Detalles: "Podar para un crecimiento controlado y aumentar riego",
       Estado: "Produciendo frutos",
-      EstacionRecomendada: "Primavera"
+      EstacionRecomendada: "Primavera",
+      Fav: false,
     },
     {
       id: 11,
@@ -157,7 +167,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 3,
       Detalles: "Proporcionar soporte vertical y riego moderado",
       Estado: "Cosechando frutos",
-      EstacionRecomendada: "Primavera"
+      EstacionRecomendada: "Primavera",
+      Fav: false,
     },
     {
       id: 12,
@@ -171,7 +182,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 4,
       Detalles: "Cuidar de los brotes y aplicar fertilizante",
       Estado: "Formando cabezas",
-      EstacionRecomendada: "Otoño"
+      EstacionRecomendada: "Otoño",
+      Fav: false,
     },
     {
       id: 13,
@@ -185,7 +197,8 @@ const NewPlant = ({ navigation }) => {
       Paso: 3,
       Detalles: "Cuidar brotes y aplicar fertilizante",
       Estado: "En desarrollo",
-      EstacionRecomendada: "Primavera"
+      EstacionRecomendada: "Primavera",
+      Fav: true,
     }
   ];
   

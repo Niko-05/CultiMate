@@ -18,7 +18,7 @@ const ListaPlantaSinFiltro = ({ data, navigation }) => {
   const handleFilterChange = (selectedValue) => {
     setValue(selectedValue);
     setSearchTerm(""); // Restablece el término de búsqueda
-    filterData(selectedValue, "");
+
   };
   const filterData = (selectedValue, searchTerm) => {
     let filteredItems = data;
@@ -35,17 +35,8 @@ const ListaPlantaSinFiltro = ({ data, navigation }) => {
     setFilteredData(filteredItems);
   };
   useEffect(() => {
-    if (value === null) {
-      // Si seleccionas "Todos", muestra todos los elementos
-      setFilteredData(data);
-    } else {
-      // Filtra los elementos basados en el valor seleccionado
-      const filteredItems = data.filter(
-        (item) => item.EstacionRecomendada === value
-      );
-      setFilteredData(filteredItems);
-    }
-  }, [value, data]);
+    filterData(value, searchTerm);
+  }, [value, data, searchTerm]);
 
   const renderItem = ({ item }) => (
     <GuiaPlantadoItem item={item} navigation={navigation} data={data} />
