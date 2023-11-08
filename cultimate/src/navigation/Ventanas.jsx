@@ -5,6 +5,7 @@ import GuiaPlantado from "../screens/GuiaPlantado";
 import RegisterScreen from "../screens/login/RegisterScreen";
 import LoginScreen from "../screens/login/LoginScreen";
 import GuiasPlantado from "../screens/GuiasPlantado";
+import HuertoSimulado from "../screens/huertoSimulado";
 import ConfigScreen from "../screens/ConfigScreen";
 import AccountSettingsScreen from "../screens/AccountSettings";
 import ProfilePicture from "../screens/ProfilePicture";
@@ -36,6 +37,7 @@ const Ventanas = () => {
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
+      <Stack.Screen name="HuertoSimulado" component={HuertoSimulado} />
       <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
     </Stack.Navigator>
   );
