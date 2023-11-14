@@ -18,8 +18,8 @@ const LoginScreen = ({ navigation }) => {
           { method: 'GET' }
       );
         const result = await api_call.json();
-        console.log(result)
-        if(result != null && result != []){ navigation.navigate("navigation")}
+        console.log(typeof result)
+        if(result != null &&  result.length > 0){ navigation.navigate("navigation")}
     } catch(e) {
         e
         Alert.alert('Problema de red',
