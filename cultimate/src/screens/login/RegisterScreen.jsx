@@ -1,19 +1,46 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
 import CheckIcon from "../../../assets/check-solid.svg";
 import classnames from "classnames";
-
+import config from '../../../config';
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [check, setCheck] = useState(false);
+  const [nombre, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleContinue = () => {
-    check ? navigation.navigate("navigation") : null;
-  };
+  const setUser = async () => {
+    try {
+        const requestBody = {
+            nombre: nombre,
+            contra: password,
+            email: email,
+        };
+
+        const api_call = await fetch(`${config.API}/user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        const result = await api_call.json();
+
+        if (result != null) {
+            navigation.navigate("navigation");
+        }
+    } catch (e) {
+        console.error(e);
+        Alert.alert(
+            'Problema de red',
+            'No se ha podido mostrar el listado de plantas debido a un problema de red.'
+        );
+    }
+};
 
   return (
     <View className="flex-1">
@@ -25,6 +52,11 @@ const RegisterScreen = ({ navigation }) => {
           <Text className="font-bold text-2xl">Sign Up</Text>
         </View>
         <View className="mb-4">
+        <TextInputLogin
+            label={"User name"}
+            placeholder={"User name"}
+            onChangeText={setName}
+          />
           <TextInputLogin
             label={"E-mail"}
             placeholder={"E-mail"}
@@ -54,7 +86,7 @@ const RegisterScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           className="items-center bg-green-700 py-3 rounded-lg"
-          onPress={() => handleContinue()}
+          onPress={() =>setUser()}
         >
           <Text className="text-white font-bold text-lg">Continue</Text>
         </TouchableOpacity>
