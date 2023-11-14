@@ -4,7 +4,8 @@ import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 const gridData = [
     { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
     { centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
-    { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 }
+    { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
+    { centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
 ]
 
 const defaultSquareData = {
