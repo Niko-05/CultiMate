@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import config from '../../config';
 
 const Infoplanta = () => {
   const route = useRoute();
   const { id, data } = route.params;
+  const [guia, setGuia] = useState(null);
   const item = data.find((item) => item.id === id);
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+  const getGuia = async () => {
+    const api_call = await fetch(`${config.API}/planta/guia/${id}`, {
+        method: 'GET',
+    });
+
+    const result = await api_call.json();
+    setGuia(result[0]);
+  }
+
+  useEffect(() => {
+    getGuia();
+  }, [id]);
 
   if (!item) {
     return (
@@ -22,70 +37,70 @@ const Infoplanta = () => {
       <View style={styles.header}>
         <Text style={styles.title}>{item.nombre}</Text>
         <View style={styles.roundedContainer}>
-          <Image source={item.Image} style={styles.image} />
+          <Image source={{ uri: item.imagen }} style={styles.image} />
         </View>
       </View>
       <View style={styles.infoContainer}>
         <View style={styles.infoRow}>
           <Icon name="format-list-bulleted" size={24} color="gray" />
-          <Text style={styles.infoText}>Descripción: {item.Descripcion}</Text>
+          <Text style={styles.infoText}>Descripción: {item.descripcion}</Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="brightness-auto" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Dificultad de plantado: {item.DificultadPlantado}
+            Dificultad de plantado: {item.dificultad_plantado}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="leaf" size={24} color="gray" />
-          <Text style={styles.infoText}>Tipo: {item.Tipo}</Text>
+          <Text style={styles.infoText}>Tipo: {item.tipo}</Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="calendar" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Estación recomendada: {item.EstacionRecomendada}
+            Estación recomendada: {item.estacion_recomendada}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="tools" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Funcionalidad: {item.FuncionalidadPlanta}
+            Funcionalidad: {item.funcionalidad_planta}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="calendar-range" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Inicio de plantado: {item.IniFechaPlantado}
+            Inicio de plantado: {guia ? months[guia.inicio_periodo] : 'Cargando...'}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="calendar-range" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Final de plantado: {item.FinFechaPlantado}
+            Final de plantado: {guia ? months[guia.fin_periodo] : 'Cargando...'}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="water" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Periodicidad de riego: {item.PeriodicidadRegado} días
+            Periodicidad de riego: {guia ? guia.periodicidad_regado : 'Cargando...'} días
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="weather-sunny" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Condiciones luminosas: {item.CondLuminosas}
+            Condiciones luminosas: {guia ? guia.condiciones_luminosas : 'Cargando...'}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="thermometer" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Condiciones de temperatura: {item.CondTemperatura}
+            Condiciones de temperatura: {guia ? guia.condiciones_temperatura : 'Cargando...'}
           </Text>
         </View>
         <View style={styles.infoRow}>
           <Icon name="flower" size={24} color="gray" />
           <Text style={styles.infoText}>
-            Tamaño de maceta: {item.TamMaceta} litros
+            Tamaño de maceta: {guia ? guia.tam_maceta : 'Cargando...'} litros
           </Text>
         </View>
         <View style={styles.infoRow}>
@@ -111,21 +126,24 @@ const Infoplanta = () => {
           <Text style={styles.month}>NOV</Text>
           <Text style={styles.month}>DEC</Text>
         </View>
-        <View style={styles.calendarCont}>
-          {months.map((month, index) => {
-            const isMonthActive =
-              (item.IniFechaPlantado <= item.FinFechaPlantado &&
-                index + 1 >= item.IniFechaPlantado && index + 1 <= item.FinFechaPlantado) ||
-              (item.IniFechaPlantado > item.FinFechaPlantado &&
-                (index + 1 >= item.IniFechaPlantado || index + 1 <= item.FinFechaPlantado));
-            
-            return (
-              <View style={[styles.monthLine, isMonthActive ? styles.activeMonth : null]} key={month}>
-                <Text> </Text>
-              </View>
-            );
-          })}
-        </View>
+        {guia ?
+          <View style={styles.calendarCont}>
+            {months.map((month, index) => {
+              const isMonthActive =
+                (guia.inicio_periodo <= guia.fin_periodo &&
+                  index + 1 >= guia.inicio_periodo && index + 1 <= guia.fin_periodo) ||
+                (guia.inicio_periodo > guia.fin_periodo &&
+                  (index + 1 >= guia.inicio_periodo || index + 1 <= guia.fin_periodo));
+              
+              return (
+                <View style={[styles.monthLine, isMonthActive ? styles.activeMonth : null]} key={month}>
+                  <Text> </Text>
+                </View>
+              );
+            })}
+          </View>
+          : <View></View>
+        }
       </View>
     </ScrollView>
   );

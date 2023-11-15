@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import Star from "../../assets/star.svg";
 
 function PlantListItem({ item, navigation, data }) {
   const [check, setCheck] = useState(false);
+  const [image, setImage] = useState(item.imagen)
 
   return (
     <TouchableOpacity
@@ -14,7 +15,7 @@ function PlantListItem({ item, navigation, data }) {
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
           <View style={styles.viewimage}>
-            <Image source={{uri:item.imagen}} style={styles.imagen} />
+            <Image source={{uri: image}} style={styles.imagen} />
           </View>
           <View style={styles.viewtexto}>
             <Text style={styles.texto}>{item.nombre}</Text>
