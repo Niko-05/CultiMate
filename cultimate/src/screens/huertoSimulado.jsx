@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-//import ;
+import config from '../../config';
 
 const gridData = [
     { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
@@ -8,6 +8,8 @@ const gridData = [
     { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
     { centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
 ]
+
+const gridData2 = useRef([]);
 
 const defaultSquareData = {
     centerImage: require('../../assets/mas.png'),
@@ -31,6 +33,18 @@ const fillDataToCompleteRow = (data) => {
     }
     return data;
 };
+
+const setGridData= async () => {
+    try {
+        const api_call = await fetch(`${config.API}/planta/plantadas`);
+        const result = await api_call.json();
+        gridData2.current = result;
+        console.log(result);
+    } catch(e) {
+        Alert.alert('Problema de red',
+            'No se ha podido mostrar el listado de plantas debido a un problema de red.');
+    }
+  }
 
 const HuertoSimulado = () => {
     const filledGridData = fillDataToCompleteRow([...gridData]);
