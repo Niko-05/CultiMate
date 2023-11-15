@@ -36,11 +36,11 @@ const ListaPlanta = ({ data, navigation }) => {
     if (selectedValue !== null) {
       if(selectedValue !== "Favoritos"){
       filteredItems = data.filter(
-        (item) => item.EstacionRecomendada == selectedValue
+        (item) => item.estacion_recomendada == selectedValue
       );
       }else{
         filteredItems = data.filter(
-          (item) => item.Fav == true);
+          (item) => item.fav == true);
       }
     }
     if (searchTerm) {

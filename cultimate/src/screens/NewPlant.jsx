@@ -1,16 +1,21 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, Pressable } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { SafeAreaView, Text, Pressable, Alert } from "react-native";
 import ListaPlanta from "../components/ListaPlanta";
 import { SuggestionModal } from "../components/SuggestionModal";
 
+import config from '../../config';
+
 const NewPlant = ({ navigation }) => {
-  const data = [
+  
+  const data = useRef([]);
+  
+  const data2 = [
     {
       id: 1,
       nombre: "Fresa",
       Image: require("../../assets/Fresa.png"),
       IniFechaPlantado: 2, // Febrero
-      FinFechaPlantado: 5, // Mayo
+      FinFechaPlantado: 5, // Mayos
       PeriodicidadRegado: 3,
       CondTemperatura: "15ºC-25ºC",
       TamMaceta: "Mediana",
@@ -24,7 +29,7 @@ const NewPlant = ({ navigation }) => {
       id: 2,
       nombre: "Mora",
       Image: require("../../assets/mora.png"),
-      IniFechaPlantado: 9, // Septiembre
+      IniFechaPlantado: 9, // Septiembres
       FinFechaPlantado: 11, // Noviembre
       PeriodicidadRegado: 2,
       CondTemperatura: "20ºC-30ºC",
@@ -202,6 +207,23 @@ const NewPlant = ({ navigation }) => {
     }
   ];
   
+  const setFullList = async () => {
+    try {
+        const api_call = await fetch(`${config.API}/planta`);
+        const result = await api_call.json();
+        data.current = result;
+        console.log(result);
+    } catch(e) {
+        Alert.alert('Problema de red',
+            'No se ha podido mostrar el listado de plantas debido a un problema de red.');
+    }
+  }
+
+  useEffect(() => {
+    setFullList();
+    console.log(data);
+  },);
+  
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -212,7 +234,7 @@ const NewPlant = ({ navigation }) => {
     <SafeAreaView
       style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
     >
-      <ListaPlanta data={data} navigation={navigation} />
+      <ListaPlanta data={data.current} navigation={navigation} />
       <Pressable
         style={{
           backgroundColor: "lightgreen",
