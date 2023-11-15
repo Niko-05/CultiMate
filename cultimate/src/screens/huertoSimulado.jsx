@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-import config from '../../config';
+//import config from '../../config';
 
 const gridData = [
     { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
@@ -34,7 +34,7 @@ const fillDataToCompleteRow = (data) => {
     return data;
 };
 
-const setGridData= async () => {
+/*const setGridData = async () => {
     try {
         const api_call = await fetch(`${config.API}/planta/plantadas`);
         const result = await api_call.json();
@@ -44,9 +44,10 @@ const setGridData= async () => {
         Alert.alert('Problema de red',
             'No se ha podido mostrar el listado de plantas debido a un problema de red.');
     }
-  }
+  }*/s
 
 const HuertoSimulado = () => {
+    setGridData();
     const filledGridData = fillDataToCompleteRow([...gridData]);
     const rowsToAdd = 3 - Math.ceil(filledGridData.length / 3);
 
