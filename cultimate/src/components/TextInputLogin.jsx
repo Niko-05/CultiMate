@@ -7,6 +7,7 @@ const TextInputLogin = ({
   inputMode,
   placeholder,
   onChangeText,
+  secureTextEntry,
 }) => {
   return (
     <View className="mb-3">
@@ -18,6 +19,7 @@ const TextInputLogin = ({
         inputMode={inputMode}
         placeholder={placeholder}
         onChangeText={(value) => onChangeText(value)}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );
