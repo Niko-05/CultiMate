@@ -1,21 +1,32 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
 import FacebookF from "../../../assets/facebook-f.svg";
 import TwitterX from "../../../assets/x-twitter.svg";
+import config from '../../../config';
 
 const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const getUser = async () => {
+    try {
+        const api_call = await fetch(
+          `${config.API}/user?email=${encodeURIComponent(email)}&contra=${encodeURIComponent(password)}`,
+          { method: 'GET' }
+      );
+        const result = await api_call.json();
+        console.log(typeof result)
+        if(result != null &&  result.length > 0){ navigation.navigate("navigation")}
+    } catch(e) {
+        e
+        Alert.alert('Problema de red',
+            'No se ha podido mostrar el listado de plantas debido a un problema de red.');
+    }
+  }
 
-  const handleSignIn = () => {
-    /* Enter logic for checking the login credentials with the database */
-    email === "Test" && password === "Test"
-      ? navigation.navigate("navigation")
-      : null;
-  };
 
   return (
     <View className="flex-1">
@@ -45,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           className="items-center bg-green-700 py-3 rounded-lg"
-          onPress={() => handleSignIn()}
+          onPress={() =>  getUser()}
         >
           <Text className="text-white font-bold text-lg">Sign in</Text>
         </TouchableOpacity>
