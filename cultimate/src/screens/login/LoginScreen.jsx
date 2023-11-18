@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation }) => {
     }
     try {
       const api_call = await fetch(
-        `${config.API}/user?email=${encodeURIComponent(
+        `${config.API}/user/login?email=${encodeURIComponent(
           email
         )}&password=${encodeURIComponent(password)}`,
         { method: "GET" }

@@ -6,6 +6,7 @@ import CheckIcon from "../../../assets/check-solid.svg";
 import classnames from "classnames";
 import config from "../../../config";
 import validator from "validator";
+import * as SecureStore from "expo-secure-store";
 
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -90,7 +91,7 @@ const RegisterScreen = ({ navigation }) => {
         password: password,
         email: email,
       };
-      const api_call = await fetch(`${config.API}/user/new`, {
+      const api_call = await fetch(`${config.API}/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
