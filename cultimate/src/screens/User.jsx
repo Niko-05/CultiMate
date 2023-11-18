@@ -11,6 +11,7 @@ import {
 import GridIconos from "../components/GridIconos";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
+import Gear from "../../assets/gear-solid.svg";
 
 const User = () => {
   const [user, setUser] = useState({});
@@ -42,7 +43,6 @@ const User = () => {
     try {
       // This is the way to access the token
       const token = await SecureStore.getItemAsync("accesstoken");
-      console.log(`Bearer ${token}`);
       const api_call = await fetch(`${config.API}/user/`, {
         method: "GET",
         headers: {
@@ -61,12 +61,15 @@ const User = () => {
       }
 
       const result = await api_call.json();
-      console.log(result);
       setUser(result);
     } catch (e) {
       console.error(e);
       Alert.alert("Network error");
     }
+  };
+
+  handleSettings = () => {
+    Alert.alert("Settings", "Coming soon");
   };
 
   useEffect(() => {
@@ -84,7 +87,14 @@ const User = () => {
             />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          className="w-7 h-7 absolute left-3 top-3"
+          onPress={() => handleSettings()}
+        >
+          <Gear />
+        </TouchableOpacity>
         <Text style={styles.userName}>{user && user.username}</Text>
+        <Text style={styles.userName}>{user && user.email}</Text>
       </View>
       <View style={styles.centeredView}>
         <View style={styles.containerTitle}>
