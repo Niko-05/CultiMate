@@ -10,7 +10,7 @@ import validator from "validator";
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [check, setCheck] = useState(false);
-  const [nombre, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,9 +20,60 @@ const RegisterScreen = ({ navigation }) => {
     return isValidEmail;
   };
 
+  const checkDuplicateUsername = async (username) => {
+    try {
+      const api_call = await fetch(
+        `${config.API}/user/checkUsername?username=${encodeURIComponent(
+          username
+        )}`,
+        { method: "GET" }
+      );
+
+      const result = await api_call.json();
+
+      return result == null || result.length == 0;
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
+
+  const checkDuplicateEmail = async (email) => {
+    try {
+      const api_call = await fetch(
+        `${config.API}/user/checkEmail?email=${encodeURIComponent(email)}`,
+        { method: "GET" }
+      );
+
+      const result = await api_call.json();
+
+      return result == null || result.length == 0;
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
+
   const setUser = async () => {
+    if (
+      username === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      Alert.alert("Error", "You must fill all the fields");
+      return;
+    }
     if (!checkValidEmail(email)) {
       Alert.alert("Error", "The email is not valid");
+      return;
+    }
+    if (!(await checkDuplicateUsername(username))) {
+      Alert.alert("Error", "The username is already taken");
+      return;
+    }
+    if (!(await checkDuplicateEmail(email))) {
+      Alert.alert("Error", "The email is already taken");
       return;
     }
     if (password !== confirmPassword) {
@@ -35,28 +86,23 @@ const RegisterScreen = ({ navigation }) => {
     }
     try {
       const requestBody = {
-        nombre: nombre,
-        contra: password,
+        username: username,
+        password: password,
         email: email,
       };
-      const api_call = await fetch(`${config.API}/user`, {
+      const api_call = await fetch(`${config.API}/user/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
-      const result = await api_call.json();
-
-      if (result != null) {
-        navigation.navigate("navigation");
-      }
+      const response = await api_call.json();
+      await SecureStore.setItemAsync("accesstoken", response.accesstoken);
+      navigation.navigate("navigation");
     } catch (e) {
       console.error(e);
-      Alert.alert(
-        "Problema de red",
-        "No se ha podido mostrar el listado de plantas debido a un problema de red."
-      );
+      Alert.alert("Network error");
     }
   };
 
@@ -72,8 +118,8 @@ const RegisterScreen = ({ navigation }) => {
         <View className="mb-4">
           <TextInputLogin
             label={"Username"}
-            placeholder={"User name"}
-            onChangeText={setName}
+            placeholder={"Username"}
+            onChangeText={setUsername}
           />
           <TextInputLogin
             label={"E-mail"}
