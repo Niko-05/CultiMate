@@ -1,16 +1,17 @@
 import React, { useRef } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import config from '../../config';
+import { NavigationContainerRefContext } from '@react-navigation/native';
 
 
 const gridData = [
-    { centerImage: require('../../assests/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
-    { centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
-    { centerImage: require('../../assets/limon.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
-    { centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
+    { plantaId: 1, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
+    { plantaId: 2, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
+    { plantaId: 3, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
+    { plantaId: 4, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
 ]
 
-const gridData2 = useRef([]);
+//const gridData2 = useRef([]);
 
 const defaultSquareData = {
     centerImage: require('../../assets/mas.png'),
@@ -37,23 +38,22 @@ const fillDataToCompleteRow = (data) => {
 
 const setGridData = async () => {
     try {
-        const api_call = await fetch(`${config.API}/planta/plantadas`);
+        const api_call = await fetch(`${config.API}/planta/plantadas?userId=${userId}`);
         const result = await api_call.json();
         gridData2.current = result;
         console.log(result);
     } catch(e) {
-        Alert.alert('Problema de red',
-            'No se ha podido mostrar el listado de plantas debido a un problema de red.');
-    }
-  }
+        Alert.alert('Problema de red', 'No se ha podido mostrar el listado de plantas debido a un problema de red.');
+      }
+}
 
-const HuertoSimulado = () => {
-    setGridData();
+const HuertoSimulado = ({navigation}) => {
+    //setGridData();
     const filledGridData = fillDataToCompleteRow([...gridData]);
     const rowsToAdd = 3 - Math.ceil(filledGridData.length / 3);
 
     for (let i = 0; i < rowsToAdd; i++) {
-        filledGridData.push(...createDefaultSquares(3));
+      filledGridData.push(...createDefaultSquares(3));
     }
 
     return (
@@ -61,13 +61,13 @@ const HuertoSimulado = () => {
           <View style={styles.grid}>
             {filledGridData.map((data, index) => (
               <View key={index} style={styles.row}>
-                {data ? (
-                  <TouchableOpacity style={styles.square}>
+                {data && data.hasOwnProperty('plantaId') ? (
+                  <TouchableOpacity style={styles.square} onPress={() => navigation.navigate("GuiaPlantado", { id: data.plantaId, data: data })}>
                     <Image source={data.centerImage} style={styles.centeredImage} />
                     <Image source={data.topRightImage} style={[styles.topRightImage, { opacity: data.opacity }]} />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity style={styles.square}>
+                  <TouchableOpacity style={styles.square} onPress={() => navigation.navigate("InfoPlanta")}>
                     <Image source={defaultSquareData.centerImage} style={styles.centeredImage} />
                     <Image source={defaultSquareData.topRightImage} style={[styles.topRightImage, { opacity: defaultSquareData.opacity }]} />
                   </TouchableOpacity>

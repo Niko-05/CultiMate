@@ -174,13 +174,10 @@ const GuiasPlantado = ({ navigation }) => {
       EstacionRecomendada: "Primavera"
     }
 
-];
+  ];
 
   return (
-    
-      <ListaPlantaSinFiltro data={data} navigation={navigation} />
-    
-  
+    <ListaPlantaSinFiltro data={data} navigation={navigation} />
   );
 };
 
