@@ -1,46 +1,111 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Alert} from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
 import CheckIcon from "../../../assets/check-solid.svg";
 import classnames from "classnames";
-import config from '../../../config';
+import config from "../../../config";
+import validator from "validator";
+import * as SecureStore from "expo-secure-store";
+
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [check, setCheck] = useState(false);
-  const [nombre, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const checkValidEmail = (email) => {
+    const isValidEmail = validator.isEmail(email);
+    return isValidEmail;
+  };
+
+  const checkDuplicateUsername = async (username) => {
+    try {
+      const api_call = await fetch(
+        `${config.API}/user/checkUsername?username=${encodeURIComponent(
+          username
+        )}`,
+        { method: "GET" }
+      );
+
+      const result = await api_call.json();
+
+      return result == null || result.length == 0;
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
+
+  const checkDuplicateEmail = async (email) => {
+    try {
+      const api_call = await fetch(
+        `${config.API}/user/checkEmail?email=${encodeURIComponent(email)}`,
+        { method: "GET" }
+      );
+
+      const result = await api_call.json();
+
+      return result == null || result.length == 0;
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
 
   const setUser = async () => {
-    try {
-        const requestBody = {
-            nombre: nombre,
-            contra: password,
-            email: email,
-        };
-
-        const api_call = await fetch(`${config.API}/user`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-        });
-
-        const result = await api_call.json();
-
-        if (result != null) {
-            navigation.navigate("navigation");
-        }
-    } catch (e) {
-        console.error(e);
-        Alert.alert(
-            'Problema de red',
-            'No se ha podido mostrar el listado de plantas debido a un problema de red.'
-        );
+    if (
+      username === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      Alert.alert("Error", "You must fill all the fields");
+      return;
     }
-};
+    if (!checkValidEmail(email)) {
+      Alert.alert("Error", "The email is not valid");
+      return;
+    }
+    if (!(await checkDuplicateUsername(username))) {
+      Alert.alert("Error", "The username is already taken");
+      return;
+    }
+    if (!(await checkDuplicateEmail(email))) {
+      Alert.alert("Error", "The email is already taken");
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "The passwords do not match");
+      return;
+    }
+    if (!check) {
+      Alert.alert("Error", "You must accept the terms and conditions");
+      return;
+    }
+    try {
+      const requestBody = {
+        username: username,
+        password: password,
+        email: email,
+      };
+      const api_call = await fetch(`${config.API}/user/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      const response = await api_call.json();
+      await SecureStore.setItemAsync("accesstoken", response.accesstoken);
+      navigation.navigate("navigation");
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
 
   return (
     <View className="flex-1">
@@ -52,10 +117,10 @@ const RegisterScreen = ({ navigation }) => {
           <Text className="font-bold text-2xl">Sign Up</Text>
         </View>
         <View className="mb-4">
-        <TextInputLogin
-            label={"User name"}
-            placeholder={"User name"}
-            onChangeText={setName}
+          <TextInputLogin
+            label={"Username"}
+            placeholder={"Username"}
+            onChangeText={setUsername}
           />
           <TextInputLogin
             label={"E-mail"}
@@ -66,6 +131,13 @@ const RegisterScreen = ({ navigation }) => {
             label={"Password"}
             placeholder={"Password"}
             onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TextInputLogin
+            label={"Confirm password"}
+            placeholder={"Password"}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
           />
         </View>
         <View className="mb-4 flex-row space-x-2">
@@ -86,7 +158,7 @@ const RegisterScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           className="items-center bg-green-700 py-3 rounded-lg"
-          onPress={() =>setUser()}
+          onPress={() => setUser()}
         >
           <Text className="text-white font-bold text-lg">Continue</Text>
         </TouchableOpacity>

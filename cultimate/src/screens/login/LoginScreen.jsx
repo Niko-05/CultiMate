@@ -4,29 +4,40 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
 import FacebookF from "../../../assets/facebook-f.svg";
 import TwitterX from "../../../assets/x-twitter.svg";
-import config from '../../../config';
+import config from "../../../config";
+import * as SecureStore from "expo-secure-store";
 
 const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const getUser = async () => {
-    try {
-        const api_call = await fetch(
-          `${config.API}/user?email=${encodeURIComponent(email)}&contra=${encodeURIComponent(password)}`,
-          { method: 'GET' }
-      );
-        const result = await api_call.json();
-        console.log(typeof result)
-        if(result != null &&  result.length > 0){ navigation.navigate("navigation")}
-    } catch(e) {
-        e
-        Alert.alert('Problema de red',
-            'No se ha podido mostrar el listado de plantas debido a un problema de red.');
-    }
-  }
 
+  const getUser = async () => {
+    if (email === "" || password === "") {
+      Alert.alert("Error", "Please fill all fields");
+      return;
+    }
+    try {
+      const api_call = await fetch(
+        `${config.API}/user/login?email=${encodeURIComponent(
+          email
+        )}&password=${encodeURIComponent(password)}`,
+        { method: "GET" }
+      );
+      if (api_call.status == 401) {
+        Alert.alert("Error", "Wrong email or password");
+        return;
+      }
+      const response = await api_call.json();
+      await SecureStore.setItemAsync("accesstoken", response.accesstoken);
+      // to retreieve the token:
+      // const token = await SecureStore.getItemAsync('accesstoken');
+      navigation.navigate("navigation");
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
 
   return (
     <View className="flex-1">
@@ -52,11 +63,12 @@ const LoginScreen = ({ navigation }) => {
             placeholder={"Password"}
             inputMode={"text"}
             onChangeText={setPassword}
+            secureTextEntry
           />
         </View>
         <TouchableOpacity
           className="items-center bg-green-700 py-3 rounded-lg"
-          onPress={() =>  getUser()}
+          onPress={() => getUser()}
         >
           <Text className="text-white font-bold text-lg">Sign in</Text>
         </TouchableOpacity>
