@@ -18,6 +18,12 @@ const User = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.configButton} onPress={() => navigation.navigate('ConfigScreen')}>
+        <Image
+          source={require('../../assets/config-icon.png')} // Ajusta la ruta de la imagen del botón de configuración
+          style={styles.configIcon}
+        />
+      </TouchableOpacity>
       <View style={styles.centeredView}>
         <View style={styles.profileImageBackground}>
           <TouchableOpacity>
@@ -82,6 +88,17 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     width: '100%',
     paddingTop: 10,
+  },
+  configButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 1,
+  },
+  
+  configIcon: {
+    width: 30,
+    height: 30,
   },
   // ... Otros estilos
 });
