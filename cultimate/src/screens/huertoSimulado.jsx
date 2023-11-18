@@ -5,26 +5,26 @@ import { NavigationContainerRefContext } from '@react-navigation/native';
 
 
 const gridData = [
-    { plantaId: 1, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
-    { plantaId: 2, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
-    { plantaId: 3, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1 },
-    { plantaId: 4, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0 },
+  { id: 1, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1, nombre: 'Tomate', FechaPlantado: '2023-11-01', PeriodicidadRegado: 2, CondTemperatura: '25°C', Paso: 'Plantar', Detalles: 'Details', Estado: 'Healthy' },
+  { id: 2, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0, nombre: 'Fresa', FechaPlantado: '2023-10-15', PeriodicidadRegado: 3, CondTemperatura: '22°C', Paso: 'Regar', Detalles: 'Details', Estado: 'Healthy'},
+  { id: 3, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1, nombre: 'Tomate', FechaPlantado: '2023-11-01', PeriodicidadRegado: 2, CondTemperatura: '25°C', Paso: 'Cosechar', Detalles: 'Details', Estado: 'Healthy'},
+  { id: 4, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0, nombre: 'Fresa', FechaPlantado: '2023-10-15', PeriodicidadRegado: 3, CondTemperatura: '22°C', Paso: 'Cosechar', Detalles: 'Details', Estado: 'Healthy' },
 ]
 
 //const gridData2 = useRef([]);
 
 const defaultSquareData = {
-    centerImage: require('../../assets/mas.png'),
-    topRightImage: require('../../assets/gotas_agua.png'),
-    opacity: 0,
+  centerImage: require('../../assets/mas.png'),
+  topRightImage: require('../../assets/gotas_agua.png'),
+  opacity: 0,
 };
 
 const createDefaultSquares = (count) => {
-    const defaultSquares = [];
-    for (let i = 0; i < count; i++) {
-      defaultSquares.push({ ...defaultSquareData });
-    }
-    return defaultSquares;
+  const defaultSquares = [];
+  for (let i = 0; i < count; i++) {
+    defaultSquares.push({ ...defaultSquareData });
+  }
+  return defaultSquares;
 };
   
 const fillDataToCompleteRow = (data) => {
@@ -61,13 +61,13 @@ const HuertoSimulado = ({navigation}) => {
           <View style={styles.grid}>
             {filledGridData.map((data, index) => (
               <View key={index} style={styles.row}>
-                {data && data.hasOwnProperty('plantaId') ? (
-                  <TouchableOpacity style={styles.square} onPress={() => navigation.navigate("GuiaPlantado", { id: data.plantaId, data: data })}>
+                {data && data.id !== undefined ? (
+                  <TouchableOpacity style={styles.square} onPress={() =>  navigation.navigate("GuiaPlantado", { id: 2, data: data })}>
                     <Image source={data.centerImage} style={styles.centeredImage} />
                     <Image source={data.topRightImage} style={[styles.topRightImage, { opacity: data.opacity }]} />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity style={styles.square} onPress={() => navigation.navigate("InfoPlanta")}>
+                  <TouchableOpacity style={styles.square} onPress={() =>  navigation.navigate("RegisterScreen")}>
                     <Image source={defaultSquareData.centerImage} style={styles.centeredImage} />
                     <Image source={defaultSquareData.topRightImage} style={[styles.topRightImage, { opacity: defaultSquareData.opacity }]} />
                   </TouchableOpacity>

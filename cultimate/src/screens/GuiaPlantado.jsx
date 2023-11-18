@@ -6,11 +6,13 @@ import { useRoute } from "@react-navigation/native";
 const GuiaPlantado = () => {
   const route = useRoute();
   const { id, data } = route.params;
-  const item = data.find((item) => item.id === id);
-
+  let item = data;
+  if(data.id !== id){item = undefined;}
+  
+  
   if (!item) {
     return (
-      <View style={styles.container}>
+      <View style={GuiaPlantadoStyles.container}>
         <Text>Elemento no encontrado</Text>
       </View>
     );
