@@ -43,6 +43,7 @@ function AccountSettings() {
     if (result) {
       Alert.alert("Success", "Username changed successfully");
       setUserInfo();
+      setNewUsername("");
     }
   };
 
@@ -63,6 +64,7 @@ function AccountSettings() {
     if (result) {
       Alert.alert("Success", "Email changed successfully");
       setUserInfo();
+      setNewEmail("");
     }
   };
 
@@ -79,10 +81,13 @@ function AccountSettings() {
       Alert.alert("Error", "The current password is incorrect");
       return;
     }
-    const result = await changePassword(password, newPassword);
+    const result = await changePassword(newPassword);
     if (result) {
       Alert.alert("Success", "Password changed successfully");
       setUserInfo();
+      setPassword("");
+      setNewPassword("");
+      setNewPasswordConfirm("");
     }
   };
 
@@ -94,14 +99,11 @@ function AccountSettings() {
         </View>
       ) : (
         <View className="flex-1 px-3 space-y-4 mt-4">
-          <View className="flex-row space-x-1">
-            <Text className="font-bold">Current username:</Text>
-            <Text>{user.username}</Text>
-          </View>
-          <View className="">
-            <Text>Change username:</Text>
+          <View className="space-y-3">
+            <Text className="text-lg font-bold">Change username:</Text>
             <View className="flex-row space-x-2">
               <TextInput
+                value={newUsername}
                 className="border-b-2 border-gray-300 py-2 flex-1"
                 inputMode="text"
                 placeholder="New username"
@@ -114,15 +116,16 @@ function AccountSettings() {
                 <Text className="text-white">Submit</Text>
               </TouchableOpacity>
             </View>
+            <View className="flex-row space-x-1">
+              <Text className="font-bold text-gray-500">Current username:</Text>
+              <Text className="text-gray-500">{user.username}</Text>
+            </View>
           </View>
-          <View className="flex-row space-x-1">
-            <Text className="font-bold">Current Email:</Text>
-            <Text>{user.email}</Text>
-          </View>
-          <View className="">
-            <Text>Change Email:</Text>
+          <View className="space-y-3">
+            <Text className="text-lg font-bold">Change Email:</Text>
             <View className="flex-row space-x-2">
               <TextInput
+                value={newEmail}
                 className="border-b-2 border-gray-300 py-2 flex-1"
                 inputMode="text"
                 placeholder="New Email"
@@ -135,12 +138,17 @@ function AccountSettings() {
                 <Text className="text-white">Submit</Text>
               </TouchableOpacity>
             </View>
+            <View className="flex-row space-x-1">
+              <Text className="font-bold text-gray-500">Current Email:</Text>
+              <Text className="text-gray-500">{user.email}</Text>
+            </View>
           </View>
-          <View className="flex-1">
-            <Text>Change Password:</Text>
+          <View className="space-y-3">
+            <Text className="text-lg font-bold">Change Password:</Text>
             <View className="flex-col space-y-2">
               <View className="h-10">
                 <TextInput
+                  value={password}
                   className="border-b-2 border-gray-300 py-2 flex-1"
                   inputMode="text"
                   placeholder="Old Password"
@@ -150,6 +158,7 @@ function AccountSettings() {
               </View>
               <View className="h-10">
                 <TextInput
+                  value={newPassword}
                   className="border-b-2 border-gray-300 py-2 flex-1"
                   inputMode="text"
                   placeholder="New Password"
@@ -159,6 +168,7 @@ function AccountSettings() {
               </View>
               <View className="h-10">
                 <TextInput
+                  value={newPasswordConfirm}
                   className="border-b-2 border-gray-300 py-2 flex-1"
                   inputMode="text"
                   placeholder="Confirm new Password"
@@ -166,13 +176,13 @@ function AccountSettings() {
                   onChangeText={(value) => setNewPasswordConfirm(value)}
                 />
               </View>
-              <TouchableOpacity
-                className="bg-slate-500 p-3 rounded-md"
-                onPress={() => handleSubmitNewPassword()}
-              >
-                <Text className="text-white text-center">Submit</Text>
-              </TouchableOpacity>
             </View>
+            <TouchableOpacity
+              className="bg-slate-500 p-3 rounded-md"
+              onPress={() => handleSubmitNewPassword()}
+            >
+              <Text className="text-white text-center">Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}

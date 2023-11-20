@@ -47,7 +47,7 @@ const ConfigScreen = ({ navigation }) => {
           className="bg-slate-400 p-4 rounded-md"
           onPress={() => handleProfileSettings()}
         >
-          <Text className="font-bold">Profile settings</Text>
+          <Text className="font-bold text-white">Account settings</Text>
         </TouchableOpacity>
       </View>
     </View>
