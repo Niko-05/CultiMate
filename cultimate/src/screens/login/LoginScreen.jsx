@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
-import FacebookF from "../../../assets/facebook-f.svg";
-import TwitterX from "../../../assets/x-twitter.svg";
-import config from "../../../config";
-import * as SecureStore from "expo-secure-store";
 import { loginUser } from "../../api/user";
 
 const LoginScreen = ({ navigation }) => {

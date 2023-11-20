@@ -9,13 +9,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import GridIconos from "../components/GridIconos";
-import * as SecureStore from "expo-secure-store";
-import config from "../../config";
 import Gear from "../../assets/gear-solid.svg";
 import { getUserInfo } from "../api/user";
+import { getProfilePictureSource } from "../utils/user";
+import { useIsFocused } from "@react-navigation/native";
 
 const User = ({ navigation }) => {
   const [user, setUser] = useState({});
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const elements = [
     { id: 1, title: "Logro 1", imageSource: require("../../assets/Fresa.png") },
@@ -40,10 +41,13 @@ const User = ({ navigation }) => {
     // Puedes agregar más logros aquí
   ];
 
+  const isFocused = useIsFocused();
+
   const setUserInfo = async () => {
     const userinfo = await getUserInfo();
     console.log(await userinfo);
     setUser(await userinfo);
+    setProfilePicture(getProfilePictureSource(await userinfo.profilePictureId));
   };
 
   const handleSettings = () => {
@@ -54,17 +58,31 @@ const User = ({ navigation }) => {
     setUserInfo();
   }, []);
 
+  useEffect(() => {
+    isFocused && setUserInfo();
+  }, [isFocused]);
+
   return (
     <View style={styles.container}>
       {Object.keys(user) !== 0 ? (
         <>
           <View style={styles.centeredView}>
             <View style={styles.profileImageBackground}>
-              <TouchableOpacity>
-                <Image
-                  source={require("../../assets/Fresa.png")} // Ruta de la imagen
-                  style={styles.profileImage}
-                />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Profile picture", {
+                    profilePictureId: user.profilePictureId,
+                  })
+                }
+              >
+                {profilePicture ? (
+                  <Image
+                    source={profilePicture} // Ruta de la imagen
+                    style={styles.profileImage}
+                  />
+                ) : (
+                  <></>
+                )}
               </TouchableOpacity>
             </View>
             <TouchableOpacity

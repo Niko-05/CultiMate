@@ -203,3 +203,33 @@ export const changePassword = async (password) => {
     Alert.alert("Network error");
   }
 };
+
+export const changeProfilePicture = async (profilePictureId) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      profilePictureId: profilePictureId,
+    };
+    const api_call = await fetch(`${config.API}/user/changeProfilePicture`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!api_call.ok) {
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
