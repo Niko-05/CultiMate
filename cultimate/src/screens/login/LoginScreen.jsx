@@ -6,6 +6,7 @@ import FacebookF from "../../../assets/facebook-f.svg";
 import TwitterX from "../../../assets/x-twitter.svg";
 import config from "../../../config";
 import * as SecureStore from "expo-secure-store";
+import { loginUser } from "../../api/user";
 
 const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -17,25 +18,9 @@ const LoginScreen = ({ navigation }) => {
       Alert.alert("Error", "Please fill all fields");
       return;
     }
-    try {
-      const api_call = await fetch(
-        `${config.API}/user/login?email=${encodeURIComponent(
-          email
-        )}&password=${encodeURIComponent(password)}`,
-        { method: "GET" }
-      );
-      if (api_call.status == 401) {
-        Alert.alert("Error", "Wrong email or password");
-        return;
-      }
-      const response = await api_call.json();
-      await SecureStore.setItemAsync("accesstoken", response.accesstoken);
-      // to retreieve the token:
-      // const token = await SecureStore.getItemAsync('accesstoken');
+    const response = await loginUser(email, password);
+    if (response) {
       navigation.navigate("navigation");
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
     }
   };
 
