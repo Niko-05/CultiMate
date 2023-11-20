@@ -72,21 +72,8 @@ const LoginScreen = ({ navigation }) => {
         >
           <Text className="text-white font-bold text-lg">Sign in</Text>
         </TouchableOpacity>
-        <View className="items-center my-4">
-          <Text className="text-gray-500">
-            Or use one of your social profiles
-          </Text>
-        </View>
-        <View className="flex-row space-x-4 h-12">
-          <TouchableOpacity className="flex-1 items-center bg-slate-950 py-3 rounded-lg flex-row">
-            <TwitterX fill="white" />
-          </TouchableOpacity>
-          <TouchableOpacity className="flex-1 items-center bg-blue-700 py-3 rounded-lg">
-            <FacebookF fill="white" />
-          </TouchableOpacity>
-        </View>
         <View className="flex-row my-8 justify-center space-x-1">
-          <Text className="text-gray-500">Forgot Password?</Text>
+          <Text className="text-gray-500">Not registered?</Text>
           <TouchableOpacity
             className=""
             onPress={() => navigation.navigate("RegisterScreen")}
