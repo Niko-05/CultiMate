@@ -5,16 +5,18 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import GridIconos from "../components/GridIconos";
-import * as SecureStore from "expo-secure-store";
-import config from "../../config";
 import Gear from "../../assets/gear-solid.svg";
+import { getUserInfo } from "../api/user";
+import { getProfilePictureSource } from "../utils/user";
+import { useIsFocused } from "@react-navigation/native";
 
-const User = () => {
+const User = ({ navigation }) => {
   const [user, setUser] = useState({});
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const elements = [
     { id: 1, title: "Logro 1", imageSource: require("../../assets/Fresa.png") },
@@ -39,75 +41,71 @@ const User = () => {
     // Puedes agregar más logros aquí
   ];
 
-  const getUserInfo = async () => {
-    try {
-      // This is the way to access the token
-      const token = await SecureStore.getItemAsync("accesstoken");
-      const api_call = await fetch(`${config.API}/user/`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const isFocused = useIsFocused();
 
-      if (!api_call.ok) {
-        // Handle non-OK response status
-        Alert.alert(
-          "API error",
-          `Failed to fetch user data. Status: ${api_call.status}`
-        );
-        return;
-      }
-
-      const result = await api_call.json();
-      setUser(result);
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
-    }
+  const setUserInfo = async () => {
+    const userinfo = await getUserInfo();
+    console.log(await userinfo);
+    setUser(await userinfo);
+    setProfilePicture(getProfilePictureSource(await userinfo.profilePictureId));
   };
 
-  handleSettings = () => {
-    Alert.alert("Settings", "Coming soon");
+  const handleSettings = () => {
+    navigation.navigate("Settings");
   };
 
   useEffect(() => {
-    getUserInfo();
+    setUserInfo();
   }, []);
+
+  useEffect(() => {
+    isFocused && setUserInfo();
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.configButton} onPress={() => navigation.navigate('ConfigScreen')}>
-        <Image
-          source={require('../../assets/config-icon.png')} // Ajusta la ruta de la imagen del botón de configuración
-          style={styles.configIcon}
-        />
-      </TouchableOpacity>
-      <View style={styles.centeredView}>
-        <View style={styles.profileImageBackground}>
-          <TouchableOpacity>
-            <Image
-              source={require("../../assets/Fresa.png")} // Ruta de la imagen
-              style={styles.profileImage}
-            />
-          </TouchableOpacity>
+      {Object.keys(user) !== 0 ? (
+        <>
+          <View style={styles.centeredView}>
+            <View style={styles.profileImageBackground}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Profile picture", {
+                    profilePictureId: user.profilePictureId,
+                  })
+                }
+              >
+                {profilePicture ? (
+                  <Image
+                    source={profilePicture} // Ruta de la imagen
+                    style={styles.profileImage}
+                  />
+                ) : (
+                  <></>
+                )}
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              className="w-7 h-7 absolute left-3 top-3"
+              onPress={() => handleSettings()}
+            >
+              <Gear />
+            </TouchableOpacity>
+            <Text style={styles.userName}>{user.username}</Text>
+            <Text style={styles.userName}>{user.email}</Text>
+          </View>
+          <View style={styles.centeredView}>
+            <View style={styles.containerTitle}>
+              <Text style={styles.title}>Logros</Text>
+            </View>
+            <GridIconos elements={elements} />
+          </View>
+        </>
+      ) : (
+        <View className="flex-1 content-center justify-center">
+          <ActivityIndicator size="large" color="#0000ff" />
         </View>
-        <TouchableOpacity
-          className="w-7 h-7 absolute left-3 top-3"
-          onPress={() => handleSettings()}
-        >
-          <Gear />
-        </TouchableOpacity>
-        <Text style={styles.userName}>{user && user.username}</Text>
-        <Text style={styles.userName}>{user && user.email}</Text>
-      </View>
-      <View style={styles.centeredView}>
-        <View style={styles.containerTitle}>
-          <Text style={styles.title}>Logros</Text>
-        </View>
-        <GridIconos elements={elements} />
-      </View>
+      )}
     </View>
   );
 };
@@ -157,12 +155,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   configButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     left: 10,
     zIndex: 1,
   },
-  
+
   configIcon: {
     width: 30,
     height: 30,

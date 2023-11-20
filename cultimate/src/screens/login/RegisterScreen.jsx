@@ -7,6 +7,12 @@ import classnames from "classnames";
 import config from "../../../config";
 import validator from "validator";
 import * as SecureStore from "expo-secure-store";
+import {
+  checkDuplicateUsername,
+  checkDuplicateEmail,
+  registerUser,
+} from "../../api/user";
+import { checkValidEmail } from "../../utils/user";
 
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -15,45 +21,6 @@ const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const checkValidEmail = (email) => {
-    const isValidEmail = validator.isEmail(email);
-    return isValidEmail;
-  };
-
-  const checkDuplicateUsername = async (username) => {
-    try {
-      const api_call = await fetch(
-        `${config.API}/user/checkUsername?username=${encodeURIComponent(
-          username
-        )}`,
-        { method: "GET" }
-      );
-
-      const result = await api_call.json();
-
-      return result == null || result.length == 0;
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
-    }
-  };
-
-  const checkDuplicateEmail = async (email) => {
-    try {
-      const api_call = await fetch(
-        `${config.API}/user/checkEmail?email=${encodeURIComponent(email)}`,
-        { method: "GET" }
-      );
-
-      const result = await api_call.json();
-
-      return result == null || result.length == 0;
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
-    }
-  };
 
   const setUser = async () => {
     if (
@@ -85,25 +52,9 @@ const RegisterScreen = ({ navigation }) => {
       Alert.alert("Error", "You must accept the terms and conditions");
       return;
     }
-    try {
-      const requestBody = {
-        username: username,
-        password: password,
-        email: email,
-      };
-      const api_call = await fetch(`${config.API}/user/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-      const response = await api_call.json();
-      await SecureStore.setItemAsync("accesstoken", response.accesstoken);
-      navigation.navigate("navigation");
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
+    const response = await registerUser(username, password, email);
+    if (response) {
+      navigation.navigate("HomeScreen");
     }
   };
 

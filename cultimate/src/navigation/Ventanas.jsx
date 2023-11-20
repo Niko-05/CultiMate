@@ -6,6 +6,8 @@ import RegisterScreen from "../screens/login/RegisterScreen";
 import LoginScreen from "../screens/login/LoginScreen";
 import GuiasPlantado from "../screens/GuiasPlantado";
 import ConfigScreen from "../screens/ConfigScreen";
+import AccountSettingsScreen from "../screens/AccountSettings";
+import ProfilePicture from "../screens/ProfilePicture";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -27,7 +29,9 @@ const Ventanas = () => {
         component={Navigation}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="ConfigScreen" component={ConfigScreen} />
+      <Stack.Screen name="Settings" component={ConfigScreen} />
+      <Stack.Screen name="Account settings" component={AccountSettingsScreen} />
+      <Stack.Screen name="Profile picture" component={ProfilePicture} />
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
