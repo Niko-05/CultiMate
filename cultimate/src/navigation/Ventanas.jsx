@@ -5,6 +5,7 @@ import GuiaPlantado from "../screens/GuiaPlantado";
 import RegisterScreen from "../screens/login/RegisterScreen";
 import LoginScreen from "../screens/login/LoginScreen";
 import GuiasPlantado from "../screens/GuiasPlantado";
+import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -29,6 +30,7 @@ const Ventanas = () => {
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
+      <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
     </Stack.Navigator>
   );
 };
