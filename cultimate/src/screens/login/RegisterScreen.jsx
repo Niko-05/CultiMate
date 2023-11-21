@@ -54,7 +54,7 @@ const RegisterScreen = ({ navigation }) => {
     }
     const response = await registerUser(username, password, email);
     if (response) {
-      navigation.navigate("HomeScreen");
+      navigation.navigate("navigation");
     }
   };
 
