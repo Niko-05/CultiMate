@@ -12,6 +12,7 @@ const gridData = [
 ]
 
 //const gridData2 = useRef([]);
+const userId = 5;
 
 const defaultSquareData = {
   centerImage: require('../../assets/mas.png'),
