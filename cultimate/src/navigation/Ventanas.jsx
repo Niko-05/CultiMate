@@ -37,8 +37,6 @@ const Ventanas = () => {
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
-      <Stack.Screen name="HuertoSimulado" component={HuertoSimulado} />
-      <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
     </Stack.Navigator>
   );
 };
