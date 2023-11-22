@@ -55,7 +55,7 @@ function MyTabs() {
 
       <Tab.Screen
         name="Tienda"
-        component={shop}
+        component={Tienda}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="shopping" color={color} size={size} />
