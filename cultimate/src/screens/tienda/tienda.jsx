@@ -4,7 +4,7 @@ import { View, ScrollView, TouchableOpacity, Image, Text, StyleSheet, ActivityIn
 const Tienda = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,10 +29,10 @@ const Tienda = () => {
         <ScrollView contentContainerStyle={styles.scrollView}>
           {products.map((product) => (
             <TouchableOpacity key={product.id} style={styles.productContainer}>
-              <Image source={{ uri: product.imageUrl }} style={styles.productImage} />
-              <Text style={styles.productName}>{product.name}</Text>
-              <Text style={styles.productPrice}>${product.price}</Text>
-              <Text style={styles.productDescription}>{product.description}</Text>
+              <Image source={require(product.imagen)} style={styles.productImage} />
+              <Text style={styles.productName}>{product.nombre}</Text>
+              <Text style={styles.productPrice}>${product.precio}</Text>
+              <Text style={styles.productDescription}>{product.descripcion}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
