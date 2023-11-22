@@ -1,4 +1,7 @@
-const API = 'http://10.236.19.196:3000';
+// remember to change this to your ip address (localhost)
+const ip = "192.168.1.74";
+const port = "3000";
+const API = "http://" + ip + ":" + port;
 
 export default {
   API: API,
