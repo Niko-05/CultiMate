@@ -2,10 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //screens
 import homescreen from "../screens/Homescreen";
-import shop from "../screens/Shop";
 import newPlant from "../screens/NewPlant";
 import user from "../screens/User";
 import GuiasPlantado from "../screens/GuiasPlantado";
+import Tienda from "../screens/tienda/tienda";
 import HuertoSimulado from "../screens/huertoSimulado";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
