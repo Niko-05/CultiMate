@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, Image, Alert } from 'react-native';
 import config from '../../config';
 import { NavigationContainerRefContext } from '@react-navigation/native';
 import * as SecureStore from "expo-secure-store";
@@ -11,8 +11,8 @@ const gridData = [
   { id: 4, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0, nombre: 'Fresa', FechaPlantado: '2023-10-15', PeriodicidadRegado: 3, CondTemperatura: '22°C', Paso: 'Cosechar', Detalles: 'Details', Estado: 'Healthy' },
 ]
 
-const gridData2 = useRef([]);
-const userId = 5;
+
+
 
 const defaultSquareData = {
   centerImage: require('../../assets/mas.png'),
@@ -37,38 +37,42 @@ const fillDataToCompleteRow = (data) => {
     return data;
 };
 
-const setGridData = async () => {
-  
-  try {
-    const token = await SecureStore.getItemAsync("accesstoken");
-    //const api_call = await fetch(`${config.API}/planta/plantadas?userId=${userId}`);
-    const result = await api_call.json();
-    const api_call = await fetch(`${config.API}/planta/plantadas`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        },
-    });
-    
-    const modifiedResult = result.map((item) => {
-      const centerImage = ;
 
-      return {
-        ...item,
-        centerImage
-      };
-    });
-    gridData2.current = result;
-    console.log(result);
-  } catch(e) {
-      Alert.alert('Problema de red', 'No se ha podido mostrar el listado de plantas debido a un problema de red.');
-    }
-}
 
 const HuertoSimulado = ({navigation}) => {
-    //setGridData();
-    const filledGridData = fillDataToCompleteRow([...gridData2]);
+    const gridData2 = useRef([]);
+
+    const setGridData = async () => {
+  
+      try {
+        const token = await SecureStore.getItemAsync("accesstoken");
+        //const api_call = await fetch(`${config.API}/planta/plantadas?userId=${userId}`);
+        const result = await api_call.json();
+        const api_call = await fetch(`${config.API}/planta/plantadas`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            },
+        });
+        
+        const modifiedResult = result.map((item) => {
+          const centerImage = '../../assets/gotas_agua.png';
+    
+          return {
+            ...item,
+            centerImage
+          };
+        });
+        gridData2.current = result;
+        console.log(result);
+      } catch(e) {
+          Alert.alert('Problema de red', 'No se ha podido mostrar el listado de plantas debido a un problema de red.');
+        }
+    }
+
+    setGridData();
+    const filledGridData = fillDataToCompleteRow([...gridData2.current]);
     const rowsToAdd = 3 - Math.ceil(filledGridData.length / 3);
 
     for (let i = 0; i < rowsToAdd; i++) {
