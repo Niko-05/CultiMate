@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, TouchableOpacity, Image, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Image, Text, StyleSheet, ActivityIndicator, Linking } from 'react-native';
+import config from '../../config';
 
 const Tienda = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${config.API}/products`);
-        const data = await response.json();
-        setProducts(data); // Set the fetched product data
-        setLoading(false); // Set loading to false once data is fetched
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${config.API}/productos`);
+      const data = await response.json();
+      setProducts(data); // Set the fetched product data
+      setLoading(false); // Set loading to false once data is fetched
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
+
+  const openProductLink = (productUrl) => {
+    // Open URL in the default browser
+    Linking.openURL(productUrl);
+  };
 
   return (
     <View style={styles.container}>
@@ -28,10 +34,10 @@ const Tienda = () => {
       ) : (
         <ScrollView contentContainerStyle={styles.scrollView}>
           {products.map((product) => (
-            <TouchableOpacity key={product.id} style={styles.productContainer}>
-              <Image source={require(product.imagen)} style={styles.productImage} />
+            <TouchableOpacity key={product.id} style={styles.productContainer} onPress={() => openProductLink(product.url)}>
+              <Image source={{ uri: product.imagen }} style={styles.productImage} />
               <Text style={styles.productName}>{product.nombre}</Text>
-              <Text style={styles.productPrice}>${product.precio}</Text>
+              <Text style={styles.productPrice}>{product.precio}€</Text>
               <Text style={styles.productDescription}>{product.descripcion}</Text>
             </TouchableOpacity>
           ))}
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
   productImage: {
     width: 200,
     height: 200,
-    resizeMode: 'cover',
+    resizeMode: "contain",
     marginBottom: 10,
   },
   productName: {
