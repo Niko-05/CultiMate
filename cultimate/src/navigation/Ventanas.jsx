@@ -9,7 +9,6 @@ import ConfigScreen from "../screens/ConfigScreen";
 import AccountSettingsScreen from "../screens/AccountSettings";
 import ProfilePicture from "../screens/ProfilePicture";
 import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
-import Producto from "../screens/tienda/producto";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -38,7 +37,6 @@ const Ventanas = () => {
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
-      <Stack.Screen name="Producto" component={Producto} />
     </Stack.Navigator>
   );
 };
