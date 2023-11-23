@@ -7,18 +7,18 @@ export const checkValidEmail = (email) => {
 
 export const profilePictures = [
   {
-    id: 1,
+    id: 2,
     title: "Strawberry",
     imageSource: require("../../assets/Fresa.png"),
   },
-  { id: 2, title: "Grape", imageSource: require("../../assets/mora.png") },
+  { id: 3, title: "Grape", imageSource: require("../../assets/mora.png") },
   {
-    id: 3,
+    id: 1,
     title: "Tomato",
     imageSource: require("../../assets/tomate.png"),
   },
   {
-    id: 4,
+    id: 2,
     title: "Cucumber",
     imageSource: require("../../assets/pepino.png"),
   },
@@ -31,6 +31,11 @@ export const profilePictures = [
 ];
 
 export const getProfilePictureSource = (id) => {
+  const profilePicture = profilePictures.find((picture) => picture.id === id);
+  return profilePicture.imageSource;
+};
+
+export const getPlantPicture = (id) => {
   const profilePicture = profilePictures.find((picture) => picture.id === id);
   return profilePicture.imageSource;
 };
