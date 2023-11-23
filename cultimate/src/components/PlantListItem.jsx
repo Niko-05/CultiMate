@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from "react-native";
 import Star from "../../assets/star.svg";
 import * as SecureStore from "expo-secure-store";
-import config from "../../config";
+import config from "../../config";import { getPlantPicture } from "../utils/user";
+
 function PlantListItem({ item, navigation, data, fav }) {
   const [check, setCheck] = useState(false);
-  const [image, setImage] = useState(item.imagen)
+  const [picture, setPicture] = useState(null);
+
+  useEffect(() => {
+    setPicture(getPlantPicture(item.id));
+  }, []);
   const [favoritos, setFavoritos] = useState(fav);
   const getUserInfo = async () => {
     try {
@@ -136,7 +141,7 @@ function PlantListItem({ item, navigation, data, fav }) {
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
           <View style={styles.viewimage}>
-            <Image source={{uri: image}} style={styles.imagen} />
+            <Image source={picture} style={styles.imagen} />
           </View>
           <View style={styles.viewtexto}>
             <Text style={styles.texto}>{item.nombre}</Text>

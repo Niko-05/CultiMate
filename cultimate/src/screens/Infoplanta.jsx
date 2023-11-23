@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import { getPlantPicture } from "../utils/user";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import config from '../../config';
 
@@ -10,6 +11,7 @@ const Infoplanta = () => {
   const [guia, setGuia] = useState(null);
   const item = data.find((item) => item.id === id);
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  const [picture, setPicture] = useState(null);
 
   const getGuia = async () => {
     const api_call = await fetch(`${config.API}/planta/guia/${id}`, {
@@ -22,6 +24,7 @@ const Infoplanta = () => {
 
   useEffect(() => {
     getGuia();
+    setPicture(getPlantPicture(item.id));
   }, [id]);
 
   if (!item) {
@@ -37,7 +40,7 @@ const Infoplanta = () => {
       <View style={styles.header}>
         <Text style={styles.title}>{item.nombre}</Text>
         <View style={styles.roundedContainer}>
-          <Image source={{ uri: item.imagen }} style={styles.image} />
+          <Image source={picture} style={styles.image} />
         </View>
       </View>
       <View style={styles.infoContainer}>
