@@ -6,7 +6,7 @@ import newPlant from "../screens/NewPlant";
 import user from "../screens/User";
 import GuiasPlantado from "../screens/GuiasPlantado";
 import HuertoSimulado from "../screens/huertoSimulado";
-import Tienda from "../screens/tienda/tienda";
+import Tienda from "../screens/tienda";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
