@@ -6,6 +6,7 @@ const ConfigScreen = ({ navigation }) => {
   const [idiomaSeleccionado, setIdiomaSeleccionado] = useState("Español");
   const [notificacionesActivadas, setNotificacionesActivadas] = useState(true);
   const [modoOscuroActivado, setModoOscuroActivado] = useState(false);
+  const [sonidosActivados, setSonidosActivados] = useState(true);
 
   const handleProfileSettings = () => {
     navigation.navigate("Account settings");
@@ -22,7 +23,6 @@ const ConfigScreen = ({ navigation }) => {
         >
           <Picker.Item label="Español" value="Español" />
           <Picker.Item label="English" value="English" />
-          <Picker.Item label="Francés" value="Francés" />
         </Picker>
       </View>
 
@@ -40,6 +40,13 @@ const ConfigScreen = ({ navigation }) => {
         <Switch
           value={modoOscuroActivado}
           onValueChange={() => setModoOscuroActivado(!modoOscuroActivado)}
+        />
+      </View>
+      <View className="flex-row items-center mb-4 space-x-2">
+        <Text className="font-bold">Sonidos:</Text>
+        <Switch
+          value={sonidosActivados}
+          onValueChange={() => setSonidosActivados(!sonidosActivados)}
         />
       </View>
       <View>
