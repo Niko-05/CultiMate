@@ -4,15 +4,11 @@ import ListaPlanta from "../components/ListaPlanta";
 import { SuggestionModal } from "../components/SuggestionModal";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
-
-
-
-  
-
   
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [favList, setFav] = useState([]);
+  
   const getUserInfo = async () => {
     try {
       // This is the way to access the token

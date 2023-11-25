@@ -78,7 +78,7 @@ export const GuiaPlantadoStyles = StyleSheet.create({
   separador: {
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    marginVertical: 16
+    marginVertical: 13
     ,
   },
 });

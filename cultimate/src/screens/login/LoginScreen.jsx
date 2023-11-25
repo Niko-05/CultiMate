@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Image, StyleSheet} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
 import { loginUser } from "../../api/user";
@@ -26,6 +26,15 @@ const LoginScreen = ({ navigation }) => {
         style={{ marginTop: insets.top, marginBottom: insets.bottom }}
         className="flex-1 justify-center mx-8"
       >
+        <View style={{
+          alignItems: 'center',
+          marginBottom: 30
+          }}>
+          <Image
+            style={styles.centeredImage}
+            source={require("../../../assets/icono-cultimate.png")}
+          />
+        </View>
         <View className="space-y-2 mb-6">
           <Text className="font-bold text-2xl">Sign In</Text>
           <Text className="text-sm text-gray-500">
@@ -66,5 +75,12 @@ const LoginScreen = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  centeredImage: {
+    width: 270, // Adjust the size as needed
+    height: 270, // Adjust the size as needed
+  },
+});
 
 export default LoginScreen;

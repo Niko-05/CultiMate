@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from "react-native";
 import Star from "../../assets/star.svg";
 import * as SecureStore from "expo-secure-store";
-import config from "../../config";import { getPlantPicture } from "../utils/user";
+import config from "../../config";
+import { getPlantPicture } from "../utils/user";
 
 function PlantListItem({ item, navigation, data, fav }) {
   const [check, setCheck] = useState(false);
