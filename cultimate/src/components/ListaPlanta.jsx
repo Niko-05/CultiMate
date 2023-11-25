@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import PlantListItem from "./PlantListItem";
-import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 
 const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
@@ -82,8 +81,6 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
 
 
   useEffect(() => {
-    filterData(value, searchTerm);
-  }, [value, data, searchTerm, favLista]);
     filterData(value, searchTerm);
   }, [value, data, searchTerm, favLista]);
 
