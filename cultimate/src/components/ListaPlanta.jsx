@@ -68,17 +68,22 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
       }
     }
 
+
     if (searchTerm) {
       filteredItems = filteredItems.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
+
     setFilteredData(filteredItems);
     setLoading(false);
   };
 
+
   useEffect(() => {
+    filterData(value, searchTerm);
+  }, [value, data, searchTerm, favLista]);
     filterData(value, searchTerm);
   }, [value, data, searchTerm, favLista]);
 

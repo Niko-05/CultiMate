@@ -5,10 +5,12 @@ import GuiaPlantado from "../screens/GuiaPlantado";
 import RegisterScreen from "../screens/login/RegisterScreen";
 import LoginScreen from "../screens/login/LoginScreen";
 import GuiasPlantado from "../screens/GuiasPlantado";
+import HuertoSimulado from "../screens/huertoSimulado";
 import ConfigScreen from "../screens/ConfigScreen";
 import AccountSettingsScreen from "../screens/AccountSettings";
 import ProfilePicture from "../screens/ProfilePicture";
 import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
+import newPlant from "../screens/NewPlant";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -30,6 +32,7 @@ const Ventanas = () => {
         component={Navigation}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="newPlant" component={newPlant}/>
       <Stack.Screen name="Settings" component={ConfigScreen} />
       <Stack.Screen name="Account settings" component={AccountSettingsScreen} />
       <Stack.Screen name="Profile picture" component={ProfilePicture} />
