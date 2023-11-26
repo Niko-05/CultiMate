@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useModoOscuro } from '../context/ModoOscuroContext';
 import {
   View,
   ScrollView,
@@ -11,10 +12,22 @@ import {
   Alert,
 } from "react-native";
 import config from "../../config";
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 const Tienda = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { modoOscuroActivado }= useModoOscuro();
+  const styles = getStyles(modoOscuroActivado);
 
   const fetchData = async () => {
     try {
@@ -76,11 +89,13 @@ const Tienda = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (modoOscuroActivado) => {
+  return {
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
   },
   scrollView: {
     flexGrow: 1,
@@ -92,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: "lightgray",
+    borderColor: modoOscuroActivado ? darkModeText : 'lightgray',
     borderRadius: 8,
     padding: 10,
   },
@@ -106,16 +121,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
   productPrice: {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
   productDescription: {
     fontSize: 14,
     textAlign: "center",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
-});
+}};
 
 export default Tienda;

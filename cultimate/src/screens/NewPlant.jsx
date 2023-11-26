@@ -5,15 +5,50 @@ import { SuggestionModal } from "../components/SuggestionModal";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
+import { useModoOscuro } from '../context/ModoOscuroContext';
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 
-  
-
-  
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [favList, setFav] = useState([]);
-  const [user, setUser] = useState([])
+  const getUserInfo = async () => {
+    try {
+      // This is the way to access the token
+      const token = await SecureStore.getItemAsync("accesstoken");
+      const api_call = await fetch(`${config.API}/user/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (!api_call.ok) {
+        // Handle non-OK response status
+        Alert.alert(
+          "API error",
+          `Failed to fetch user data. Status: ${api_call.status}`
+        );
+        return;
+      }
+  
+      const result = await api_call.json();
+      return result;
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
+    }
+  };
 
   const cambioFav = async ()=>{
     try{
@@ -69,7 +104,7 @@ const NewPlant = ({ navigation }) => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      style={styles.container}
     >
       <ListaPlanta data={data} favLista={favList} navigation={navigation} usuario= {user} />
       <Pressable
@@ -91,3 +126,13 @@ const NewPlant = ({ navigation }) => {
 };
 
 export default NewPlant;
+
+const getStyles = (modoOscuroActivado) => {
+  return {
+  container: { 
+    flex: 1, 
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
+  },
+  }};

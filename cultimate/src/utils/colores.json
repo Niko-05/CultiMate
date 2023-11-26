@@ -1,0 +1,10 @@
+{
+  "lightModeBackground": "#F1F1F1",
+  "darkModeBackground": "#292F41",
+  "lightModeText": "#000000",
+  "darkModeText": "#FFFFFF",
+  "lightbuttonBackground": "#FFFFFF",
+  "darkbuttonBackground": "#1A202C",
+  "lightbuttonText": "#000000",
+  "darkbuttonText": "#FFFFFF"
+}

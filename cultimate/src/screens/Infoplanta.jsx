@@ -5,6 +5,17 @@ import { getPlantPicture } from "../utils/user";
 import { getUserInfo } from "../api/user";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import config from '../../config';
+import { useModoOscuro } from '../context/ModoOscuroContext';
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 const Infoplanta = () => {
   const route = useRoute();
@@ -13,6 +24,8 @@ const Infoplanta = () => {
   const item = data.find((item) => item.id === id);
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const [picture, setPicture] = useState(null);
+  const { modoOscuroActivado }= useModoOscuro();
+  const styles = getStyles(modoOscuroActivado); 
   const [userinfo, setUserinfo] = useState(null);
 
   const getGuia = async () => {
@@ -215,10 +228,11 @@ const Infoplanta = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (modoOscuroActivado) => {
+  return {
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
   },
   header: {
     alignItems: "center",
@@ -227,17 +241,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "black",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
     marginBottom: 10,
   },
   gCalendarFont: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "black",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
     marginBottom: 10,
   },
   roundedContainer: {
-    backgroundColor: "lightgrey",
+    backgroundColor: modoOscuroActivado ? lightModeBackground : 'lightgray',
     borderRadius: 10,
     padding: 10,
   },
@@ -256,7 +270,7 @@ const styles = StyleSheet.create({
   infoText: {
     marginLeft: 10,
     fontSize: 16,
-    color: "gray",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
   calendarCont: {
     flexDirection: 'row',
@@ -267,33 +281,16 @@ const styles = StyleSheet.create({
   month: {
     flex: 1,
     textAlign: 'center',
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
   monthLine: {
     flex: 1,
     textAlign: 'center',
   },
   activeMonth: {
-    backgroundColor: 'green',
+    backgroundColor: modoOscuroActivado ? '#00954B' : 'green',
   },
-  addButton: {
-    position: 'absolute', 
-    right: 20,
-    bottom: 20,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#34a853',
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 4,             // Sombra en Android
-    shadowOpacity: 0.3,       // Sombra en iOS
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-  },
-  addButtonText: {
-    fontSize: 24,
-    color: 'white',
-  },
-});
+  
+}};
 
 export default Infoplanta;

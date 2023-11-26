@@ -1,14 +1,25 @@
 import React from "react";
 import { View, Text, TouchableOpacity} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-import { StyleSheet } from "react-native";
+import { useModoOscuro } from "../context/ModoOscuroContext";
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const { modoOscuroActivado }= useModoOscuro();
+  const styles = getStyles(modoOscuroActivado);
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={styles.container}>
       <Text>Welcome to the HomeScreen!</Text>
 
       <TouchableOpacity
@@ -21,18 +32,25 @@ const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: "lightgreen",
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
+const getStyles = (modoOscuroActivado) => {
+  return {
+    container: { 
+      flex: 1, 
+      alignItems: "center", 
+      justifyContent: "center",
+      backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
+    },
+    button: {
+      backgroundColor: modoOscuroActivado ? darkbuttonBackground : lightbuttonBackground,
+      padding: 10,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    buttonText: {
+      color: modoOscuroActivado ? darkbuttonText : lightbuttonText,
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+  }};
 
 export default HomeScreen;
