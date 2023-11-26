@@ -21,6 +21,9 @@ import {
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [favList, setFav] = useState([]);
+  const [user, setUser] = useState([]);
+  const { modoOscuroActivado }= useModoOscuro();
+  const styles = getStyles(modoOscuroActivado);
   const getUserInfo = async () => {
     try {
       // This is the way to access the token
