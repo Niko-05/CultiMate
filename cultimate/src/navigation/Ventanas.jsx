@@ -31,8 +31,8 @@ const Ventanas = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Settings" component={ConfigScreen} />
-      <Stack.Screen name="Account settings" component={AccountSettingsScreen} />
-      <Stack.Screen name="Profile picture" component={ProfilePicture} />
+      <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
+      <Stack.Screen name="Profilepicture" component={ProfilePicture} />
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />

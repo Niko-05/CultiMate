@@ -4,15 +4,24 @@ import ListaPlanta from "../components/ListaPlanta";
 import { SuggestionModal } from "../components/SuggestionModal";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
+import { useModoOscuro } from '../context/ModoOscuroContext';
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 
-
-  
-
-  
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [favList, setFav] = useState([]);
+  const { modoOscuroActivado }= useModoOscuro();
+  const styles = getStyles(modoOscuroActivado); 
   const getUserInfo = async () => {
     try {
       // This is the way to access the token
@@ -93,7 +102,7 @@ const NewPlant = ({ navigation }) => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      style={styles.container}
     >
       <ListaPlanta data={data} favLista={favList} navigation={navigation} />
       <Pressable
@@ -115,3 +124,13 @@ const NewPlant = ({ navigation }) => {
 };
 
 export default NewPlant;
+
+const getStyles = (modoOscuroActivado) => {
+  return {
+  container: { 
+    flex: 1, 
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
+  },
+  }};

@@ -1,60 +1,98 @@
-import React, { useState } from "react";
-import { View, Text, Switch, TouchableOpacity } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+// ConfigScreen.js
+import React, { useEffect } from 'react';
+import { View, Text, Switch, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useModoOscuro } from '../context/ModoOscuroContext';
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
+
+const STORAGE_KEY = 'modoOscuro';
 
 const ConfigScreen = ({ navigation }) => {
-  const [idiomaSeleccionado, setIdiomaSeleccionado] = useState("Español");
-  const [notificacionesActivadas, setNotificacionesActivadas] = useState(true);
-  const [modoOscuroActivado, setModoOscuroActivado] = useState(false);
-  const [sonidosActivados, setSonidosActivados] = useState(true);
+  const { modoOscuroActivado, toggleModoOscuro } = useModoOscuro();
 
-  const handleProfileSettings = () => {
-    navigation.navigate("Account settings");
+  const guardarModoOscuroAsyncStorage = async (valor) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(valor));
+    } catch (error) {
+      console.error('Error al guardar en AsyncStorage:', error);
+    }
   };
 
-  return (
-    <View className="flex-1 flex-col items-center">
-      <View className="w-80 mt-6">
-        <Text className="text-center font-bold">Language:</Text>
+  const obtenerModoOscuroAsyncStorage = async () => {
+    try {
+      const valorGuardado = await AsyncStorage.getItem(STORAGE_KEY);
+      return valorGuardado !== null ? JSON.parse(valorGuardado) : false;
+    } catch (error) {
+      console.error('Error al obtener de AsyncStorage:', error);
+      return false;
+    }
+  };
 
+  const cargarModoOscuro = async () => {
+    const modoOscuroGuardado = await obtenerModoOscuroAsyncStorage();
+    toggleModoOscuro(modoOscuroGuardado);
+  };
+
+  useEffect(() => {
+    cargarModoOscuro();
+  }, []);
+
+  const handleProfileSettings = () => {
+    navigation.navigate('AccountSettings');
+  };
+
+  const styles = getStyles(modoOscuroActivado);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.languagePickerContainer}>
+        <Text style={styles.text}>Language:</Text>
         <Picker
-          selectedValue={idiomaSeleccionado}
-          onValueChange={(valor) => setIdiomaSeleccionado(valor)}
+          selectedValue={'Español'}
+          onValueChange={(valor) => console.log(valor)}
         >
           <Picker.Item label="Español" value="Español" />
           <Picker.Item label="English" value="English" />
         </Picker>
+        
+      </View>
+        <View style={styles.switchContainer}>
+          <Text style={styles.text}>Notifications:</Text>
+          <Switch value={true} onValueChange={() => console.log('Toggle Notifications')}
+        />
       </View>
 
-      <View className="flex-row items-center mb-4 space-x-2">
-        <Text className="font-bold">Notifications:</Text>
-        <Switch
-          value={notificacionesActivadas}
-          onValueChange={() =>
-            setNotificacionesActivadas(!notificacionesActivadas)
-          }
-        />
+      <View style={styles.switchContainer}>
+        <Text style={styles.text}>Sonidos:</Text>
+        <Switch value={true} onValueChange={() => console.log('Toggle Sonidos')} />
       </View>
-      <View className="flex-row items-center mb-4 space-x-2">
-        <Text className="font-bold">Dark mode:</Text>
+
+      <View style={styles.switchContainer}>
+        <Text style={styles.text}>Dark mode:</Text>
         <Switch
           value={modoOscuroActivado}
-          onValueChange={() => setModoOscuroActivado(!modoOscuroActivado)}
-        />
-      </View>
-      <View className="flex-row items-center mb-4 space-x-2">
-        <Text className="font-bold">Sonidos:</Text>
-        <Switch
-          value={sonidosActivados}
-          onValueChange={() => setSonidosActivados(!sonidosActivados)}
+          onValueChange={(valor) => {
+            toggleModoOscuro(valor);
+            guardarModoOscuroAsyncStorage(valor);
+          }}
         />
       </View>
       <View>
         <TouchableOpacity
-          className="bg-slate-400 p-4 rounded-md"
-          onPress={() => handleProfileSettings()}
+          style={styles.button}
+          onPress={handleProfileSettings}
         >
-          <Text className="font-bold text-white">Account settings</Text>
+          <Text style={styles.buttonText}>Account settings</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,3 +100,40 @@ const ConfigScreen = ({ navigation }) => {
 };
 
 export default ConfigScreen;
+
+
+const getStyles = (modoOscuroActivado) => {
+  return {
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      padding: 20,
+      backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground, // Ajusta el fondo según el modo oscuro
+    },
+    languagePickerContainer: {
+      width: 200,
+      marginTop: 20,
+    },
+    buttonText: {
+      color: modoOscuroActivado ? darkbuttonText : lightbuttonText, // Ajusta el color del texto del botón según el modo oscuro
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    text: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: modoOscuroActivado ? darkModeText : lightModeText, // Ajusta el color del texto según el modo oscuro
+    },
+    switchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    button: {
+      backgroundColor: modoOscuroActivado ? darkbuttonBackground : lightbuttonBackground, // Ajusta el color del botón según el modo oscuro
+      padding: 15,
+      borderRadius: 10,
+      marginTop: 20,
+    },
+  };
+};

@@ -4,6 +4,17 @@ import { useRoute } from "@react-navigation/native";
 import { getPlantPicture } from "../utils/user";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import config from '../../config';
+import { useModoOscuro } from '../context/ModoOscuroContext';
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 const Infoplanta = () => {
   const route = useRoute();
@@ -12,6 +23,8 @@ const Infoplanta = () => {
   const item = data.find((item) => item.id === id);
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const [picture, setPicture] = useState(null);
+  const { modoOscuroActivado }= useModoOscuro();
+  const styles = getStyles(modoOscuroActivado); 
 
   const getGuia = async () => {
     const api_call = await fetch(`${config.API}/planta/guia/${id}`, {
@@ -152,10 +165,11 @@ const Infoplanta = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (modoOscuroActivado) => {
+  return {
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
   },
   header: {
     alignItems: "center",
@@ -164,17 +178,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "black",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
     marginBottom: 10,
   },
   gCalendarFont: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "black",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
     marginBottom: 10,
   },
   roundedContainer: {
-    backgroundColor: "lightgrey",
+    backgroundColor: modoOscuroActivado ? lightModeBackground : 'lightgray',
     borderRadius: 10,
     padding: 10,
   },
@@ -193,7 +207,7 @@ const styles = StyleSheet.create({
   infoText: {
     marginLeft: 10,
     fontSize: 16,
-    color: "gray",
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
   calendarCont: {
     flexDirection: 'row',
@@ -204,14 +218,15 @@ const styles = StyleSheet.create({
   month: {
     flex: 1,
     textAlign: 'center',
+    color: modoOscuroActivado ? darkModeText : lightModeText,
   },
   monthLine: {
     flex: 1,
     textAlign: 'center',
   },
   activeMonth: {
-    backgroundColor: 'green',
+    backgroundColor: modoOscuroActivado ? '#00954B' : 'green',
   },
-});
+}};
 
 export default Infoplanta;
