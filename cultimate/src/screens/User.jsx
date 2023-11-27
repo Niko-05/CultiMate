@@ -22,7 +22,29 @@ const User = ({ navigation }) => {
   const [user, setUser] = useState([]);
   const [profilePicture, setProfilePicture] = useState(null);
 
-  let elements = []
+  const elements = [
+    { id: 1, title: "balcon", imageSource: require("../../assets/Fresa.png") },
+    { id: 2, title: "cuarto", imageSource: require("../../assets/mora.png") },
+    {
+      id: 3,
+      title: "cocina",
+      imageSource: require("../../assets/tomate.png"),
+    },
+    {
+      id: 4,
+      title: "terraza",
+      imageSource: require("../../assets/pepino.png"),
+    },
+    {
+      id: 5,
+      title: "Comedor",
+      imageSource: require("../../assets/pimientos.png"),
+    },
+    { id: 6, title: "Agru6", imageSource: require("../../assets/Fresa.png") },
+    { id: 7, title: "Livingroom", imageSource: require("../../assets/mora.png") },
+    // Puedes agregar más logros aquí
+  ];
+
 
   const isFocused = useIsFocused();
 
