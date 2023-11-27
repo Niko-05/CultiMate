@@ -11,7 +11,7 @@ import AccountSettingsScreen from "../screens/AccountSettings";
 import ProfilePicture from "../screens/ProfilePicture";
 import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
 import newPlant from "../screens/NewPlant";
-
+import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 const Stack = createStackNavigator();
 const Ventanas = () => {
   return (
@@ -40,6 +40,7 @@ const Ventanas = () => {
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
+      <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
     </Stack.Navigator>
   );
 };

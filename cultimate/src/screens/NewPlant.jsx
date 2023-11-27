@@ -24,35 +24,6 @@ const NewPlant = ({ navigation }) => {
   const [user, setUser] = useState([]);
   const { modoOscuroActivado }= useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
-  const getUserInfo = async () => {
-    try {
-      // This is the way to access the token
-      const token = await SecureStore.getItemAsync("accesstoken");
-      const api_call = await fetch(`${config.API}/user/`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      if (!api_call.ok) {
-        // Handle non-OK response status
-        Alert.alert(
-          "API error",
-          `Failed to fetch user data. Status: ${api_call.status}`
-        );
-        return;
-      }
-  
-      const result = await api_call.json();
-      return result;
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
-    }
-  };
-
   const cambioFav = async ()=>{
     try{
       const users = await getUserInfo();
