@@ -15,6 +15,7 @@ import ForosScreen from "../screens/Foro/ForosScreen";
 import NewPublication from "../screens/Foro/NewPublication";
 import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
+import ListaPlantadas from "../screens/ListaPlantadas";
 const Stack = createStackNavigator();
 const Ventanas = () => {
   return (
@@ -43,11 +44,12 @@ const Ventanas = () => {
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
-      <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
+        <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
       <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} /> 
 
+        <Stack.Screen name="ListaPlantadas" component={ListaPlantadas} />
     </Stack.Navigator>
   );
 };

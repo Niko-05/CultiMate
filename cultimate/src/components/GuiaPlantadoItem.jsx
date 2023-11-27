@@ -14,7 +14,7 @@ function GuiaPlantadoItem({ item, navigation, data }) {
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
           <View style={styles.viewimage}>
-            <Image source={item.Image} style={styles.imagen} />
+            <Image source={item.imagen} style={styles.imagen} />
           </View>
           <View style={styles.viewtexto}>
             <Text style={styles.texto}>{item.nombre}</Text>

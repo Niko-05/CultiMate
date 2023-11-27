@@ -18,6 +18,7 @@ import { useIsFocused } from "@react-navigation/native";
 import config from "../../config";
 
 import ListaAgru from "../components/ListaAgru";
+import AgruItem from "../components/AgruItem";
 const User = ({ navigation }) => {
   const [user, setUser] = useState([]);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -54,6 +55,7 @@ const User = ({ navigation }) => {
     setUser(await userinfo);
     setProfilePicture(getProfilePictureSource(await userinfo.profilePictureId));
   };
+  
   const setElementsInfo = async () => {
     try{
       const users = await getUserInfo();
@@ -65,7 +67,7 @@ const User = ({ navigation }) => {
     );
    const result = await api_call.json();
     console.log(await result);
-    elements = await result 
+    //elements = await result 
     console.log("elements")
     console.log(elements)
     
@@ -133,7 +135,7 @@ const User = ({ navigation }) => {
               <Gear />
             </TouchableOpacity>
             </View>
-            <ListaAgru data={elements} />
+            <GridIconos elements={elements} navigation={navigation} />
           </View>
         </>
       ) : (
