@@ -16,11 +16,13 @@ import { getUserInfo } from "../api/user";
 import { getProfilePictureSource } from "../utils/user";
 import { useIsFocused } from "@react-navigation/native";
 import config from "../../config";
+
+import ListaAgru from "../components/ListaAgru";
 const User = ({ navigation }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
   const [profilePicture, setProfilePicture] = useState(null);
 
-  const [elements, setElements] = useState([]);
+  let elements = []
 
   const isFocused = useIsFocused();
 
@@ -32,7 +34,7 @@ const User = ({ navigation }) => {
   };
   const setElementsInfo = async () => {
     try{
-      const users = await user;
+      const users = await getUserInfo();
       const api_call = await fetch(
       `${config.API}/agrupaciones/agru?id=${encodeURIComponent(
         users.id
@@ -41,7 +43,9 @@ const User = ({ navigation }) => {
     );
    const result = await api_call.json();
     console.log(await result);
-    setElements(await result);
+    elements = await result 
+    console.log("elements")
+    console.log(elements)
     
  } catch (e) {
     console.error(e);
@@ -63,6 +67,7 @@ const User = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+                  
       {Object.keys(user) !== 0 ? (
         <>
           <View style={styles.centeredView}>
@@ -84,6 +89,7 @@ const User = ({ navigation }) => {
                 )}
               </TouchableOpacity>
             </View>
+        
             <TouchableOpacity
               className="w-7 h-7 absolute left-3 top-3"
               onPress={() => handleSettings()}
@@ -105,7 +111,7 @@ const User = ({ navigation }) => {
               <Gear />
             </TouchableOpacity>
             </View>
-            <GridIconos elements={elements} />
+            <ListaAgru data={elements} />
           </View>
         </>
       ) : (
