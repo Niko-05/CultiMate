@@ -1,14 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-
-const GridIconos = ({ elements }) => {
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from "react-native";
+import { CommonActions } from "@react-navigation/native";
+const GridIconos = ({elements,  navigation }) => {
   const renderAchievement = ({ item, index }) => {
     if (index < 5) {
       return (
         <TouchableOpacity style={styles.achievementContainer}   onPress={() =>
-          navigation.navigate("ListaPlantadas", {
-            profilePictureId: user.profilePictureId,
-          })}>
+          navigation.navigate("ListaPlantadas")}>
           <Image
             source={item.imageSource}
             style={{
