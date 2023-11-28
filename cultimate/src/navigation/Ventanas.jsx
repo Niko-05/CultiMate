@@ -16,6 +16,8 @@ import NewPublication from "../screens/Foro/NewPublication";
 import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
+import CrearAgrupaciones from "../screens/CrearAgrupaciones";
+import ListaPlantadas from "../screens/ListaPlantadas";
 const Stack = createStackNavigator();
 const Ventanas = () => {
   return (
