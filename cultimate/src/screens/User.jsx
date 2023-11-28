@@ -53,7 +53,7 @@ const User = ({ navigation }) => {
   const handleSettings = () => {
     navigation.navigate("Settings");
   };
-
+  
   useEffect(() => {
     setUserInfo();
   }, []);
@@ -70,7 +70,7 @@ const User = ({ navigation }) => {
             <View style={styles.profileImageBackground}>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("Profile picture", {
+                  navigation.navigate("ProfilePicture", {
                     profilePictureId: user.profilePictureId,
                   })
                 }

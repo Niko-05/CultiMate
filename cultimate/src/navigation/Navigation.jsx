@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //screens
-import homescreen from "../screens/Homescreen";
+import ForosScreen from "../screens/Foro/ForosScreen";
 import newPlant from "../screens/NewPlant";
 import user from "../screens/User";
 import GuiasPlantado from "../screens/GuiasPlantado";
@@ -32,12 +32,12 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Home"
-        component={homescreen}
+        name="Foro"
+        component={ForosScreen}
         options={{
-          tabBarLabel: "Feed",
+          tabBarLabel: "Foro",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialCommunityIcons name="forum" color={color} size={size} />
           ),
           headerShown: false,
         }}

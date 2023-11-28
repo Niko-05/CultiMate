@@ -10,6 +10,9 @@ import ConfigScreen from "../screens/ConfigScreen";
 import AccountSettingsScreen from "../screens/AccountSettings";
 import ProfilePicture from "../screens/ProfilePicture";
 import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
+import ForoPlantaScreen from "../screens/Foro/ForoPlantaScreen";
+import ForosScreen from "../screens/Foro/ForosScreen";
+import NewPublication from "../screens/Foro/NewPublication";
 import newPlant from "../screens/NewPlant";
 
 const Stack = createStackNavigator();
@@ -35,11 +38,15 @@ const Ventanas = () => {
       <Stack.Screen name="newPlant" component={newPlant}/>
       <Stack.Screen name="Settings" component={ConfigScreen} />
       <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
-      <Stack.Screen name="Profilepicture" component={ProfilePicture} />
+      <Stack.Screen name="ProfilePicture" component={ProfilePicture} />
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
+      <Stack.Screen name="NewPublication" component={NewPublication} />
+      <Stack.Screen name="ForosScreen" component={ForosScreen} />
+      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} /> 
+
     </Stack.Navigator>
   );
 };

@@ -172,6 +172,15 @@ const HuertoSimulado = ({navigation}) => {
 
     return (
       <View style={styles.container}>
+        {/* Botón en la esquina superior izquierda */}
+        <TouchableOpacity
+          style={{ backgroundColor: '#3A73F7', position: 'absolute', top: 10, left: 10, zIndex: 2 }}
+          onPress={() => navigation.navigate('PreguntasFrecuentes')}
+        >
+          <Text style={{ color: 'white', fontSize: 18 }}>FAQ</Text>
+        </TouchableOpacity>
+  
+        {/* Contenido principal */}
         <View style={styles.grid}>
           {filledGridData.map((planta, index) => (
             <View key={index} style={styles.row}>
@@ -192,8 +201,8 @@ const HuertoSimulado = ({navigation}) => {
           ))}
         </View>
       </View>
-      );
-    };
+    );
+  };
 
 const styles = StyleSheet.create({
   container: {

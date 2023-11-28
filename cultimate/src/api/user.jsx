@@ -207,6 +207,7 @@ export const changePassword = async (password) => {
 export const changeProfilePicture = async (profilePictureId) => {
   try {
     const token = await SecureStore.getItemAsync("accesstoken");
+    console.log('Token:', token);
     const updatedData = {
       profilePictureId: profilePictureId,
     };
@@ -226,7 +227,10 @@ export const changeProfilePicture = async (profilePictureId) => {
       );
       return;
     }
-    console.log(api_call.json());
+    //console.log(api_call.json());
+    const responseData = await api_call.json();
+    console.log(responseData);
+
     return true;
   } catch (e) {
     console.error(e);
