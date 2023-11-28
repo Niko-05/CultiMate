@@ -72,7 +72,7 @@ const User = ({ navigation }) => {
     console.log(elements)
     
  } catch (e) {
-    console.error(e);
+    console.error(e + "errorAAAAAAAAAAAAAAAAAA");
     Alert.alert("Network error");
   }
   };
