@@ -24,8 +24,8 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
   ]);
   const [filteredData, setFilteredData] = useState(data);
   const [favList, setFav] = useState(favLista);
-  const [loading, setLoading] = useState(true);
-
+  const [loadingData, setLoadingData] = useState(true);
+  const [loadingFav, setLoadingFav] = useState(true);
   const handleFilterChange = (selectedValue) => {
     if (selectedValue !== value) {
       setValue(selectedValue);
@@ -45,7 +45,7 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
   };
 
   const filterData = async (selectedValue, searchTerm) => {
-    setLoading(true);
+    
 
     let filteredItems = data;
 
@@ -56,7 +56,7 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
             usuario.id
           )}`
         );
-        setFav(favLista);
+        setFav(loadingData || loadingFav);
         filteredItems = data.filter((item) =>
           favLista.some((favItem) => favItem.PlantaID === item.id)
         );
@@ -76,19 +76,31 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
 
 
     setFilteredData(filteredItems);
-    setLoading(false);
+   
   };
 
 
   useEffect(() => {
     filterData(value, searchTerm);
+    if(data != []){
+    console.log(data)
+    setLoadingData(false)
+    }else{
+    setLoadingData(true)
+    }
+    if(favLista != []){
+      console.log(favLista)
+    setLoadingFav(false)
+    }else{
+      setLoadingData(true)
+    }
   }, [value, data, searchTerm, favLista]);
 
   const renderItem = ({ item }) => (
     <PlantListItem item={item} navigation={navigation} data={data} fav={favLista} usuario={usuario} />
   );
 
-  if (loading) {
+  if (loadingData || loadingFav) {
     return <Text>Loading...</Text>;
   }
 

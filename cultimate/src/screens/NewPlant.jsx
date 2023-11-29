@@ -35,9 +35,9 @@ const NewPlant = ({ navigation }) => {
       )}`,
       { method: "GET" }
     );
-   const result = await api_call.json();
-   setFav(result);
-
+    const result = await api_call.json();
+    setFav(await result);
+        console.log(favList)
     if (!api_call.ok) {
       // Handle non-OK response status
       Alert.alert(
