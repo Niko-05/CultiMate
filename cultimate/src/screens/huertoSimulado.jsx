@@ -139,10 +139,10 @@ const HuertoSimulado = ({navigation}) => {
 
     useEffect(() => {
       const unsubscribe = navigation.addListener('focus', () => {
-        fetchData();
+        loadData();
       });
       return unsubscribe;
-      
+
     }, [navigation]);
 
     let filledGridData = [];
