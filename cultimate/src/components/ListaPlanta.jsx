@@ -41,7 +41,9 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
         );
         setLoading(true);
       } else {
-        filteredItems = await data.filter(
+        console.log(filteredItems)
+        filteredItems = data.filter(
+        
           (item) => item.estacion_recomendada === selectedValue
           
         );
@@ -55,7 +57,7 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-  
+    console.log(filteredItems)
     setFilteredData(filteredItems);
     setFav(updatedFavoritos); // Update favoritos after filtering
   };
