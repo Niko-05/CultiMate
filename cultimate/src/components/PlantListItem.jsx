@@ -23,7 +23,6 @@ function PlantListItem(props) {
 
   const IconoPlantaFav = async () => {
     try {
-      console.log(fav);
       const api_call32 = await fetch(
         `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`,
         { method: "GET" }
