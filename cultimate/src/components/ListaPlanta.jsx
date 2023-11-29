@@ -5,7 +5,7 @@ import PlantListItem from "./PlantListItem";
 import config from "../../config";
 import { favoritosData } from "../api/dataplantas";
 
-const ListaPlanta = ({ data, navigation, usuario }) => {
+const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -17,11 +17,12 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
     { label: "OTOÑO", value: "OTOÑO" },
     { label: "Favoritos", value: "Favoritos" },
   ]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [favLista, setFavLista] = useState([]);
+  const [filteredData, setFilteredData] = useState(data);
+  const [favList, setFav] = useState(favLista);
   const [loading, setLoading] = useState(true);
   const handleFilterChange = (selectedValue) => {
-    const actualValue = typeof selectedValue === 'function' ? selectedValue() : selectedValue;
+    const actualValue =
+      typeof selectedValue === "function" ? selectedValue() : selectedValue;
     if (String(actualValue) !== String(value)) {
       setValue(selectedValue);
       setSearchTerm("");
@@ -29,54 +30,53 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
     }
   };
 
-  const filterData = (selectedValue, searchTerm) => {
+  const fetchData = async (url, method = "GET") => {
+    try {
+      const api_call = await fetch(url, { method });
+      return await api_call.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const filterData = async (selectedValue, searchTerm) => {
     setLoading(true);
-  
+
     let filteredItems = data;
-  
+
     if (selectedValue !== null) {
       if (selectedValue === "Favoritos") {
-        filteredItems = favLista.map((favItem) =>
-          data.find((item) => favItem.PlantaID === item.id)
+        const favLista = await fetchData(
+          `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`
+        );
+        setFav(favLista);
+        filteredItems = data.filter((item) =>
+          favLista.some((favItem) => favItem.PlantaID === item.id)
         );
         setLoading(true);
       } else {
-        console.log(filteredItems)
         filteredItems = data.filter(
-        
           (item) => item.estacion_recomendada === selectedValue
-          
         );
         setLoading(true);
       }
     }
-  
+
     if (searchTerm) {
-      console.log(filteredItems)
+      console.log(filteredItems);
       filteredItems = await filteredItems.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-    console.log(filteredItems)
+
     setFilteredData(filteredItems);
     setFav(updatedFavoritos); // Update favoritos after filtering
   };
 
   useEffect(() => {
-    const fetchDataAndFavorites = async () => {
-      const favLista = await fetchData(
-        `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`
-      );
-      setFavLista(favLista);
-      const initialFilteredData = data.filter((item) =>
-        favLista.some((favItem) => favItem.PlantaID === item.id)
-      );
-      setFilteredData(initialFilteredData);
-      setLoading(false);
-    };
-
-    fetchDataAndFavorites();
-  }, [data, usuario.id]);
+    filterData(value, searchTerm);
+  }, [value, data, searchTerm, favLista]);
 
   const renderItem = ({ item }) => (
     <PlantListItem
@@ -88,45 +88,54 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
     />
   );
 
-  if (data == []|| favoritosActualizados == []) {
+  if (data == [] || favoritosActualizados == []) {
     return <Text>Loading...</Text>;
   }
 
   return (
     <View style={{ flex: 1 }}>
-    <TextInput
-      style={styles.searchInput}
-      placeholder="Buscar planta..."
-      onChangeText={(text) => {
-        setSearchTerm(text);
-        filterData("", text);
-      }}
-      value={searchTerm}
-    />
-  
-    <Text style={{ justifyContent: "center" }}>Seleccionar Filtro:</Text>
-  
-    <DropDownPicker
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={handleFilterChange}
-      setItems={setItems}
-    />
-  
-    <FlatList
-      data={filteredData}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-    />
-  
-    {loading && (
-      <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'white', overflow: 'hidden', zIndex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    )}
-  </View>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Buscar planta..."
+        onChangeText={(text) => {
+          setSearchTerm(text);
+          filterData("", text);
+        }}
+        value={searchTerm}
+      />
+
+      <Text style={{ justifyContent: "center" }}>Seleccionar Filtro:</Text>
+
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={handleFilterChange}
+        setItems={setItems}
+      />
+
+      <FlatList
+        data={filteredData}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+
+      {loading && (
+        <View
+          style={{
+            ...StyleSheet.absoluteFillObject,
+            backgroundColor: "white",
+            overflow: "hidden",
+            zIndex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
+    </View>
   );
 };
 
@@ -138,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     margin: 10,
-    zIndex: 2
+    zIndex: 2,
   },
 });
 
