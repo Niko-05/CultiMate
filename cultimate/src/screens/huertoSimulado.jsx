@@ -5,6 +5,7 @@ import { getUserInfo } from "../api/user";
 import { getProfilePictureSource } from "../utils/user";
 import { getPlantPicture } from "../utils/user";
 import * as SecureStore from "expo-secure-store";
+import { useFocusEffect } from '@react-navigation/native';
 
 const gridData2 = [
   { id: 1, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1, nombre: 'Tomate', FechaPlantado: '2023-11-01', PeriodicidadRegado: 2, CondTemperatura: '25°C', Paso: 'Plantar', Detalles: 'Details', Estado: 'Healthy' },
@@ -136,9 +137,15 @@ const HuertoSimulado = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-      loadData();
-  }, []);
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        loadData();
+      }, [])
+    );
 
     let filledGridData = [];
 
