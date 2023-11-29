@@ -44,6 +44,7 @@ const HuertoSimulado = ({navigation}) => {
   const [updatedGridData, setUpdatedGridData] = useState([]);
   const [userinfo, setUserinfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [updateTriggered, setUpdateTriggered] = useState(false);
 
   const handleWateringPress = (planta) => {
     Alert.alert(
@@ -70,14 +71,18 @@ const HuertoSimulado = ({navigation}) => {
   };
 
   const regarPlanta = async (planta) => {
+    setUpdateTriggered(true);
     try {
       const response = await fetch(`${config.API}/planta/regar/${planta.id}`, { 
         method: 'PUT',
       });
       console.log(planta.id);
+      setUpdateTriggered(false);
     } catch (error) {
       console.error(error);
+      setUpdateTriggered(false);
     }
+
   };
 
   const setUserInfo = async () => {
@@ -137,12 +142,14 @@ const HuertoSimulado = ({navigation}) => {
     }
   };
 
-    useEffect(() => {
-      const unsubscribe = navigation.addListener('focus', () => {
-        loadData();
-      });
-      return unsubscribe;
+    const handleScreenFocus = async () => {
+      if (updateTriggered) { await regarPlanta(); }
+      loadData();
+    };
 
+    useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', handleScreenFocus);
+      return () => { unsubscribe(); };
     }, [navigation]);
 
     let filledGridData = [];
