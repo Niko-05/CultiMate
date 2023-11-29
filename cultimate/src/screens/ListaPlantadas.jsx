@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text, Pressable, Alert } from "react-native";
 import ListaPlanta from "../components/ListaPlanta";
-import { SuggestionModal } from "../components/SuggestionModal";
+//import { SuggestionModal } from "../components/SuggestionModal";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
@@ -53,20 +53,7 @@ const ListaPlantadas= ({ navigation }) => {
       style={styles.container}
     >
       <ListaPlantaSinFiltro data={dat} navigation={navigation} />
-      <Pressable
-        style={{
-          backgroundColor: "lightgreen",
-          padding: 10,
-          borderRadius: 20,
-          elevation: 2,
-          position: "absolute",
-          bottom: 20,
-        }}
-        onPress={toggleModal}
-      >
-        <Text>Suggest new plant</Text>
-      </Pressable>
-      <SuggestionModal isVisible={isModalVisible} closeModal={toggleModal} />
+
     </SafeAreaView>
   );
 };

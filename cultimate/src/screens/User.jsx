@@ -15,12 +15,14 @@ import Mas from "../../assets/gear-solid.svg"
 import { getUserInfo } from "../api/user";
 import { getProfilePictureSource } from "../utils/user";
 import { useIsFocused } from "@react-navigation/native";
+import { useModoOscuro } from '../context/ModoOscuroContext';
 import config from "../../config";
 
 import ListaAgru from "../components/ListaAgru";
 import AgruItem from "../components/AgruItem";
 const User = ({ navigation }) => {
   const [user, setUser] = useState([]);
+  const { modoOscuroActivado }= useModoOscuro();
   const [profilePicture, setProfilePicture] = useState(null);
 
   const elements = [
