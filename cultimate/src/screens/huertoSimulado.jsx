@@ -143,14 +143,21 @@ const HuertoSimulado = ({navigation}) => {
   };
 
     const handleScreenFocus = async () => {
-      if (updateTriggered) { await regarPlanta(); }
-      loadData();
+      if (updateTriggered) {
+        await regarPlanta();
+        loadData();
+      }
+      else {
+        loadData();
+      }
     };
 
     useEffect(() => {
-      const unsubscribe = navigation.addListener('focus', handleScreenFocus);
-      return () => { unsubscribe(); };
-    }, [navigation]);
+    const unsubscribe = navigation.addListener('focus', handleScreenFocus);
+    return () => {
+      unsubscribe();
+    };
+    }, [navigation, updateTriggered]);
 
     let filledGridData = [];
 
