@@ -1,46 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import Star from "../../assets/star.svg";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 import { getPlantPicture } from "../utils/user";
 import { addFav, deleteFav, favoritosData } from "../api/dataplantas";
 function PlantListItem(props) {
-  const { item, navigation, data, fav, onLoad } = props
+  const { item, navigation, data, fav, onLoad } = props;
   const [check, setCheck] = useState(false);
   const [picture, setPicture] = useState(null);
-  const [favoritos, setfavoritos] = useState(fav);
+  const [favorit, setfavoritos] = useState(null);
   useEffect(() => {
     IconoPlantaFav();
   }, []);
 
   const IconoPlantaFav = async () => {
-    let updatedFavs = await favoritosData();
-    console.log(item.id);
-    let imagen = await getPlantPicture(item.id);
-    setPicture(imagen);
-    setfavoritos(updatedFavs);
-    setCheck(await updatedFavs.some((favit) => favit.PlantaID === item.id));
-   
-    if (updatedFavs.length === 0 || data[data.length - 1].id === item.id ){
-      
-      onLoad(); // Llama a onLoad si es el último elemento o si no hay elementos
+    try {
+      console.log(fav);
+      const api_call32 = await fetch(
+        `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`,
+        { method: "GET" }
+      );
+
+      const favLista = await api_call32.json();
+      setCheck(await favLista.some((favit) => favit.PlantaID === item.id));
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Network error");
     }
   };
 
   const PlantaEnfavBoton = async () => {
-    try {   
-        const requestBody = {
-          pid: item.id,
-        };
-        if(favoritos.some((favit) => favit.PlantaID === item.id)){
-          await deleteFav(item.id); 
-
-        }else{
-          console.log(item.id);
-          await addFav(requestBody)
-        }
-          await IconoPlantaFav(); // Move this call here to ensure it's executed after making changes
+    try {
+      const requestBody = {
+        pid: item.id,
+      };
+      if (favoritos.some((favit) => favit.PlantaID === item.id)) {
+        await deleteFav(item.id);
+      } else {
+        console.log(item.id);
+        await addFav(requestBody);
+      }
+      await IconoPlantaFav(); // Move this call here to ensure it's executed after making changes
     } catch (e) {
       console.error(e);
       Alert.alert("Network error");
@@ -48,8 +56,11 @@ function PlantListItem(props) {
   };
 
   return (
-    
-    <TouchableOpacity onPress={() => navigation.navigate("Infoplanta", { id: item.id, data: data })}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("Infoplanta", { id: item.id, data: data })
+      }
+    >
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
           <View style={styles.viewimage}>

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, Modal } from "react-native";
-
+import { View, Text, FlatList, TextInput, StyleSheet } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import PlantListItem from "./PlantListItem";
 import config from "../../config";
 import { favoritosData } from "../api/dataplantas";
 
-const ListaPlanta = (props) => {
-  const { data, navigation, favoritos} = props;
+const ListaPlanta = ({ data, navigation, usuario }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -19,8 +17,8 @@ const ListaPlanta = (props) => {
     { label: "OTOÑO", value: "OTOÑO" },
     { label: "Favoritos", value: "Favoritos" },
   ]);
-  const [filteredData, setFilteredData] = useState(data);
-  const [favoritosActualizados, setFav] = useState(favoritos);
+  const [filteredData, setFilteredData] = useState([]);
+  const [favLista, setFavLista] = useState([]);
   const [loading, setLoading] = useState(true);
   const handleFilterChange = (selectedValue) => {
     const actualValue = typeof selectedValue === 'function' ? selectedValue() : selectedValue;
@@ -31,14 +29,15 @@ const ListaPlanta = (props) => {
     }
   };
 
-  const filterData = async (selectedValue, searchTerm) => {
-    let filteredItems = await data;
-    let updatedFavoritos = await favoritosData();
-    
+  const filterData = (selectedValue, searchTerm) => {
+    setLoading(true);
+  
+    let filteredItems = data;
+  
     if (selectedValue !== null) {
       if (selectedValue === "Favoritos") {
-        filteredItems = await data.filter((item) =>
-          updatedFavoritos.some((favItem) => favItem.PlantaID === item.id)
+        filteredItems = favLista.map((favItem) =>
+          data.find((item) => favItem.PlantaID === item.id)
         );
         setLoading(true);
       } else {
@@ -49,32 +48,42 @@ const ListaPlanta = (props) => {
         setLoading(true);
       }
     }
-    
+  
     if (searchTerm) {
       console.log(filteredItems)
       filteredItems = await filteredItems.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
+  
     setFilteredData(filteredItems);
     setFav(updatedFavoritos); // Update favoritos after filtering
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      filterData(value, searchTerm);
+    const fetchDataAndFavorites = async () => {
+      const favLista = await fetchData(
+        `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`
+      );
+      setFavLista(favLista);
+      const initialFilteredData = data.filter((item) =>
+        favLista.some((favItem) => favItem.PlantaID === item.id)
+      );
+      setFilteredData(initialFilteredData);
+      setLoading(false);
     };
-  
-    fetchData();
-  }, [value, searchTerm]);
-  const onLoad = () => {
-    setLoading(false);
-    console.log("Dejo de cargar" + loading);
-  }
+
+    fetchDataAndFavorites();
+  }, [data, usuario.id]);
+
   const renderItem = ({ item }) => (
-    <PlantListItem item={item} navigation={navigation} data={filteredData} fav={favoritosActualizados } onLoad={onLoad}/>
-    
+    <PlantListItem
+      item={item}
+      navigation={navigation}
+      data={data}
+      fav={favLista}
+      usuario={usuario}
+    />
   );
 
   if (data == []|| favoritosActualizados == []) {
