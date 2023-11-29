@@ -49,7 +49,9 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
           data.find((item) => favItem.PlantaID === item.id)
         );
       } else {
+        console.log(filteredItems)
         filteredItems = data.filter(
+        
           (item) => item.estacion_recomendada === selectedValue
         );
       }
@@ -60,7 +62,7 @@ const ListaPlanta = ({ data, navigation, usuario }) => {
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-  
+    console.log(filteredItems)
     setFilteredData(filteredItems);
     setLoading(false);
   };
