@@ -17,6 +17,16 @@ import { getProfilePictureSource } from "../utils/user";
 import { useIsFocused } from "@react-navigation/native";
 import { useModoOscuro } from '../context/ModoOscuroContext';
 import config from "../../config";
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 import ListaAgru from "../components/ListaAgru";
 import AgruItem from "../components/AgruItem";
@@ -24,6 +34,7 @@ const User = ({ navigation }) => {
   const [user, setUser] = useState([]);
   const { modoOscuroActivado }= useModoOscuro();
   const [profilePicture, setProfilePicture] = useState(null);
+  const styles = getStyles(modoOscuroActivado);
 
   const elements = [
     { id: 1, title: "balcon", imageSource: require("../../assets/Fresa.png") },
@@ -149,10 +160,11 @@ const User = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (modoOscuroActivado) => {
+  return {
   container: {
     flex: 1,
-    backgroundColor: "#F0F0F0",
+    backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
     padding: 10,
   },
   centeredView: {
@@ -164,10 +176,10 @@ const styles = StyleSheet.create({
   },
   profileImageBackground: {
     borderRadius: 100,
-    backgroundColor: "lightgrey",
+    backgroundColor: modoOscuroActivado ? lightModeBackground : "lightgrey",
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "black",
+    borderColor: modoOscuroActivado ? 'lightgrey' : 'black',
     borderWidth: 3,
   },
   profileImage: {
@@ -205,6 +217,6 @@ const styles = StyleSheet.create({
     height: 30,
   },
   // ... Otros estilos
-});
+}};
 
 export default User;
