@@ -8,7 +8,7 @@ import { getPlantPicture } from "../utils/user";
 function PlantListItem({ item, navigation, data, fav, usuario }) {
   const [check, setCheck] = useState(false);
   const [picture, setPicture] = useState(null);
-
+  const [favorit, setfavoritos] = useState(null);
   useEffect(() => {
     setPicture(getPlantPicture(item.id));
     IconoPlantaFav();
@@ -16,13 +16,14 @@ function PlantListItem({ item, navigation, data, fav, usuario }) {
 
   const IconoPlantaFav = async () => {
     try {
+      console.log(fav)
       const api_call32 = await fetch(
         `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`,
         { method: "GET" }
       );
 
       const favLista = await api_call32.json();
-      setCheck(favLista.some((favit) => favit.PlantaID === item.id));
+      setCheck(await favLista.some((favit) => favit.PlantaID === item.id));
     } catch (e) {
       console.error(e);
       Alert.alert("Network error");
