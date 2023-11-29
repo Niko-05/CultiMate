@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { View, Text, FlatList, TextInput, StyleSheet } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import PlantListItem from "./PlantListItem";
 import config from "../../config";
 
-const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
+const ListaPlanta = ({ data, navigation, usuario }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -22,8 +16,8 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
     { label: "Otoño", value: "Otoño" },
     { label: "Favoritos", value: "Favoritos" },
   ]);
-  const [filteredData, setFilteredData] = useState(data);
-  const [favList, setFav] = useState(favLista);
+  const [filteredData, setFilteredData] = useState([]);
+  const [favLista, setFavLista] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleFilterChange = (selectedValue) => {
@@ -44,21 +38,15 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
     }
   };
 
-  const filterData = async (selectedValue, searchTerm) => {
+  const filterData = (selectedValue, searchTerm) => {
     setLoading(true);
-
+  
     let filteredItems = data;
-
+  
     if (selectedValue !== null) {
       if (selectedValue === "Favoritos") {
-        const favLista = await fetchData(
-          `${config.API}/fav/favoritos?id=${encodeURIComponent(
-            usuario.id
-          )}`
-        );
-        setFav(favLista);
-        filteredItems = data.filter((item) =>
-          favLista.some((favItem) => favItem.PlantaID === item.id)
+        filteredItems = favLista.map((favItem) =>
+          data.find((item) => favItem.PlantaID === item.id)
         );
       } else {
         filteredItems = data.filter(
@@ -66,26 +54,41 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
         );
       }
     }
-
-
+  
     if (searchTerm) {
       filteredItems = filteredItems.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
-
+  
     setFilteredData(filteredItems);
     setLoading(false);
   };
 
-
   useEffect(() => {
-    filterData(value, searchTerm);
-  }, [value, data, searchTerm, favLista]);
+    const fetchDataAndFavorites = async () => {
+      const favLista = await fetchData(
+        `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`
+      );
+      setFavLista(favLista);
+      const initialFilteredData = data.filter((item) =>
+        favLista.some((favItem) => favItem.PlantaID === item.id)
+      );
+      setFilteredData(initialFilteredData);
+      setLoading(false);
+    };
+
+    fetchDataAndFavorites();
+  }, [data, usuario.id]);
 
   const renderItem = ({ item }) => (
-    <PlantListItem item={item} navigation={navigation} data={data} fav={favLista} usuario={usuario} />
+    <PlantListItem
+      item={item}
+      navigation={navigation}
+      data={data}
+      fav={favLista}
+      usuario={usuario}
+    />
   );
 
   if (loading) {
