@@ -1,60 +1,90 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import { useState, useEffect } from 'react';
+import { useModoOscuro } from "../context/ModoOscuroContext";
+import { lightModeBackground, darkModeBackground, lightModeText, darkModeText } from "../utils/colores";
+import { obtenerModoOscuro, obtenerIdioma } from '../utils/storage';
+import esTranslations from "../language/es.json";
+import enTranslations from "../language/en.json";
 
 const PreguntasFrecuentes = () => {
-    const preguntas = [
-        {
-            pregunta: "¿Cómo puedo crear una cuenta en CultiMate?",
-            respuesta:
-                'Para crear una cuenta en CultiMate, simplemente haz clic en el botón "Registrarse" en la página de inicio y sigue las instrucciones.',
-        },
-        {
-            pregunta: "¿Cómo puedo agregar una planta a mi lista de seguimiento?",
-            respuesta:
-                'Para agregar una planta a tu lista de seguimiento, busca la planta en la página de búsqueda y haz clic en el botón "Agregar a mi lista".',
-        },
-        {
-            pregunta: "¿Cómo puedo eliminar una planta de mi lista de seguimiento?",
-            respuesta:
-                'Para eliminar una planta de tu lista de seguimiento, ve a la página de tu lista de seguimiento y haz clic en el botón "Eliminar" junto a la planta que deseas eliminar.',
-        },
-    ];
+    const { modoOscuroActivado } = useModoOscuro();
+    const [selectedLanguage, setSelectedLanguage] = useState('es');
+    const [translations, setTranslations] = useState(esTranslations);
+    const styles = getStyles(modoOscuroActivado);
+    const preguntas = []
+
+    const cargarIdioma = async () => {
+        const idiomaGuardado = await obtenerIdioma();
+        setSelectedLanguage(idiomaGuardado);
+    };
+
+    const cargarTraducciones = async () => {
+        try {
+            let translationsByLanguage;
+            switch (selectedLanguage) {
+                case 'es':
+                    translationsByLanguage = esTranslations;
+                    break;
+                case 'en':
+                    translationsByLanguage = enTranslations;
+                    break;
+                default:
+                    translationsByLanguage = esTranslations; // Por defecto, usa las traducciones en español
+            }
+            setTranslations(translationsByLanguage);
+        } catch (error) {
+            console.error('Error cargando traducciones', error);
+        }
+    };
+
+    useEffect(() => {
+        cargarTraducciones();
+        cargarIdioma();
+    }, [selectedLanguage]);
+
+    const preguntasKeys = Object.keys(translations.preguntasFrecScreen);
 
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>Preguntas frecuentes</Text>
-            {preguntas.map((pregunta, index) => (
+            {preguntasKeys.map((preguntaKey, index) => (
                 <View key={index} style={styles.preguntaContainer}>
-                    <Text style={styles.pregunta}>{pregunta.pregunta}</Text>
-                    <Text style={styles.respuesta}>{pregunta.respuesta}</Text>
+                    <Text style={styles.pregunta}>{translations.preguntasFrecScreen[preguntaKey].pregunta}</Text>
+                    <Text style={styles.respuesta}>{translations.preguntasFrecScreen[preguntaKey].respuesta}</Text>
                 </View>
             ))}
         </ScrollView>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 20,
-    },
-    preguntaContainer: {
-        marginBottom: 20,
-    },
-    pregunta: {
-        fontSize: 18,
-        fontWeight: "bold",
-        marginBottom: 10,
-    },
-    respuesta: {
-        fontSize: 16,
-    },
-});
+const getStyles = (modoOscuroActivado) => {
+    return {
+        container: {
+            flex: 1,
+            padding: 20,
+            backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
+        },
+        title: {
+            fontSize: 24,
+            fontWeight: "bold",
+            color: modoOscuroActivado ? darkModeText : lightModeText,
+            marginBottom: 20,
+        },
+        preguntaContainer: {
+            marginBottom: 20,
+        },
+        pregunta: {
+            fontSize: 18,
+            fontWeight: "bold",
+            color: modoOscuroActivado ? darkModeText : lightModeText,
+            marginBottom: 10,
+        },
+        respuesta: {
+            fontSize: 16,
+            color: modoOscuroActivado ? darkModeText : lightModeText,
+        },
+    };
+};
 
 export default PreguntasFrecuentes;
-

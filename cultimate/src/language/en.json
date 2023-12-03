@@ -5,5 +5,32 @@
         "language" : "Language",
         "darkMode" : "Night mode",
         "accountSettings" : "Account settings"
+    },
+    
+    "preguntasFrecScreen" : {
+        "Coso1" : {
+            "pregunta" : "How do I change my password?",
+            "respuesta" : "You can change your password in the account settings section."
+        },
+        "Coso2" : {
+            "pregunta" : "How do I change my email?",
+            "respuesta" : "You can change your email in the account settings section."
+        },
+        "Coso3" : {
+            "pregunta" : "How do I change my username?",
+            "respuesta" : "You can change your username in the account settings section."
+        },
+        "Coso4" : {
+            "pregunta" : "How do I change my profile picture?",
+            "respuesta" : "You can change your profile picture in the account settings section."
+        },
+        "Coso5" : {
+            "pregunta" : "How do I set night mode?",
+            "respuesta" : "You can set night mode in the configuration section."
+        },
+        "Coso6" : {
+            "pregunta" : "How do I change the language?",
+            "respuesta" : "You can change the language in the configuration section."
+        }
     }
 }

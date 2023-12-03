@@ -1,38 +1,26 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { guardarIdiomaAsyncStorage, obtenerIdiomaAsyncStorage } from '../utils/storage';
+import { guardarIdioma, obtenerIdioma} from '../utils/storage';
 
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('es');
 
-  useEffect(() => {
-    const cargarIdioma = async () => {
-      try {
-        const idiomaGuardado = await AsyncStorage.getItem('idioma');
-        setSelectedLanguage(idiomaGuardado || 'es');
-      } catch (error) {
-        console.error('Error al cargar el idioma desde AsyncStorage:', error);
-      }
+    useEffect(() => {
+        obtenerIdioma().then((idiomaGuardado) => {
+        setSelectedLanguage(idiomaGuardado);
+        });
+    }, []);
+
+    const toggleLanguage = (valor) => {
+
+        setSelectedLanguage(valor);
+        guardarIdioma(valor);
     };
 
-    cargarIdioma();
-  }, []);
-
-  const changeLanguage = async (language) => {
-    try {
-      await AsyncStorage.setItem('idioma', language);
-      setSelectedLanguage(language);
-    } catch (error) {
-      console.error('Error al guardar el idioma en AsyncStorage:', error);
-    }
-  };
 
   return (
-    <LanguageContext.Provider
-      value={{ selectedLanguage, changeLanguage }}
-    >
+    <LanguageContext.Provider value={{ selectedLanguage, toggleLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

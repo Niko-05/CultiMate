@@ -45,6 +45,7 @@ const ConfigScreen = ({ navigation }) => {
 
   const cargarIdioma = async () => {
     const idiomaGuardado = await obtenerIdioma();
+    setSelectedLanguage(idiomaGuardado);
     changeLanguage(idiomaGuardado);
   };
 

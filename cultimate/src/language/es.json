@@ -5,5 +5,32 @@
         "language" : "Idioma",
         "darkMode" : "Modo oscuro",
         "accountSettings" : "Configuración de la cuenta"
+    },
+
+    "preguntasFrecScreen" : {
+        "Coso1" : {
+            "pregunta" : "¿Cómo puedo cambiar mi contraseña?",
+            "respuesta" : "Para cambiar tu contraseña debes ir a la pantalla de configuración de la cuenta y seleccionar la opción de cambiar contraseña."
+        },
+        "Coso2" : {
+            "pregunta" : "¿Cómo puedo cambiar mi nombre de usuario?",
+            "respuesta" : "Para cambiar tu nombre de usuario debes ir a la pantalla de configuración de la cuenta y seleccionar la opción de cambiar nombre de usuario."
+        },
+        "Coso3" : {
+            "pregunta" : "¿Cómo puedo cambiar mi correo electrónico?",
+            "respuesta" : "Para cambiar tu correo electrónico debes ir a la pantalla de configuración de la cuenta y seleccionar la opción de cambiar correo electrónico."
+        },
+        "Coso4" : {
+            "pregunta" : "¿Cómo puedo cambiar mi foto de perfil?",
+            "respuesta" : "Para cambiar tu foto de perfil debes ir a la pantalla de configuración de la cuenta y seleccionar la opción de cambiar foto de perfil."
+        },
+        "Coso5" : {
+            "pregunta" : "¿Cómo puedo poner el modo oscuro?",
+            "respuesta" : "Para poner el modo oscuro debes ir a la pantalla de configuración y seleccionar la opción de modo oscuro."
+        },
+        "Coso6" : {
+            "pregunta" : "¿Cómo puedo cambiar el idioma?",
+            "respuesta" : "Para cambiar el idioma debes ir a la pantalla de configuración y seleccionar la opción de idioma."
+        }
     }
 }
