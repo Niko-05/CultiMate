@@ -1,0 +1,9 @@
+{
+    "configuracionScreen" : {
+        "notifications" : "Notificaciones",
+        "sounds" : "Sonidos",
+        "language" : "Idioma",
+        "darkMode" : "Modo oscuro",
+        "accountSettings" : "Configuración de la cuenta"
+    }
+}
