@@ -6,5 +6,7 @@
   "lightbuttonBackground": "#FFFFFF",
   "darkbuttonBackground": "#1A202C",
   "lightbuttonText": "#000000",
-  "darkbuttonText": "#FFFFFF"
+  "darkbuttonText": "#FFFFFF",
+  "darkModeButton": "#1A202C",
+  "lightModeButton": "#FFFFFF"
 }

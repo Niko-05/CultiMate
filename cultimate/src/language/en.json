@@ -32,5 +32,34 @@
             "pregunta" : "How do I change the language?",
             "respuesta" : "You can change the language in the configuration section."
         }
+    },
+    "acountsettings": {
+        "Errors":{
+            "errorFields": "Please fill in all the fields",
+            "errorUsername": "The username is already in use",
+            "errorFormatoEmail": "The email format is not correct",
+            "errorEmail": "The email is already in use",
+            "errorMatchContrasena": "The passwords do not match",
+            "errorContrasena": "The current password is not correct"
+        },
+        "Success" : {
+            "successUsername": "Your username has been successfully updated",
+            "successEmail": "Your email has been successfully updated",
+            "successContrasena": "Your password has been successfully updated"
+        },
+        "Texts" : {
+            "cambiarUsername": "Change username",
+            "placeholderUsername": "New username",
+            "Envio": "Submit",
+            "usernameActual": "Current username",
+            "cambiarEmail": "Change email",
+            "placeholderEmail": "New email",
+            "emailActual": "Current email",
+            "cambiarContrasena": "Change password",
+            "oldContrasena": "Current password",
+            "placeholderContrasena": "New password",
+            "placeholderContrasena2": "Repeat new password"
+        }
+
     }
 }

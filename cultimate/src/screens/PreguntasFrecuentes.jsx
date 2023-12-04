@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { useState, useEffect } from 'react';
 import { useModoOscuro } from "../context/ModoOscuroContext";
 import { lightModeBackground, darkModeBackground, lightModeText, darkModeText } from "../utils/colores";
-import { obtenerModoOscuro, obtenerIdioma } from '../utils/storage';
+import { obtenerIdioma } from '../utils/storage';
 import esTranslations from "../language/es.json";
 import enTranslations from "../language/en.json";
 
@@ -12,7 +12,6 @@ const PreguntasFrecuentes = () => {
     const [selectedLanguage, setSelectedLanguage] = useState('es');
     const [translations, setTranslations] = useState(esTranslations);
     const styles = getStyles(modoOscuroActivado);
-    const preguntas = []
 
     const cargarIdioma = async () => {
         const idiomaGuardado = await obtenerIdioma();

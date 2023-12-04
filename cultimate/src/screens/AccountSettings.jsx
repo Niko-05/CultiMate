@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, ActivityIndicator, TextInput, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useModoOscuro } from "../context/ModoOscuroContext";
+import { lightModeBackground, darkModeBackground, lightModeText, darkModeText, darkModeButton, lightModeButton, darkbuttonText, lightbuttonText } from "../utils/colores";
+import { obtenerIdioma } from '../utils/storage';
+import esTranslations from "../language/es.json";
+import enTranslations from "../language/en.json";
 import {
   getUserInfo,
   changeUsername,
@@ -19,6 +24,34 @@ function AccountSettings() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+  const { modoOscuroActivado } = useModoOscuro();
+  const [selectedLanguage, setSelectedLanguage] = useState('es');
+  const [translations, setTranslations] = useState(esTranslations);
+  const styles = getStyles(modoOscuroActivado);
+
+  const cargarIdioma = async () => {
+    const idiomaGuardado = await obtenerIdioma();
+    setSelectedLanguage(idiomaGuardado);
+};
+
+const cargarTraducciones = async () => {
+  try {
+      let translationsByLanguage;
+      switch (selectedLanguage) {
+          case 'es':
+              translationsByLanguage = esTranslations;
+              break;
+          case 'en':
+              translationsByLanguage = enTranslations;
+              break;
+          default:
+              translationsByLanguage = esTranslations; // Por defecto, usa las traducciones en español
+      }
+      setTranslations(translationsByLanguage);
+  } catch (error) {
+      console.error('Error cargando traducciones', error);
+  }
+};
 
   const setUserInfo = async () => {
     const userinfo = await getUserInfo();
@@ -28,20 +61,22 @@ function AccountSettings() {
 
   useEffect(() => {
     setUserInfo();
-  }, []);
+    cargarTraducciones();
+    cargarIdioma();
+  }, [selectedLanguage]);
 
   const handleSubmitNewUsername = async () => {
     if (newUsername === "") {
-      Alert.alert("Error", "You must fill all the fields");
+      Alert.alert("Error", translations.acountsettings.Errors.errorFields);
       return;
     }
     if (!(await checkDuplicateUsername(newUsername))) {
-      Alert.alert("Error", "The username is already taken");
+      Alert.alert("Error", translations.acountsettings.Errors.errorUsername);
       return;
     }
     const result = await changeUsername(newUsername);
     if (result) {
-      Alert.alert("Success", "Username changed successfully");
+      Alert.alert("Success", translations.acountsettings.Success.successUsername);
       setUserInfo();
       setNewUsername("");
     }
@@ -49,20 +84,20 @@ function AccountSettings() {
 
   const handleSubmitNewEmail = async () => {
     if (newEmail === "") {
-      Alert.alert("Error", "You must fill all the fields");
+      Alert.alert("Error", translations.acountsettings.Errors.errorFields);
       return;
     }
     if (!validator.isEmail(newEmail)) {
-      Alert.alert("Error", "The email is not valid");
+      Alert.alert("Error", translations.acountsettings.Errors.errorFormatoEmail);
       return;
     }
     if (!(await checkDuplicateEmail(newEmail))) {
-      Alert.alert("Error", "The email is already taken");
+      Alert.alert("Error", translations.acountsettings.Errors.errorEmail);
       return;
     }
     const result = await changeEmail(newEmail);
     if (result) {
-      Alert.alert("Success", "Email changed successfully");
+      Alert.alert("Success", translations.acountsettings.Success.successEmail);
       setUserInfo();
       setNewEmail("");
     }
@@ -70,20 +105,20 @@ function AccountSettings() {
 
   const handleSubmitNewPassword = async () => {
     if (password === "" || newPassword === "" || newPasswordConfirm === "") {
-      Alert.alert("Error", "You must fill all the fields");
+      Alert.alert("Error", translations.acountsettings.Errors.errorFields);
       return;
     }
     if (newPassword !== newPasswordConfirm) {
-      Alert.alert("Error", "The new passwords don't match");
+      Alert.alert("Error", translations.acountsettings.Errors.errorMatchContrasena);
       return;
     }
     if (password !== user.password) {
-      Alert.alert("Error", "The current password is incorrect");
+      Alert.alert("Error", translations.acountsettings.Errors.errorContrasena);
       return;
     }
     const result = await changePassword(newPassword);
     if (result) {
-      Alert.alert("Success", "Password changed successfully");
+      Alert.alert("Success", translations.acountsettings.Success.successContrasena);
       setUserInfo();
       setPassword("");
       setNewPassword("");
@@ -92,66 +127,69 @@ function AccountSettings() {
   };
 
   return (
-    <View className="flex-1">
+    <View style = {styles.container}>
       {Object.keys(user).length == 0 ? (
         <View className="flex-1 content-center justify-center">
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       ) : (
         <View className="flex-1 px-3 space-y-4 mt-4">
-          <View className="space-y-3">
-            <Text className="text-lg font-bold">Change username:</Text>
+          <View style = {styles.bloque}>
+            <Text style = {styles.text}> {translations.acountsettings.Texts.cambiarUsername}:</Text>
             <View className="flex-row space-x-2">
               <TextInput
                 value={newUsername}
-                className="border-b-2 border-gray-300 py-2 flex-1"
+                style = {styles.textImput}
                 inputMode="text"
-                placeholder="New username"
+                placeholder= {translations.acountsettings.Texts.placeholderUsername}
+                placeholderTextColor={ modoOscuroActivado ? '#b8b7b6' : '#718096'}
                 onChangeText={(value) => setNewUsername(value)}
               />
               <TouchableOpacity
-                className="bg-slate-500 p-3 rounded-md"
+                style = {styles.button}
                 onPress={() => handleSubmitNewUsername()}
               >
-                <Text className="text-white">Submit</Text>
+                <Text style = {styles.buttonText}>{translations.acountsettings.Texts.Envio}</Text>
               </TouchableOpacity>
             </View>
             <View className="flex-row space-x-1">
-              <Text className="font-bold text-gray-500">Current username:</Text>
-              <Text className="text-gray-500">{user.username}</Text>
+              <Text style = {styles.text2}>{translations.acountsettings.Texts.usernameActual}:</Text>
+              <Text style = {styles.text3}>{user.username}</Text>
             </View>
           </View>
-          <View className="space-y-3">
-            <Text className="text-lg font-bold">Change Email:</Text>
+          <View style = {styles.bloque}>
+            <Text style = {styles.text}>{translations.acountsettings.Texts.cambiarEmail}:</Text>
             <View className="flex-row space-x-2">
               <TextInput
                 value={newEmail}
-                className="border-b-2 border-gray-300 py-2 flex-1"
+                style={styles.textImput}
                 inputMode="text"
-                placeholder="New Email"
+                placeholder={translations.acountsettings.Texts.placeholderEmail}
+                placeholderTextColor={ modoOscuroActivado ? '#b8b7b6' : '#718096'}
                 onChangeText={(value) => setNewEmail(value)}
               />
               <TouchableOpacity
-                className="bg-slate-500 p-3 rounded-md"
+                style = {styles.button}
                 onPress={() => handleSubmitNewEmail()}
               >
-                <Text className="text-white">Submit</Text>
+                <Text style = {styles.buttonText}>{translations.acountsettings.Texts.Envio}</Text>
               </TouchableOpacity>
             </View>
             <View className="flex-row space-x-1">
-              <Text className="font-bold text-gray-500">Current Email:</Text>
-              <Text className="text-gray-500">{user.email}</Text>
+              <Text style = {styles.text2}>{translations.acountsettings.Texts.emailActual}:</Text>
+              <Text style = {styles.text3}>{user.email}</Text>
             </View>
           </View>
-          <View className="space-y-3">
-            <Text className="text-lg font-bold">Change Password:</Text>
+          <View style = {styles.bloque}>
+            <Text style = {styles.text}>{translations.acountsettings.Texts.cambiarContrasena}:</Text>
             <View className="flex-col space-y-2">
               <View className="h-10">
                 <TextInput
                   value={password}
-                  className="border-b-2 border-gray-300 py-2 flex-1"
+                  style={styles.textImput}
                   inputMode="text"
-                  placeholder="Old Password"
+                  placeholder={translations.acountsettings.Texts.oldContrasena}
+                  placeholderTextColor={ modoOscuroActivado ? '#b8b7b6' : '#718096'}
                   secureTextEntry
                   onChangeText={(value) => setPassword(value)}
                 />
@@ -159,9 +197,10 @@ function AccountSettings() {
               <View className="h-10">
                 <TextInput
                   value={newPassword}
-                  className="border-b-2 border-gray-300 py-2 flex-1"
+                  style={styles.textImput}
                   inputMode="text"
-                  placeholder="New Password"
+                  placeholder={translations.acountsettings.Texts.placeholderContrasena}
+                  placeholderTextColor={ modoOscuroActivado ? '#b8b7b6' : '#718096'}
                   secureTextEntry
                   onChangeText={(value) => setNewPassword(value)}
                 />
@@ -169,19 +208,20 @@ function AccountSettings() {
               <View className="h-10">
                 <TextInput
                   value={newPasswordConfirm}
-                  className="border-b-2 border-gray-300 py-2 flex-1"
+                  style={styles.textImput}
                   inputMode="text"
-                  placeholder="Confirm new Password"
+                  placeholder={translations.acountsettings.Texts.placeholderContrasena2}
+                  placeholderTextColor={ modoOscuroActivado ? '#b8b7b6' : '#718096'}
                   secureTextEntry
                   onChangeText={(value) => setNewPasswordConfirm(value)}
                 />
               </View>
             </View>
             <TouchableOpacity
-              className="bg-slate-500 p-3 rounded-md"
+              style = {styles.buttonEnvio}
               onPress={() => handleSubmitNewPassword()}
             >
-              <Text className="text-white text-center">Submit</Text>
+              <Text style = {styles.buttonText}>{translations.acountsettings.Texts.Envio}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -191,3 +231,53 @@ function AccountSettings() {
 }
 
 export default AccountSettings;
+
+const getStyles = (modoOscuroActivado) => {
+  return {
+    bloque: {
+      paddingBottom: 30,
+      backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
+    },
+    container: {
+      flex: 1,
+      backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
+    },
+    text: {
+      fontSize: 18,
+      fontWeight: 'bold', 
+      color: modoOscuroActivado ? darkModeText : lightModeText,
+    },
+    text2: {
+      fontWeight: 'bold', 
+      color: modoOscuroActivado? '#b8b7b6' : '#718096', 
+      paddingTop: 10,
+    },
+    text3: {
+      color: modoOscuroActivado ? '#b8b7b6' :'#718096',
+      textAlign: 'center',
+      paddingTop: 10, 
+    },
+    button: {
+      backgroundColor: modoOscuroActivado ? darkModeButton : lightModeButton, 
+      padding: 12, 
+      borderRadius: 8, 
+    },
+    buttonEnvio: {
+      backgroundColor: modoOscuroActivado ? darkModeButton : lightModeButton, 
+      padding: 12, 
+      borderRadius: 8, 
+      marginTop: 20,
+    },
+    buttonText: {
+      fontWeight: 'bold', 
+      color: modoOscuroActivado ? darkbuttonText : lightbuttonText,
+      textAlign: 'center', 
+    },
+    textImput: {
+      borderBottomWidth: 2,
+      borderBottomColor: 'gray',
+      paddingBottom: 2,
+      flex: 1,
+      color: modoOscuroActivado ? darkModeText : lightModeText,
+    },
+  }}

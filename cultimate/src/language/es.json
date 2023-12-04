@@ -32,5 +32,34 @@
             "pregunta" : "¿Cómo puedo cambiar el idioma?",
             "respuesta" : "Para cambiar el idioma debes ir a la pantalla de configuración y seleccionar la opción de idioma."
         }
+    },
+    "acountsettings": {
+        "Errors":{
+            "errorFields": "Por favor, rellene todos los campos",
+            "errorUsername": "El nombre de usuario ya está en uso",
+            "errorFormatoEmail": "El correo electrónico no es válido",
+            "errorEmail": "El correo electrónico ya está en uso",
+            "errorMatchContrasena": "Las contraseñas no coinciden",
+            "errorContrasena": "La contraseña actual no es la correcta"
+        },
+        "Success" : {
+            "successUsername": "Tu nombre de usuario se ha actualizado con éxito",
+            "successEmail": "Tu dirección de correo se ha actualizado con éxito",
+            "successContrasena": "Tu contraseña se ha actualizado con éxito"
+        },
+        "Texts" : {
+            "cambiarUsername": "Cambiar nombre de usuario",
+            "placeholderUsername": "Introduce tu nuevo nombre de usuario",
+            "Envio": "Enviar",
+            "usernameActual": "Nombre de usuario actual",
+            "cambiarEmail": "Cambiar correo electrónico",
+            "placeholderEmail": "Introduce tu nuevo correo electrónico",
+            "emailActual": "Correo electrónico actual",
+            "cambiarContrasena": "Cambiar contraseña",
+            "oldContrasena": "Contraseña actual",
+            "placeholderContrasena": "Introduce tu nueva contraseña",
+            "placeholderContrasena2": "Repite tu nueva contraseña"
+        }
+
     }
 }
