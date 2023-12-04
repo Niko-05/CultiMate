@@ -46,7 +46,8 @@ const PreguntasFrecuentes = () => {
 
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.title}>Preguntas frecuentes</Text>
+            <Text style={styles.title}>{translations.preguntasFrecScreen.preguntasFrec}</Text>
+            <View className="border-b-2 border-gray-300 py-2 flex-1"></View>
             {preguntasKeys.map((preguntaKey, index) => (
                 <View key={index} style={styles.preguntaContainer}>
                     <Text style={styles.pregunta}>{translations.preguntasFrecScreen[preguntaKey].pregunta}</Text>
@@ -68,16 +69,18 @@ const getStyles = (modoOscuroActivado) => {
             fontSize: 24,
             fontWeight: "bold",
             color: modoOscuroActivado ? darkModeText : lightModeText,
-            marginBottom: 20,
+            marginBottom: 0,
+            paddingTop: 20,
+            alignSelf: "center",
         },
         preguntaContainer: {
-            marginBottom: 20,
+            marginBottom: 50,
         },
         pregunta: {
             fontSize: 18,
             fontWeight: "bold",
             color: modoOscuroActivado ? darkModeText : lightModeText,
-            marginBottom: 10,
+            marginBottom: 15,
         },
         respuesta: {
             fontSize: 16,

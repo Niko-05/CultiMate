@@ -8,6 +8,7 @@
     },
     
     "preguntasFrecScreen" : {
+        "preguntasFrec" : "Frequently Asked Questions",
         "Coso1" : {
             "pregunta" : "How do I change my password?",
             "respuesta" : "You can change your password in the account settings section."

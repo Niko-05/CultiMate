@@ -8,6 +8,7 @@
     },
 
     "preguntasFrecScreen" : {
+        "preguntasFrec" : "Preguntas frecuentes",
         "Coso1" : {
             "pregunta" : "¿Cómo puedo cambiar mi contraseña?",
             "respuesta" : "Para cambiar tu contraseña debes ir a la pantalla de configuración de la cuenta y seleccionar la opción de cambiar contraseña."
