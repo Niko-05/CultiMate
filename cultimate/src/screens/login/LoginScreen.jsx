@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useEffect } from "react";
 import {
+ 
   View,
+ 
   Text,
+ 
   TouchableOpacity,
+ 
   Alert,
+ 
   Image,
+ 
   StyleSheet,
   TextInput,
   KeyboardAvoidingView,
+,
+  TextInput,
+  ActivityIndicator,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { loginUser } from "../../api/user";
@@ -17,6 +26,7 @@ const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const getUser = async () => {
     if (email === "" || password === "") {
