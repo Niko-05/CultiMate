@@ -36,12 +36,13 @@ export const checkDuplicateEmail = async (email) => {
   }
 };
 
-export const registerUser = async (username, password, email) => {
+export const registerUser = async (username, password, email, fullName) => {
   try {
     const requestBody = {
       username: username,
       password: password,
       email: email,
+      fullName: fullName,
     };
     const api_call = await fetch(`${config.API}/user/register`, {
       method: "POST",
@@ -52,6 +53,47 @@ export const registerUser = async (username, password, email) => {
     });
     const response = await api_call.json();
     await SecureStore.setItemAsync("accesstoken", response.accesstoken);
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
+
+export const registerUserAddress = async (
+  address,
+  city,
+  state,
+  country,
+  postalCode
+) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      address: address,
+      city: city,
+      state: state,
+      country: country,
+      postalCode: postalCode,
+    };
+    const api_call = await fetch(`${config.API}/user/registerAddress`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
     return true;
   } catch (e) {
     console.error(e);
@@ -207,7 +249,7 @@ export const changePassword = async (password) => {
 export const changeProfilePicture = async (profilePictureId) => {
   try {
     const token = await SecureStore.getItemAsync("accesstoken");
-    console.log('Token:', token);
+    console.log("Token:", token);
     const updatedData = {
       profilePictureId: profilePictureId,
     };

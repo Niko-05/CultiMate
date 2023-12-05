@@ -2,7 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Infoplanta from "../screens/Infoplanta";
 import Navigation from "./Navigation";
 import GuiaPlantado from "../screens/GuiaPlantado";
-import RegisterScreen from "../screens/login/RegisterScreen";
+import RegisterScreen1 from "../screens/login/RegisterScreen1";
+import RegisterScreen2 from "../screens/login/RegisterScreen2";
 import LoginScreen from "../screens/login/LoginScreen";
 import GuiasPlantado from "../screens/GuiasPlantado";
 import HuertoSimulado from "../screens/huertoSimulado";
@@ -17,7 +18,6 @@ import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
 
-
 const Stack = createStackNavigator();
 const Ventanas = () => {
   return (
@@ -29,8 +29,13 @@ const Ventanas = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
+        name="RegisterScreen1"
+        component={RegisterScreen1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterScreen2"
+        component={RegisterScreen2}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -38,18 +43,21 @@ const Ventanas = () => {
         component={Navigation}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="newPlant" component={newPlant}/>
+      <Stack.Screen name="newPlant" component={newPlant} />
       <Stack.Screen name="Settings" component={ConfigScreen} />
       <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
       <Stack.Screen name="ProfilePicture" component={ProfilePicture} />
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
-      <Stack.Screen name="PreguntasFrecuentes" component={PreguntasFrecuentes} />
+      <Stack.Screen
+        name="PreguntasFrecuentes"
+        component={PreguntasFrecuentes}
+      />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
-      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} /> 
+      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} />
       <Stack.Screen name="ListaPlantadas" component={ListaPlantadas} />
     </Stack.Navigator>
   );

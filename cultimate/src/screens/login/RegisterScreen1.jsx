@@ -1,22 +1,29 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  StyleSheet,
+  Image,
+  Switch,
+  ScrollView,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import TextInputLogin from "../../components/TextInputLogin";
-import CheckIcon from "../../../assets/check-solid.svg";
-import classnames from "classnames";
-import config from "../../../config";
-import validator from "validator";
-import * as SecureStore from "expo-secure-store";
 import {
   checkDuplicateUsername,
   checkDuplicateEmail,
   registerUser,
 } from "../../api/user";
 import { checkValidEmail } from "../../utils/user";
+import ArrowBack from "../../../assets/login/arrow_back.svg";
+import ArrowContinue from "../../../assets/login/arrow_continue.svg";
 
 const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
-  const [check, setCheck] = useState(false);
+  const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +31,7 @@ const RegisterScreen = ({ navigation }) => {
 
   const setUser = async () => {
     if (
+      fullName === "" ||
       username === "" ||
       email === "" ||
       password === "" ||
@@ -48,13 +56,9 @@ const RegisterScreen = ({ navigation }) => {
       Alert.alert("Error", "The passwords do not match");
       return;
     }
-    if (!check) {
-      Alert.alert("Error", "You must accept the terms and conditions");
-      return;
-    }
-    const response = await registerUser(username, password, email);
+    const response = await registerUser(username, password, email, fullName);
     if (response) {
-      navigation.navigate("navigation");
+      navigation.navigate("RegisterScreen2");
     }
   };
 
@@ -126,9 +130,72 @@ const RegisterScreen = ({ navigation }) => {
   //   </View>
   // );
   return (
-    <View style={styles.bg}>
-      <View style={styles.modal}></View>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.bg}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.top}>
+        <TouchableOpacity
+          style={[styles.arrow, { marginTop: insets.top }]}
+          onPress={() => navigation.navigate("LoginScreen")}
+        >
+          <ArrowBack />
+        </TouchableOpacity>
+        <Image
+          source={require("../../../assets/login/pumpkin_transparent.png")}
+          style={styles.pumpkin}
+        />
+        <Text style={styles.formularioText}>Formulario</Text>
+      </View>
+      <View style={styles.modal}>
+        <View className="items-center mt-[20] mb-[40] space-y-[10]">
+          <Text style={styles.text}>DATOS BÁSICOS</Text>
+          <View style={styles.switchContainer}>
+            <View style={styles.switchHandle}></View>
+          </View>
+        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="space-y-[20]"
+          contentContainerStyle={{ alignItems: "center" }}
+        >
+          <TextInput
+            style={styles.input}
+            placeholder="NOMBRE COMPLETO"
+            onChangeText={setFullName}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="NOMBRE DE USUARIO"
+            onChangeText={setUsername}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="CORREO ELECTRÓNICO"
+            onChangeText={setEmail}
+            inputMode="email"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="CONTRASEÑA"
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="CONFIRMA CONTRASEÑA"
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+          />
+          <TouchableOpacity
+            style={styles.continueButton}
+            onPress={() => setUser()}
+          >
+            <ArrowContinue width="20" height="20" />
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -137,13 +204,78 @@ const styles = StyleSheet.create({
     backgroundColor: "#09873D",
     flex: 1,
   },
+  top: {
+    flex: 0.3,
+  },
   modal: {
-    backgroundColor: "#fff",
-    height: "50%",
+    backgroundColor: "white",
+    flex: 0.7,
+    borderRadius: "15 0 15 0",
+    alignItems: "center",
+  },
+  pumpkin: {
+    width: 195,
+    height: 196,
     position: "absolute",
-    bottom: 0,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    top: 0,
+    right: -20,
+  },
+  formularioText: {
+    color: "#FFF",
+    fontFamily: "Integral CF",
+    fontSize: 24,
+    fontWeight: 400,
+    position: "absolute",
+    bottom: 12,
+    left: 30,
+  },
+  arrow: {
+    top: 10,
+    left: 30,
+  },
+  text: {
+    color: "#000",
+    fontFamily: "Inter",
+    fontSize: 14,
+    fontWeight: 500,
+  },
+  switchContainer: {
+    width: 85,
+    height: 20,
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  switchHandle: {
+    backgroundColor: "#2EC26A",
+    width: "50%",
+    borderWidth: 1,
+    borderRadius: 20,
+    position: "absolute",
+    left: -1,
+    top: -1,
+    bottom: -1,
+  },
+  input: {
+    borderRadius: 15,
+    borderColor: "black",
+    padding: 22,
+    borderWidth: 1,
+    backgroundColor: "white",
+    width: 244,
+    color: "black",
+    fontFamily: "Inter",
+    fontSize: 14,
+    fontWeight: 500,
+  },
+  continueButton: {
+    width: 65,
+    height: 31,
+    borderRadius: 30,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
   },
 });
 

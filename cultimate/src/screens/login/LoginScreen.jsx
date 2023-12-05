@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TextInput,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TextInputLogin from "../../components/TextInputLogin";
@@ -115,7 +116,10 @@ const LoginScreen = ({ navigation }) => {
     );
   }
   return (
-    <View className="flex-1 bg-white">
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <Image
         style={styles.pumpkin}
         source={require("../../../assets/login/pumpkin.png")}
@@ -154,13 +158,13 @@ const LoginScreen = ({ navigation }) => {
         <View className="space-y-[30] my-[35]">
           <TextInput
             style={styles.input}
-            placeholder="Correo electrónico"
+            placeholder="CORREO ELECTRÓNICO"
             onChangeText={setEmail}
             inputMode="email"
           />
           <TextInput
             style={styles.input}
-            placeholder="Contraseña"
+            placeholder="CONTRASEÑA"
             onChangeText={setPassword}
             inputMode="text"
             secureTextEntry
@@ -177,12 +181,12 @@ const LoginScreen = ({ navigation }) => {
         </Text>
         <TouchableOpacity
           style={styles.subscribeButton}
-          onPress={() => navigation.navigate("RegisterScreen")}
+          onPress={() => navigation.navigate("RegisterScreen1")}
         >
           <Text style={styles.subscribeButtonText}>Suscríbete aquí</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
