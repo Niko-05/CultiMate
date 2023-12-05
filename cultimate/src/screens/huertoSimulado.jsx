@@ -143,13 +143,14 @@ const HuertoSimulado = ({navigation}) => {
   };
 
     const handleScreenFocus = async () => {
-      if (updateTriggered) {
+      /*if (updateTriggered) {
         await regarPlanta();
         loadData();
       }
       else {
-        loadData();
-      }
+        
+      }*/
+      loadData();
     };
 
     useEffect(() => {
