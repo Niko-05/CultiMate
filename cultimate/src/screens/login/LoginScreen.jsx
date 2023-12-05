@@ -11,9 +11,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import TextInputLogin from "../../components/TextInputLogin";
 import { loginUser } from "../../api/user";
-import EStyleSheet from "react-native-extended-stylesheet";
 import Logo from "../../../assets/login/logo_new.svg";
 import * as Font from "expo-font";
 

@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
   modal: {
     backgroundColor: "white",
     flex: 0.7,
-    borderRadius: "15 0",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     alignItems: "center",
   },
   mushrooms: {

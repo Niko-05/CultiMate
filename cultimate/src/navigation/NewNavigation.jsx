@@ -25,9 +25,9 @@ function MyTabs() {
         component={user}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialCommunityIcons name="group" color={color} size={size} />
           ),
-          headerShown: false,
+
           headerTintColor: "green",
         }}
       />
