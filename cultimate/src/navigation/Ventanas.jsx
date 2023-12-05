@@ -45,7 +45,11 @@ const Ventanas = () => {
       />
       <Stack.Screen name="newPlant" component={newPlant} />
       <Stack.Screen name="Settings" component={ConfigScreen} />
-      <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
+      <Stack.Screen
+        name="AccountSettings"
+        component={AccountSettingsScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="ProfilePicture" component={ProfilePicture} />
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />

@@ -199,7 +199,10 @@ const User = ({ navigation }) => {
               <Text style={styles.fullName}>{user.fullName}</Text>
               <Text style={styles.userName}>@{user.username}</Text>
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("AccountSettings")}
+            >
               <Text>MIS DATOS PERSONALES</Text>
               <ArrowRight />
             </TouchableOpacity>
