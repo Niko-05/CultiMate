@@ -16,23 +16,21 @@ function PlantListItem(props) {
   const { item, navigation, data, fav, onLoad } = props;
   const [check, setCheck] = useState(false);
   const [picture, setPicture] = useState(null);
-  const [favorit, setfavoritos] = useState(null);
+  const [favoritos, setfavoritos] = useState(fav);
   useEffect(() => {
     IconoPlantaFav();
   }, []);
 
   const IconoPlantaFav = async () => {
-    try {
-      const api_call32 = await fetch(
-        `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`,
-        { method: "GET" }
-      );
+    let updatedFavs = await favoritosData();
+    console.log(item.id);
+    let imagen = await getPlantPicture(item.id);
+    setPicture(imagen);
+    setfavoritos(updatedFavs);
+    setCheck(await updatedFavs.some((favit) => favit.PlantaID === item.id));
 
-      const favLista = await api_call32.json();
-      setCheck(await favLista.some((favit) => favit.PlantaID === item.id));
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
+    if (updatedFavs.length === 0 || data[data.length - 1].id === item.id) {
+      onLoad(); // Llama a onLoad si es el último elemento o si no hay elementos
     }
   };
 

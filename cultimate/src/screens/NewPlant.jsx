@@ -18,46 +18,26 @@ import {
 } from "../utils/colores";
 import { getDataPlants } from "../api/dataplantas";
 import { favoritosData } from "../api/dataplantas";
+import { getDataPlants } from "../api/dataplantas";
+import { favoritosData } from "../api/dataplantas";
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const { modoOscuroActivado } = useModoOscuro();
+  const [favoritos, setFavoritos] = useState([]);
+  const { modoOscuroActivado } = useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
-  const cambioFav = async () => {
-    try {
-      const users = await getUserInfo();
-      setUser(users);
-      const token = await SecureStore.getItemAsync("accesstoken");
-      const api_call = await fetch(
-        `${config.API}/fav/favoritos?id=${encodeURIComponent(user.id)}`,
-        { method: "GET" }
-      );
-      const result = await api_call.json();
-      setFav(await result);
-      console.log(favList);
-      if (!api_call.ok) {
-        // Handle non-OK response status
-        Alert.alert(
-          "API error",
-          `Failed to fetch user data. Status: ${api_call.status}`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
-    }
+  const dataBD = async () => {
+    const res = await getDataPlants();
+    setData(res);
+
+    console.log("Data:" + data);
   };
-  const setFullList = async () => {
-    try {
-      const api_call = await fetch(`${config.API}/planta`);
-      const result = await api_call.json();
-      setData(result);
-    } catch (e) {
-      Alert.alert(
-        "Problema de red",
-        "No se ha podido mostrar el listado de plantas debido a un problema de red."
-      );
-    }
+  const favoritosBD = async () => {
+    const res = await favoritosData();
+    setFavoritos(res);
+
+    console.log("Favels" + favoritos);
   };
 
   useEffect(() => {

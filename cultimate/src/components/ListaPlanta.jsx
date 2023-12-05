@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+  Modal,
+} from "react-native";
+
 import DropDownPicker from "react-native-dropdown-picker";
 import PlantListItem from "./PlantListItem";
 import config from "../../config";
 import { favoritosData } from "../api/dataplantas";
+import { favoritosData } from "../api/dataplantas";
 
-const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
+const ListaPlanta = (props) => {
+  const { data, navigation, favoritos } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -18,9 +29,8 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
     { label: "Favoritos", value: "Favoritos" },
   ]);
   const [filteredData, setFilteredData] = useState(data);
-  const [favList, setFav] = useState(favLista);
-  const [loadingData, setLoadingData] = useState(true);
-  const [loadingFav, setLoadingFav] = useState(true);
+  const [favoritosActualizados, setFav] = useState(favoritos);
+  const [loading, setLoading] = useState(true);
   const handleFilterChange = (selectedValue) => {
     const actualValue =
       typeof selectedValue === "function" ? selectedValue() : selectedValue;
@@ -31,33 +41,22 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
     }
   };
 
-  const fetchData = async (url, method = "GET") => {
-    try {
-      const api_call = await fetch(url, { method });
-      return await api_call.json();
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
-
   const filterData = async (selectedValue, searchTerm) => {
-    let filteredItems = data;
+    let filteredItems = await data;
+    let updatedFavoritos = await favoritosData();
 
     if (selectedValue !== null) {
       if (selectedValue === "Favoritos") {
-        const favLista = await fetchData(
-          `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`
-        );
-        setFav(loadingData || loadingFav);
-        filteredItems = data.filter((item) =>
-          favLista.some((favItem) => favItem.PlantaID === item.id)
+        filteredItems = await data.filter((item) =>
+          updatedFavoritos.some((favItem) => favItem.PlantaID === item.id)
         );
         setLoading(true);
+        setLoading(true);
       } else {
-        filteredItems = data.filter(
+        filteredItems = await data.filter(
           (item) => item.estacion_recomendada === selectedValue
         );
+        setLoading(true);
         setLoading(true);
       }
     }
@@ -70,35 +69,31 @@ const ListaPlanta = ({ data, favLista, navigation, usuario }) => {
     }
 
     setFilteredData(filteredItems);
+    setFav(updatedFavoritos); // Update favoritos after filtering
   };
 
   useEffect(() => {
-    filterData(value, searchTerm);
-    if (data != []) {
-      console.log(data);
-      setLoadingData(false);
-    } else {
-      setLoadingData(true);
-    }
-    if (favLista != []) {
-      console.log(favLista);
-      setLoadingFav(false);
-    } else {
-      setLoadingData(true);
-    }
-  }, [value, data, searchTerm, favLista]);
+    const fetchData = async () => {
+      filterData(value, searchTerm);
+    };
 
+    fetchData();
+  }, [value, searchTerm]);
+  const onLoad = () => {
+    setLoading(false);
+    console.log("Dejo de cargar" + loading);
+  };
   const renderItem = ({ item }) => (
     <PlantListItem
       item={item}
       navigation={navigation}
-      data={data}
-      fav={favLista}
-      usuario={usuario}
+      data={filteredData}
+      fav={favoritosActualizados}
+      onLoad={onLoad}
     />
   );
 
-  if (loadingData || loadingFav) {
+  if (data == [] || favoritosActualizados == []) {
     return <Text>Loading...</Text>;
   }
 
