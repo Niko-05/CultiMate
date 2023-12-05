@@ -4,57 +4,43 @@ import Star from "../../assets/star.svg";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 import { getPlantPicture } from "../utils/user";
-
-function PlantListItem({ item, navigation, data, fav, usuario }) {
+import { addFav, deleteFav, favoritosData } from "../api/dataplantas";
+function PlantListItem(props) {
+  const { item, navigation, data, fav, onLoad } = props
   const [check, setCheck] = useState(false);
   const [picture, setPicture] = useState(null);
-  const [favorit, setfavoritos] = useState(null);
+  const [favoritos, setfavoritos] = useState(fav);
   useEffect(() => {
-    setPicture(getPlantPicture(item.id));
     IconoPlantaFav();
   }, []);
 
   const IconoPlantaFav = async () => {
-    try {
-    
-      const api_call32 = await fetch(
-        `${config.API}/fav/favoritos?id=${encodeURIComponent(usuario.id)}`,
-        { method: "GET" }
-      );
-
-      const favLista = await api_call32.json();
-      setCheck(await favLista.some((favit) => favit.PlantaID === item.id));
-    } catch (e) {
-      console.error(e);
-      Alert.alert("Network error");
+    let updatedFavs = await favoritosData();
+    console.log(item.id);
+    let imagen = await getPlantPicture(item.id);
+    setPicture(imagen);
+    setfavoritos(updatedFavs);
+    setCheck(await updatedFavs.some((favit) => favit.PlantaID === item.id));
+   
+    if (updatedFavs.length === 0 || data[data.length - 1].id === item.id ){
+      
+      onLoad(); // Llama a onLoad si es el último elemento o si no hay elementos
     }
   };
 
   const PlantaEnfavBoton = async () => {
-    try {
-      const uid = usuario.id;
-      const pid = item.id;
-
-      const api_call1 = await fetch(`${config.API}/fav/Rmfavoritos/${encodeURIComponent(uid)}/${encodeURIComponent(pid)}`, {
-        method: "DELETE",
-      });
-
-      if (!check) {
+    try {   
         const requestBody = {
-          uid: usuario.id,
           pid: item.id,
         };
+        if(favoritos.some((favit) => favit.PlantaID === item.id)){
+          await deleteFav(item.id); 
 
-        const api_call2 = await fetch(`${config.API}/fav/Addfavoritos`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        });
-      }
-
-      IconoPlantaFav(); // Move this call here to ensure it's executed after making changes
+        }else{
+          console.log(item.id);
+          await addFav(requestBody)
+        }
+          await IconoPlantaFav(); // Move this call here to ensure it's executed after making changes
     } catch (e) {
       console.error(e);
       Alert.alert("Network error");
@@ -62,6 +48,7 @@ function PlantListItem({ item, navigation, data, fav, usuario }) {
   };
 
   return (
+    
     <TouchableOpacity onPress={() => navigation.navigate("Infoplanta", { id: item.id, data: data })}>
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
