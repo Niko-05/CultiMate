@@ -17,7 +17,7 @@ import {
   darkbuttonText 
 } from "../utils/colores";
 
-const Infoplanta = () => {
+const Infoplanta = ({navigation}) => {
   const route = useRoute();
   const { id, data } = route.params;
   const [guia, setGuia] = useState(null);
@@ -85,6 +85,8 @@ const Infoplanta = () => {
 
         if (api_call.ok && response.message === 'Inserción exitosa') {
             Alert.alert("Éxito", "Planta agregada correctamente");
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            navigation.navigate("Guias de Plantado");
         } else {
             Alert.alert("Error", "No se pudo agregar la planta");
         }

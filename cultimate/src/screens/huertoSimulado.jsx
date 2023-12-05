@@ -67,6 +67,8 @@ const HuertoSimulado = ({navigation}) => {
   const handlePlantWatering = (planta) => {
     regarPlanta(planta);
     console.log("Planta regada:", planta.nombre);
+    navigation.navigate("Tienda");
+    navigation.navigate("Guias de Plantado");
     // Puedes llamar a una función aquí para actualizar el estado de la planta en la base de datos
   };
 
@@ -142,14 +144,7 @@ const HuertoSimulado = ({navigation}) => {
     }
   };
 
-    const handleScreenFocus = async () => {
-      /*if (updateTriggered) {
-        await regarPlanta();
-        loadData();
-      }
-      else {
-        
-      }*/
+    const handleScreenFocus = () => {
       loadData();
     };
 
