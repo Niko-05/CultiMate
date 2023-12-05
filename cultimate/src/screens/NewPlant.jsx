@@ -6,81 +6,57 @@ import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
 import { useModoOscuro } from '../context/ModoOscuroContext';
-import { 
-  lightModeBackground, 
-  darkModeBackground, 
-  lightModeText, 
-  darkModeText, 
-  lightbuttonBackground, 
-  darkbuttonBackground, 
-  lightbuttonText, 
-  darkbuttonText 
+import {
+  lightModeBackground,
+  darkModeBackground,
+  lightModeText,
+  darkModeText,
+  lightbuttonBackground,
+  darkbuttonBackground,
+  lightbuttonText,
+  darkbuttonText
 } from "../utils/colores";
-
-
+import { getDataPlants } from "../api/dataplantas";
+import { favoritosData } from "../api/dataplantas";
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [favList, setFav] = useState([]);
-  const [user, setUser] = useState([]);
-  const { modoOscuroActivado }= useModoOscuro();
+  const [favoritos, setFavoritos] = useState([]);
+  const { modoOscuroActivado } = useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
-  const cambioFav = async ()=>{
-    try{
-      const users = await getUserInfo();
-      setUser(users);
-      const token = await SecureStore.getItemAsync("accesstoken");
-      const api_call = await fetch(
-      `${config.API}/fav/favoritos?id=${encodeURIComponent(
-        user.id
-      )}`,
-      { method: "GET" }
-    );
-    const result = await api_call.json();
-    setFav(await result);
-        console.log(favList)
-    if (!api_call.ok) {
-      // Handle non-OK response status
-      Alert.alert(
-        "API error",
-        `Failed to fetch user data. Status: ${api_call.status}`
-      );
-    }
-  
-   
-  } catch (e) {
-    console.error(e);
-    Alert.alert("Network error");
-  }
-  };
-  const setFullList = async () => {
-    try {
-      const api_call = await fetch(`${config.API}/planta`);
-      const result = await api_call.json();
-      setData(result);
-    } catch (e) {
-      Alert.alert('Problema de red', 'No se ha podido mostrar el listado de plantas debido a un problema de red.');
-    }
-  }
+  const dataBD = async () => {
+    const res = await getDataPlants();
+    setData(res);
+    
+    console.log("Data:" + data);
 
+  }
+  const favoritosBD = async () => {
+    const res = await favoritosData();
+    setFavoritos(res);
+    
+    console.log("Favels" + favoritos);
+  }
+ 
+
+  
   useEffect(() => {
-    console.log(user);
-  }, [user])
-  useEffect(() => {
-    setFullList();
-    cambioFav();
-  }, []);
+      dataBD();
+      favoritosBD();
+    }, []);
 
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
+  if (data.length == 0|| favoritos.length == 0) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <SafeAreaView
       style={styles.container}
     >
-      <ListaPlanta data={data} favLista={favList} navigation={navigation} usuario= {user} />
+      <ListaPlanta data={data} navigation={navigation} favoritos = {favoritos}/>
       <Pressable
         style={{
           backgroundColor: "lightgreen",
@@ -103,10 +79,11 @@ export default NewPlant;
 
 const getStyles = (modoOscuroActivado) => {
   return {
-  container: { 
-    flex: 1, 
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
-  },
-  }};
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
+    },
+  }
+};
