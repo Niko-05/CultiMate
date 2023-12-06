@@ -18,6 +18,12 @@ import {
   changePassword,
   checkDuplicateUsername,
   checkDuplicateEmail,
+  changeFullName,
+  changeAddress,
+  changeCity,
+  changeState,
+  changeCountry,
+  changePostalCode,
 } from "../api/user";
 import validator from "validator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -37,10 +43,12 @@ function AccountSettings({ navigation }) {
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
 
-  const [newUsername, setNewUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+
+  const [isEditable, setIsEditable] = useState(false);
+  const [hasAlerted, setHasAlerted] = useState(false);
 
   const setUserInfo = async () => {
     const userinfo = await getUserInfo();
@@ -61,64 +69,175 @@ function AccountSettings({ navigation }) {
   }, []);
 
   const handleSubmitNewUsername = async () => {
-    if (newUsername === "") {
+    if (username === "") {
       Alert.alert("Error", "You must fill all the fields");
+      setHasAlerted(true);
       return;
     }
-    if (!(await checkDuplicateUsername(newUsername))) {
+    if (!(await checkDuplicateUsername(username))) {
       Alert.alert("Error", "The username is already taken");
+      setHasAlerted(true);
       return;
     }
-    const result = await changeUsername(newUsername);
+    const result = await changeUsername(username);
     if (result) {
-      Alert.alert("Success", "Username changed successfully");
-      setUserInfo();
-      setNewUsername("");
+      console.log("Username changed successfully");
     }
   };
 
   const handleSubmitNewEmail = async () => {
-    if (newEmail === "") {
+    if (email === "") {
       Alert.alert("Error", "You must fill all the fields");
+      setHasAlerted(true);
       return;
     }
-    if (!validator.isEmail(newEmail)) {
+    if (!validator.isEmail(email)) {
       Alert.alert("Error", "The email is not valid");
+      setHasAlerted(true);
       return;
     }
-    if (!(await checkDuplicateEmail(newEmail))) {
+    if (!(await checkDuplicateEmail(email))) {
       Alert.alert("Error", "The email is already taken");
+      setHasAlerted(true);
       return;
     }
-    const result = await changeEmail(newEmail);
+    const result = await changeEmail(email);
     if (result) {
-      Alert.alert("Success", "Email changed successfully");
-      setUserInfo();
-      setNewEmail("");
+      console.log("Email changed successfully");
     }
   };
 
   const handleSubmitNewPassword = async () => {
     if (password === "" || newPassword === "" || newPasswordConfirm === "") {
       Alert.alert("Error", "You must fill all the fields");
+      setHasAlerted(true);
       return;
     }
     if (newPassword !== newPasswordConfirm) {
       Alert.alert("Error", "The new passwords don't match");
+      setHasAlerted(true);
       return;
     }
     if (password !== user.password) {
       Alert.alert("Error", "The current password is incorrect");
+      setHasAlerted(true);
       return;
     }
     const result = await changePassword(newPassword);
     if (result) {
-      Alert.alert("Success", "Password changed successfully");
-      setUserInfo();
+      console.log("Success", "Password changed successfully");
       setPassword("");
       setNewPassword("");
       setNewPasswordConfirm("");
     }
+  };
+
+  const handleSubmitNewFullName = async () => {
+    if (fullName === "") {
+      Alert.alert("Error", "Name cannot be empty");
+      setHasAlerted(true);
+      return;
+    }
+    const result = await changeFullName(fullName);
+    if (result) {
+      console.log("Name changed successfully");
+    }
+  };
+
+  const handleSubmitNewAddress = async () => {
+    if (address === "") {
+      Alert.alert("Error", "Address cannot be empty");
+      setHasAlerted(true);
+      return;
+    }
+    const result = await changeAddress(address);
+    if (result) {
+      console.log("Address changed successfully");
+    }
+  };
+
+  const handleSubmitNewCity = async () => {
+    if (city === "") {
+      Alert.alert("Error", "City cannot be empty");
+      setHasAlerted(true);
+      return;
+    }
+    const result = await changeCity(city);
+    if (result) {
+      console.log("City changed successfully");
+    }
+  };
+
+  const handleSubmitNewState = async () => {
+    if (state === "") {
+      Alert.alert("Error", "State cannot be empty");
+      setHasAlerted(true);
+      return;
+    }
+    const result = await changeState(state);
+    if (result) {
+      console.log("State changed successfully");
+    }
+  };
+
+  const handleSubmitNewCountry = async () => {
+    if (country === "") {
+      Alert.alert("Error", "Country cannot be empty");
+      setHasAlerted(true);
+      return;
+    }
+    const result = await changeCountry(country);
+    if (result) {
+      console.log("Country changed successfully");
+    }
+  };
+
+  const handleSubmitNewPostalCode = async () => {
+    if (postalCode === "") {
+      Alert.alert("Error", "Postal code cannot be empty");
+      setHasAlerted(true);
+      return;
+    }
+    const result = await changePostalCode(postalCode);
+    if (result) {
+      console.log("Postal code changed successfully");
+    }
+  };
+
+  const handleSave = async () => {
+    if (fullName !== user.fullName) {
+      await handleSubmitNewFullName();
+    }
+    if (username !== user.username) {
+      await handleSubmitNewUsername();
+    }
+    if (email !== user.email) {
+      await handleSubmitNewEmail();
+    }
+    if (password !== "" || newPassword !== "" || newPasswordConfirm !== "") {
+      await handleSubmitNewPassword();
+    }
+    if (address !== user.address) {
+      await handleSubmitNewAddress();
+    }
+    if (city !== user.city) {
+      await handleSubmitNewCity();
+    }
+    if (state !== user.state) {
+      await handleSubmitNewState();
+    }
+    if (country !== user.country) {
+      await handleSubmitNewCountry();
+    }
+    if (postalCode !== user.postalCode) {
+      await handleSubmitNewPostalCode();
+    }
+    if (!hasAlerted) {
+      setIsEditable(false);
+      console.log("All changes saved");
+      return;
+    }
+    setHasAlerted(false);
   };
 
   // return (
@@ -223,66 +342,121 @@ function AccountSettings({ navigation }) {
       style={styles.bg}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View style={styles.top}>
-        <TouchableOpacity
-          style={[styles.arrow, { marginTop: insets.top }]}
-          onPress={() => navigation.navigate("navigation")}
-        >
-          <ArrowBack />
-        </TouchableOpacity>
-        <Image
-          source={require("../../assets/login/avocado_transparent.png")}
-          style={styles.avocado}
-        />
-        <Text style={styles.formularioText}>MIS DATOS PERSONALES</Text>
-      </View>
-      <ScrollView style={styles.modal} showsVerticalScrollIndicator={false}>
-        <View style={styles.personalData}>
-          <View className="flex-row justify-between">
-            <Text style={styles.titles}>Datos personales</Text>
-            <TouchableOpacity>
-              <Edit />
+      {Object.keys(user).length == 0 ? (
+        <View className="flex-1 content-center justify-center">
+          <ActivityIndicator size="large" color="white" />
+        </View>
+      ) : (
+        <>
+          <View style={styles.top}>
+            <TouchableOpacity
+              style={[styles.arrow, { marginTop: insets.top }]}
+              onPress={() => navigation.navigate("navigation")}
+            >
+              <ArrowBack />
             </TouchableOpacity>
+            <Image
+              source={require("../../assets/login/avocado_transparent.png")}
+              style={styles.avocado}
+            />
+            <Text style={styles.formularioText}>MIS DATOS PERSONALES</Text>
           </View>
-          <View className="mt-[8]">
-            <InputField
-              label="Nombre"
-              value={fullName}
-              onChangeText={setFullName}
-            />
-            <InputField
-              label="Usario"
-              value={username}
-              onChangeText={setUsername}
-            />
-            <InputField label="Email" value={email} onChangeText={setEmail} />
-          </View>
-        </View>
-        <View style={styles.personalData}>
-          <View className="flex-row">
-            <Text style={styles.titles}>Dirección</Text>
-          </View>
-          <View className="mt-[8]">
-            <InputField
-              label="Calle y número"
-              value={address}
-              onChangeText={setAddress}
-            />
-            <InputField label="Ciudad" value={city} onChangeText={setCity} />
-            <InputField label="Región" value={state} onChangeText={setState} />
-            <InputField
-              label="Código postal"
-              value={postalCode}
-              onChangeText={setPostalCode}
-            />
-            <InputField
-              label="País"
-              value={country}
-              onChangeText={setCountry}
-            />
-          </View>
-        </View>
-      </ScrollView>
+          <ScrollView style={styles.modal} showsVerticalScrollIndicator={false}>
+            <View style={styles.personalData}>
+              <View className="flex-row justify-between">
+                <Text style={styles.titles}>Datos personales</Text>
+                {!isEditable ? (
+                  <TouchableOpacity onPress={() => setIsEditable(true)}>
+                    <Edit />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={() => handleSave()}>
+                    <Text style={styles.saveText}>Guardar</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View className="mt-[8]">
+                <InputField
+                  label="Nombre"
+                  value={fullName}
+                  onChangeText={setFullName}
+                  editable={isEditable}
+                />
+                <InputField
+                  label="Usario"
+                  value={username}
+                  onChangeText={setUsername}
+                  editable={isEditable}
+                />
+                <InputField
+                  label="Email"
+                  value={email}
+                  onChangeText={setEmail}
+                  editable={isEditable}
+                />
+                {isEditable ? (
+                  <>
+                    <InputField
+                      label="Contraseña actual"
+                      value={password}
+                      onChangeText={setPassword}
+                    />
+                    <InputField
+                      label="Nueva Contraseña"
+                      value={newPassword}
+                      onChangeText={setNewPassword}
+                    />
+                    <InputField
+                      label="Repetir contraseña"
+                      value={newPasswordConfirm}
+                      onChangeText={setNewPasswordConfirm}
+                    />
+                  </>
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
+            <View style={styles.personalData}>
+              <View className="flex-row">
+                <Text style={styles.titles}>Dirección</Text>
+              </View>
+              <View className="mt-[8]">
+                <InputField
+                  label="Calle y número"
+                  value={address}
+                  onChangeText={setAddress}
+                  editable={isEditable}
+                />
+                <InputField
+                  label="Ciudad"
+                  value={city}
+                  onChangeText={setCity}
+                  editable={isEditable}
+                />
+                <InputField
+                  label="Región"
+                  value={state}
+                  onChangeText={setState}
+                  editable={isEditable}
+                />
+                <InputField
+                  label="Código postal"
+                  value={postalCode}
+                  onChangeText={setPostalCode}
+                  editable={isEditable}
+                />
+                <InputField
+                  label="País"
+                  value={country}
+                  onChangeText={setCountry}
+                  editable={isEditable}
+                />
+              </View>
+            </View>
+          </ScrollView>
+        </>
+      )}
     </KeyboardAvoidingView>
   );
 }
@@ -332,9 +506,13 @@ const styles = StyleSheet.create({
   },
   titles: {
     color: "#000",
-    fontFamily: "Inter",
+    fontFamily: "Inter-Bold",
     fontSize: 18,
-    fontWeight: "bold",
+  },
+  saveText: {
+    color: "#0077cc",
+    fontFamily: "Inter-Bold",
+    fontSize: 18,
   },
 });
 

@@ -36,7 +36,8 @@ const LoginScreen = ({ navigation }) => {
     async function loadFont() {
       await Font.loadAsync({
         "Integral CF": require("../../../assets/fonts/Integral_CF_medium.otf"),
-        Inter: require("../../../assets/fonts/Inter.ttf"),
+        Inter: require("../../../assets/fonts/Inter-Regular.otf"),
+        "Inter-Bold": require("../../../assets/fonts/Inter-Bold.otf"),
       });
       setFontsLoaded(true);
     }

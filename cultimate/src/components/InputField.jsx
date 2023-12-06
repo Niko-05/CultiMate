@@ -7,6 +7,7 @@ const InputField = ({
   value,
   onChangeText,
   secureTextEntry,
+  editable,
 }) => {
   return (
     <View className="mb-[8]">
@@ -32,6 +33,7 @@ const InputField = ({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
+        editable={editable}
       />
     </View>
   );

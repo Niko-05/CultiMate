@@ -155,7 +155,7 @@ const User = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {Object.keys(user) !== 0 ? (
+      {Object.keys(user).length !== 0 ? (
         <>
           <View style={styles.top}>
             <TouchableOpacity
@@ -210,7 +210,10 @@ const User = ({ navigation }) => {
               <Text>MIS FAVORITOS</Text>
               <ArrowRight />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("Settings")}
+            >
               <Text>CONFIGURACIÓN</Text>
               <ArrowRight />
             </TouchableOpacity>
@@ -218,7 +221,7 @@ const User = ({ navigation }) => {
         </>
       ) : (
         <View className="flex-1 content-center justify-center">
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="white" />
         </View>
       )}
     </View>

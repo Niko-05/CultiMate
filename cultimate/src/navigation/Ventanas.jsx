@@ -44,7 +44,11 @@ const Ventanas = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="newPlant" component={newPlant} />
-      <Stack.Screen name="Settings" component={ConfigScreen} />
+      <Stack.Screen
+        name="Settings"
+        component={ConfigScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="AccountSettings"
         component={AccountSettingsScreen}
