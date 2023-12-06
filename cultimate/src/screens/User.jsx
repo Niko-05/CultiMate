@@ -20,6 +20,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import config from "../../config";
 import Close from "../../assets/login/close.svg";
 import ArrowRight from "../../assets/login/arrow_right_small.svg";
+import { 
+  lightModeBackground, 
+  darkModeBackground, 
+  lightModeText, 
+  darkModeText, 
+  lightbuttonBackground, 
+  darkbuttonBackground, 
+  lightbuttonText, 
+  darkbuttonText 
+} from "../utils/colores";
 
 import ListaAgru from "../components/ListaAgru";
 import AgruItem from "../components/AgruItem";
@@ -28,6 +38,7 @@ const User = ({ navigation }) => {
   const [user, setUser] = useState([]);
   const { modoOscuroActivado } = useModoOscuro();
   const [profilePicture, setProfilePicture] = useState(null);
+  const styles = getStyles(modoOscuroActivado);
 
   const elements = [
     { id: 1, title: "balcon", imageSource: require("../../assets/Fresa.png") },
@@ -228,7 +239,8 @@ const User = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (modoOscuroActivado) => {
+  return {
   container: {
     flex: 1,
     backgroundColor: "#09873D",

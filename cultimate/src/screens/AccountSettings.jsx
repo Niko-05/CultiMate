@@ -11,6 +11,20 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import { useModoOscuro } from "../context/ModoOscuroContext";
+import {
+  lightModeBackground,
+  darkModeBackground,
+  lightModeText,
+  darkModeText,
+  darkModeButton,
+  lightModeButton,
+  darkbuttonText,
+  lightbuttonText,
+} from "../utils/colores";
+import { obtenerIdioma } from "../utils/storage";
+import esTranslations from "../language/es.json";
+import enTranslations from "../language/en.json";
 import {
   getUserInfo,
   changeUsername,
@@ -46,6 +60,34 @@ function AccountSettings({ navigation }) {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+  const { modoOscuroActivado } = useModoOscuro();
+  const [selectedLanguage, setSelectedLanguage] = useState("es");
+  const [translations, setTranslations] = useState(esTranslations);
+  const styles = getStyles(modoOscuroActivado);
+
+  const cargarIdioma = async () => {
+    const idiomaGuardado = await obtenerIdioma();
+    setSelectedLanguage(idiomaGuardado);
+  };
+
+  const cargarTraducciones = async () => {
+    try {
+      let translationsByLanguage;
+      switch (selectedLanguage) {
+        case "es":
+          translationsByLanguage = esTranslations;
+          break;
+        case "en":
+          translationsByLanguage = enTranslations;
+          break;
+        default:
+          translationsByLanguage = esTranslations; // Por defecto, usa las traducciones en español
+      }
+      setTranslations(translationsByLanguage);
+    } catch (error) {
+      console.error("Error cargando traducciones", error);
+    }
+  };
 
   const [isEditable, setIsEditable] = useState(false);
   const [hasAlerted, setHasAlerted] = useState(false);
@@ -66,7 +108,9 @@ function AccountSettings({ navigation }) {
 
   useEffect(() => {
     setUserInfo();
-  }, []);
+    cargarTraducciones();
+    cargarIdioma();
+  }, [selectedLanguage]);
 
   const handleSubmitNewUsername = async () => {
     if (username === "") {
@@ -517,3 +561,58 @@ const styles = StyleSheet.create({
 });
 
 export default AccountSettings;
+
+const getStyles = (modoOscuroActivado) => {
+  return {
+    bloque: {
+      paddingBottom: 30,
+      backgroundColor: modoOscuroActivado
+        ? darkModeBackground
+        : lightModeBackground,
+    },
+    container: {
+      flex: 1,
+      backgroundColor: modoOscuroActivado
+        ? darkModeBackground
+        : lightModeBackground,
+    },
+    text: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: modoOscuroActivado ? darkModeText : lightModeText,
+    },
+    text2: {
+      fontWeight: "bold",
+      color: modoOscuroActivado ? "#b8b7b6" : "#718096",
+      paddingTop: 10,
+    },
+    text3: {
+      color: modoOscuroActivado ? "#b8b7b6" : "#718096",
+      textAlign: "center",
+      paddingTop: 10,
+    },
+    button: {
+      backgroundColor: modoOscuroActivado ? darkModeButton : lightModeButton,
+      padding: 12,
+      borderRadius: 8,
+    },
+    buttonEnvio: {
+      backgroundColor: modoOscuroActivado ? darkModeButton : lightModeButton,
+      padding: 12,
+      borderRadius: 8,
+      marginTop: 20,
+    },
+    buttonText: {
+      fontWeight: "bold",
+      color: modoOscuroActivado ? darkbuttonText : lightbuttonText,
+      textAlign: "center",
+    },
+    textImput: {
+      borderBottomWidth: 2,
+      borderBottomColor: "gray",
+      paddingBottom: 2,
+      flex: 1,
+      color: modoOscuroActivado ? darkModeText : lightModeText,
+    },
+  };
+};

@@ -1,0 +1,66 @@
+{
+    "configuracionScreen" : {
+        "notifications" : "Notifications",
+        "sounds" : "Sounds",
+        "language" : "Language",
+        "darkMode" : "Night mode",
+        "accountSettings" : "Account settings"
+    },
+    
+    "preguntasFrecScreen" : {
+        "preguntasFrec" : "Frequently Asked Questions",
+        "Coso1" : {
+            "pregunta" : "How do I change my password?",
+            "respuesta" : "You can change your password in the account settings section."
+        },
+        "Coso2" : {
+            "pregunta" : "How do I change my email?",
+            "respuesta" : "You can change your email in the account settings section."
+        },
+        "Coso3" : {
+            "pregunta" : "How do I change my username?",
+            "respuesta" : "You can change your username in the account settings section."
+        },
+        "Coso4" : {
+            "pregunta" : "How do I change my profile picture?",
+            "respuesta" : "You can change your profile picture in the account settings section."
+        },
+        "Coso5" : {
+            "pregunta" : "How do I set night mode?",
+            "respuesta" : "You can set night mode in the configuration section."
+        },
+        "Coso6" : {
+            "pregunta" : "How do I change the language?",
+            "respuesta" : "You can change the language in the configuration section."
+        }
+    },
+    "acountsettings": {
+        "Errors":{
+            "errorFields": "Please fill in all the fields",
+            "errorUsername": "The username is already in use",
+            "errorFormatoEmail": "The email format is not correct",
+            "errorEmail": "The email is already in use",
+            "errorMatchContrasena": "The passwords do not match",
+            "errorContrasena": "The current password is not correct"
+        },
+        "Success" : {
+            "successUsername": "Your username has been successfully updated",
+            "successEmail": "Your email has been successfully updated",
+            "successContrasena": "Your password has been successfully updated"
+        },
+        "Texts" : {
+            "cambiarUsername": "Change username",
+            "placeholderUsername": "New username",
+            "Envio": "Submit",
+            "usernameActual": "Current username",
+            "cambiarEmail": "Change email",
+            "placeholderEmail": "New email",
+            "emailActual": "Current email",
+            "cambiarContrasena": "Change password",
+            "oldContrasena": "Current password",
+            "placeholderContrasena": "New password",
+            "placeholderContrasena2": "Repeat new password"
+        }
+
+    }
+}
