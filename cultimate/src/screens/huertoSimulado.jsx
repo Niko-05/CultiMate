@@ -4,14 +4,6 @@ import config from '../../config';
 import { getUserInfo } from "../api/user";
 import { getProfilePictureSource } from "../utils/user";
 import { getPlantPicture } from "../utils/user";
-import * as SecureStore from "expo-secure-store";
-
-const gridData2 = [
-  { id: 1, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1, nombre: 'Tomate', FechaPlantado: '2023-11-01', PeriodicidadRegado: 2, CondTemperatura: '25°C', Paso: 'Plantar', Detalles: 'Details', Estado: 'Healthy' },
-  { id: 2, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0, nombre: 'Fresa', FechaPlantado: '2023-10-15', PeriodicidadRegado: 3, CondTemperatura: '22°C', Paso: 'Regar', Detalles: 'Details', Estado: 'Healthy'},
-  { id: 3, centerImage: require('../../assets/tomate.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 1, nombre: 'Tomate', FechaPlantado: '2023-11-01', PeriodicidadRegado: 2, CondTemperatura: '25°C', Paso: 'Cosechar', Detalles: 'Details', Estado: 'Healthy'},
-  { id: 4, centerImage: require('../../assets/Fresa.png'), topRightImage: require('../../assets/gotas_agua.png'), opacity: 0, nombre: 'Fresa', FechaPlantado: '2023-10-15', PeriodicidadRegado: 3, CondTemperatura: '22°C', Paso: 'Cosechar', Detalles: 'Details', Estado: 'Healthy' },
-]
 
 const defaultSquareData = {
   centerImage: require('../../assets/mas.png'),
