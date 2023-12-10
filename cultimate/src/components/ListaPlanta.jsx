@@ -13,10 +13,10 @@ const ListaPlanta = (props) => {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Todos", value: null },
-    { label: "Invierno", value: "Invierno" },
-    { label: "Verano", value: "Verano" },
-    { label: "Primavera", value: "Primavera" },
-    { label: "Otoño", value: "Otoño" },
+    { label: "INVIERNO", value: "INVIERNO" },
+    { label: "VERANO", value: "VERANO" },
+    { label: "PRIMAVERA", value: "PRIMAVERA" },
+    { label: "OTOÑO", value: "OTOÑO" },
     { label: "Favoritos", value: "Favoritos" },
   ]);
   const [filteredData, setFilteredData] = useState(data);
