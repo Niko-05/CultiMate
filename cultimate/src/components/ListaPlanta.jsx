@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, Modal } from "react-native";
-
+import { View, ScrollView, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, Modal } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import PlantListItem from "./PlantListItem";
 import config from "../../config";
 import { favoritosData } from "../api/dataplantas";
@@ -83,51 +84,75 @@ const ListaPlanta = (props) => {
 
   return (
     <View style={{ flex: 1 }}>
-    <TextInput
-      style={styles.searchInput}
-      placeholder="Buscar planta..."
-      onChangeText={(text) => {
-        setSearchTerm(text);
-        filterData("", text);
-      }}
-      value={searchTerm}
-    />
-  
-    <Text style={{ justifyContent: "center" }}>Seleccionar Filtro:</Text>
-  
-    <DropDownPicker
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={handleFilterChange}
-      setItems={setItems}
-    />
-  
-    <FlatList
-      data={filteredData}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-    />
-  
-    {loading && (
-      <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'white', overflow: 'hidden', zIndex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View style={styles.searchSection}>
+        <Icon style={styles.searchIcon} name="search" size={20} color="#000"/>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Buscar planta..."
+          onChangeText={(text) => {
+            setSearchTerm(text);
+            filterData("", text);
+          }}
+          value={searchTerm}
+        />
       </View>
-    )}
+    
+      <Text style={{ justifyContent: "center" }}>Seleccionar Filtro:</Text>
+    
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={handleFilterChange}
+        setItems={setItems}
+      />
+    
+      <FlatList
+        data={filteredData}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2} // Esto establecerá la lista en dos columnas
+        columnWrapperStyle={styles.row}
+      />
+    
+      {loading && (
+        <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'white', overflow: 'hidden', zIndex: 1, alignItems: "center", justifyContent: "center" }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
   </View>
   );
 };
 
 const styles = StyleSheet.create({
-  searchInput: {
-    height: 40,
-    borderColor: "gray",
+  searchSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderRadius: 5,
+    borderColor: 'gray',
+    borderRadius: 15,
     paddingHorizontal: 10,
-    margin: 10,
+    marginHorizontal: 20,
     zIndex: 2
+  },
+  searchIcon: {
+    padding: 10,
+    color: '#939393'
+  },
+  searchInput: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingLeft: 0,
+    backgroundColor: '#fff',
+    color: '#424242',
+  },
+  row: {
+    flex: 1,
+    justifyContent: "space-around", // Esto distribuirá el espacio uniformemente alrededor de los elementos
   },
 });
 

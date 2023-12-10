@@ -49,16 +49,17 @@ function PlantListItem(props) {
 
   return (
     
-    <TouchableOpacity onPress={() => navigation.navigate("Infoplanta", { id: item.id, data: data })}>
+    <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate("Infoplanta", { id: item.id, data: data })}>
       <View style={styles.boton}>
         <View style={styles.innerContainer}>
-          <View style={styles.viewimage}>
-            <Image source={picture} style={styles.imagen} />
-          </View>
           <View style={styles.viewtexto}>
             <Text style={styles.texto}>{item.nombre}</Text>
           </View>
+          <View style={styles.viewimage}>
+            <Image source={picture} style={styles.imagen} />
+          </View>
           <TouchableOpacity
+            style={styles.favs}
             accessibilityRole={"checkbox"}
             checked={check}
             onPress={PlantaEnfavBoton}
@@ -74,33 +75,36 @@ function PlantListItem(props) {
 
 const styles = StyleSheet.create({
   boton: {
-    backgroundColor: "lightgreen",
+    backgroundColor: "#D1EAD0",
     padding: "7%",
     width: "96%",
     borderRadius: 15,
     marginTop: "3%",
     marginLeft: "2%",
-    justifyContent: "center",
+    height: 220,
   },
   innerContainer: {
-    flexDirection: "row",
     alignItems: "center",
   },
   viewimage: {
-    justifyContent: "center",
-    marginRight: 10,
+    marginTop: 30,
+    alignItems: 'center',
   },
   viewtexto: {
-    flex: 1,
+    position: 'absolute',
     width: "100%",
   },
   texto: {
-    color: "white",
-    fontSize: 24,
+    color: "black",
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   imagen: {
-    width: 50,
-    height: 50,
+    width: 150,
+    height: 150,
+    position: 'absolute',
   },
   searchInput: {
     height: 40,
@@ -109,6 +113,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     margin: 10,
+  },
+  itemContainer: {
+    flex: 0.5, // Asigna el 50% del espacio disponible a cada elemento
+    padding: 5, // Añade un poco de padding si lo necesitas
+    // Añade otros estilos para el contenedor de cada elemento aquí
+  },
+  favs: {
+    position: 'absolute',
+    right: 0, // Alineado a la derecha del contenedor padre
+    bottom: -170,
   },
 });
 
