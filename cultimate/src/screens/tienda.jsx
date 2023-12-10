@@ -23,11 +23,14 @@ import {
   darkbuttonText 
 } from "../utils/colores";
 
+import { useNavigation } from '@react-navigation/native';
+
 const Tienda = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { modoOscuroActivado }= useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
+  const navigation = useNavigation();
 
   const fetchData = async () => {
     try {
@@ -59,6 +62,35 @@ const Tienda = () => {
     // Open URL in the default browser
     Linking.openURL(productUrl);
   };
+
+
+  useEffect(() => {
+    // Set navigation options when the component is focused
+    const setNavigationOptions = () => {
+      navigation.setOptions({
+        headerTitle: 'Tienda',
+        headerTitleStyle: {
+          color: '#FFF',
+          fontSize: 20,
+          fontWeight: 'bold',
+        },
+        headerStyle: {
+          backgroundColor: '#09873D',
+        },
+        headerRight: () => (
+          <Image
+            source={require('../../assets/BROCOLI_LINEA_BLANCA.png')}
+            style={{ width: 100, height: 100, marginRight: 10 }} // Adjust image size and spacing
+          />
+        ),
+      });
+    };
+    const unsubscribeFocus = navigation.addListener('focus', setNavigationOptions);
+    return unsubscribeFocus;
+  }, [navigation]);
+
+
+
 
   return (
     <View style={styles.container}>
@@ -96,6 +128,8 @@ const getStyles = (modoOscuroActivado) => {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   scrollView: {
     flexGrow: 1,
