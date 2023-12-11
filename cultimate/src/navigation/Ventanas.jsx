@@ -17,6 +17,7 @@ import NewPublication from "../screens/Foro/NewPublication";
 import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
+import Configuration from "../screens/Configuration";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -50,7 +51,16 @@ const Ventanas = () => {
         component={AccountSettingsScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="ProfilePicture" component={ProfilePicture} />
+      <Stack.Screen
+        name="ConfigurationScreen"
+        component={Configuration}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProfilePicture"
+        component={ProfilePicture}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Infoplanta" component={Infoplanta} />
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />

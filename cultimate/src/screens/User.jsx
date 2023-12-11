@@ -23,6 +23,7 @@ import ArrowRight from "../../assets/login/arrow_right_small.svg";
 
 import ListaAgru from "../components/ListaAgru";
 import AgruItem from "../components/AgruItem";
+
 const User = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [user, setUser] = useState([]);
@@ -153,74 +154,75 @@ const User = ({ navigation }) => {
   //   );
   // };
 
+  if (Object.keys(user).length === 0) {
+    return (
+      <View className="flex-1 content-center justify-center">
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      {Object.keys(user) !== 0 ? (
-        <>
-          <View style={styles.top}>
+      <View style={styles.top}>
+        {/* <TouchableOpacity
+          style={[styles.closeButton, { marginTop: insets.top }]}
+        >
+          <Close />
+        </TouchableOpacity> */}
+        <View style={[styles.profileImageContainer, { marginTop: insets.top }]}>
+          <View style={styles.profileImageBackground}>
             <TouchableOpacity
-              style={[styles.closeButton, { marginTop: insets.top }]}
+              onPress={() =>
+                navigation.navigate("ProfilePicture", {
+                  profilePictureId: user.profilePictureId,
+                })
+              }
             >
-              <Close />
-            </TouchableOpacity>
-            <View
-              style={[styles.profileImageContainer, { marginTop: insets.top }]}
-            >
-              <View style={styles.profileImageBackground}>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("ProfilePicture", {
-                      profilePictureId: user.profilePictureId,
-                    })
-                  }
-                >
-                  {profilePicture ? (
-                    <Image
-                      source={profilePicture} // Ruta de la imagen
-                      style={styles.profileImage}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <View style={styles.modal}>
-            <Image
-              style={styles.lemon}
-              source={require("../../assets/login/lemon.png")}
-            />
-            <Image
-              style={styles.carrot}
-              source={require("../../assets/login/carrot.png")}
-            />
-            <View style={styles.names}>
-              <Text style={styles.fullName}>{user.fullName}</Text>
-              <Text style={styles.userName}>@{user.username}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("AccountSettings")}
-            >
-              <Text>MIS DATOS PERSONALES</Text>
-              <ArrowRight />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text>MIS FAVORITOS</Text>
-              <ArrowRight />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text>CONFIGURACIÓN</Text>
-              <ArrowRight />
+              {profilePicture ? (
+                <Image
+                  source={profilePicture} // Ruta de la imagen
+                  style={styles.profileImage}
+                />
+              ) : (
+                <></>
+              )}
             </TouchableOpacity>
           </View>
-        </>
-      ) : (
-        <View className="flex-1 content-center justify-center">
-          <ActivityIndicator size="large" color="#0000ff" />
         </View>
-      )}
+      </View>
+      <View style={styles.modal}>
+        <Image
+          style={styles.lemon}
+          source={require("../../assets/login/lemon.png")}
+        />
+        <Image
+          style={styles.carrot}
+          source={require("../../assets/login/carrot.png")}
+        />
+        <View style={styles.names}>
+          <Text style={styles.fullName}>{user.fullName}</Text>
+          <Text style={styles.userName}>@{user.username}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("AccountSettings")}
+        >
+          <Text>MIS DATOS PERSONALES</Text>
+          <ArrowRight />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text>MIS FAVORITOS</Text>
+          <ArrowRight />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("ConfigurationScreen")}
+        >
+          <Text>CONFIGURACIÓN</Text>
+          <ArrowRight />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -306,61 +308,5 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 });
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#F0F0F0",
-//     padding: 10,
-//   },
-//   centeredView: {
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginBottom: 10,
-//     backgroundColor: "white",
-//     padding: 10,
-//   },
-//   profileImageBackground: {
-//     borderRadius: 100,
-//     backgroundColor: "lightgrey",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     borderColor: "black",
-//     borderWidth: 3,
-//   },
-//   profileImage: {
-//     width: 100,
-//     height: 100,
-//     borderRadius: 100,
-//     margin: 8,
-//   },
-//   userName: {
-//     fontSize: 20,
-//     marginVertical: 15,
-//   },
-//   title: {
-//     fontSize: 30,
-//     marginBottom: 10,
-//     textAlign: "left",
-//   },
-//   containerTitle: {
-//     // flexDirection: 'column', // Puedes quitar esta línea si quieres que sea una columna
-//     textAlign: "left",
-//     width: "100%",
-//     paddingTop: 10,
-//   },
-//   configButton: {
-//     position: "absolute",
-//     top: 10,
-//     left: 10,
-//     zIndex: 1,
-//   },
-
-//   configIcon: {
-//     width: 30,
-//     height: 30,
-//   },
-//   // ... Otros estilos
-// });
 
 export default User;

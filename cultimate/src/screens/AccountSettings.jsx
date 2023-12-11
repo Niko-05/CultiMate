@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  ActivityIndicator,
-  TextInput,
   Alert,
   StyleSheet,
   KeyboardAvoidingView,
@@ -48,7 +46,6 @@ function AccountSettings({ navigation }) {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
 
   const [isEditing, setIsEditing] = useState(false);
-  const [somethingIsChanged, setSomethingIsChanged] = useState(false);
 
   const setUserInfo = async () => {
     const userinfo = await getUserInfo();
@@ -188,109 +185,11 @@ function AccountSettings({ navigation }) {
       }
       Alert.alert("Success", "All changes saved successfully");
       setIsEditing(false);
-      setSomethingIsChanged(false);
     } catch (error) {
       Alert.alert("Error", error.message);
     }
   };
 
-  // return (
-  //   <View className="flex-1">
-  //     {Object.keys(user).length == 0 ? (
-  //       <View className="flex-1 content-center justify-center">
-  //         <ActivityIndicator size="large" color="#0000ff" />
-  //       </View>
-  //     ) : (
-  //       <View className="flex-1 px-3 space-y-4 mt-4">
-  //         <View className="space-y-3">
-  //           <Text className="text-lg font-bold">Change username:</Text>
-  //           <View className="flex-row space-x-2">
-  //             <TextInput
-  //               value={newUsername}
-  //               className="border-b-2 border-gray-300 py-2 flex-1"
-  //               inputMode="text"
-  //               placeholder="New username"
-  //               onChangeText={(value) => setNewUsername(value)}
-  //             />
-  //             <TouchableOpacity
-  //               className="bg-slate-500 p-3 rounded-md"
-  //               onPress={() => handleSubmitNewUsername()}
-  //             >
-  //               <Text className="text-white">Submit</Text>
-  //             </TouchableOpacity>
-  //           </View>
-  //           <View className="flex-row space-x-1">
-  //             <Text className="font-bold text-gray-500">Current username:</Text>
-  //             <Text className="text-gray-500">{user.username}</Text>
-  //           </View>
-  //         </View>
-  //         <View className="space-y-3">
-  //           <Text className="text-lg font-bold">Change Email:</Text>
-  //           <View className="flex-row space-x-2">
-  //             <TextInput
-  //               value={newEmail}
-  //               className="border-b-2 border-gray-300 py-2 flex-1"
-  //               inputMode="text"
-  //               placeholder="New Email"
-  //               onChangeText={(value) => setNewEmail(value)}
-  //             />
-  //             <TouchableOpacity
-  //               className="bg-slate-500 p-3 rounded-md"
-  //               onPress={() => handleSubmitNewEmail()}
-  //             >
-  //               <Text className="text-white">Submit</Text>
-  //             </TouchableOpacity>
-  //           </View>
-  //           <View className="flex-row space-x-1">
-  //             <Text className="font-bold text-gray-500">Current Email:</Text>
-  //             <Text className="text-gray-500">{user.email}</Text>
-  //           </View>
-  //         </View>
-  //         <View className="space-y-3">
-  //           <Text className="text-lg font-bold">Change Password:</Text>
-  //           <View className="flex-col space-y-2">
-  //             <View className="h-10">
-  //               <TextInput
-  //                 value={password}
-  //                 className="border-b-2 border-gray-300 py-2 flex-1"
-  //                 inputMode="text"
-  //                 placeholder="Old Password"
-  //                 secureTextEntry
-  //                 onChangeText={(value) => setPassword(value)}
-  //               />
-  //             </View>
-  //             <View className="h-10">
-  //               <TextInput
-  //                 value={newPassword}
-  //                 className="border-b-2 border-gray-300 py-2 flex-1"
-  //                 inputMode="text"
-  //                 placeholder="New Password"
-  //                 secureTextEntry
-  //                 onChangeText={(value) => setNewPassword(value)}
-  //               />
-  //             </View>
-  //             <View className="h-10">
-  //               <TextInput
-  //                 value={newPasswordConfirm}
-  //                 className="border-b-2 border-gray-300 py-2 flex-1"
-  //                 inputMode="text"
-  //                 placeholder="Confirm new Password"
-  //                 secureTextEntry
-  //                 onChangeText={(value) => setNewPasswordConfirm(value)}
-  //               />
-  //             </View>
-  //           </View>
-  //           <TouchableOpacity
-  //             className="bg-slate-500 p-3 rounded-md"
-  //             onPress={() => handleSubmitNewPassword()}
-  //           >
-  //             <Text className="text-white text-center">Submit</Text>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     )}
-  //   </View>
-  // );
   return (
     <KeyboardAvoidingView
       style={styles.bg}

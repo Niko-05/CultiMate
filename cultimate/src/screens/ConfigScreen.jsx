@@ -1,7 +1,6 @@
 // ConfigScreen.js
 import React, { useEffect } from "react";
 import { View, Text, Switch, TouchableOpacity } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useModoOscuro } from "../context/ModoOscuroContext";
 import {
@@ -57,13 +56,13 @@ const ConfigScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.languagePickerContainer}>
         <Text style={styles.text}>Language:</Text>
-        <Picker
+        {/* <DifferentPicker
           selectedValue={"Español"}
           onValueChange={(valor) => console.log(valor)}
         >
-          <Picker.Item label="Español" value="Español" />
-          <Picker.Item label="English" value="English" />
-        </Picker>
+          <DifferentPicker.Item label="Español" value="Español" />
+          <DifferentPicker.Item label="English" value="English" />
+        </DifferentPicker> */}
       </View>
       <View style={styles.switchContainer}>
         <Text style={styles.text}>Notifications:</Text>
