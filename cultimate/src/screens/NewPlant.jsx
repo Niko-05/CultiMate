@@ -5,7 +5,7 @@ import { SuggestionModal } from "../components/SuggestionModal";
 import * as SecureStore from "expo-secure-store";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
-import { useModoOscuro } from '../context/ModoOscuroContext';
+import { useModoOscuro } from "../context/ModoOscuroContext";
 import {
   lightModeBackground,
   darkModeBackground,
@@ -14,7 +14,7 @@ import {
   lightbuttonBackground,
   darkbuttonBackground,
   lightbuttonText,
-  darkbuttonText
+  darkbuttonText,
 } from "../utils/colores";
 import { getDataPlants } from "../api/dataplantas";
 import { favoritosData } from "../api/dataplantas";
@@ -26,37 +26,32 @@ const NewPlant = ({ navigation }) => {
   const dataBD = async () => {
     const res = await getDataPlants();
     setData(res);
-    
-    console.log("Data:" + data);
 
-  }
+    console.log("Data:" + data);
+  };
   const favoritosBD = async () => {
     const res = await favoritosData();
     setFavoritos(res);
-    
-    console.log("Favels" + favoritos);
-  }
- 
 
-  
+    console.log("Favels" + favoritos);
+  };
+
   useEffect(() => {
-      dataBD();
-      favoritosBD();
-    }, []);
+    dataBD();
+    favoritosBD();
+  }, []);
 
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  if (data.length == 0|| favoritos.length == 0) {
+  if (data.length == 0 || favoritos.length == 0) {
     return <Text>Loading...</Text>;
   }
   return (
-    <SafeAreaView
-      style={styles.container}
-    >
-      <ListaPlanta data={data} navigation={navigation} favoritos = {favoritos}/>
+    <SafeAreaView style={styles.container}>
+      <ListaPlanta data={data} navigation={navigation} favoritos={favoritos} />
       <Pressable
         style={{
           backgroundColor: "lightgreen",
@@ -83,7 +78,9 @@ const getStyles = (modoOscuroActivado) => {
       flex: 1,
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
+      backgroundColor: modoOscuroActivado
+        ? darkModeBackground
+        : lightModeBackground,
     },
-  }
+  };
 };

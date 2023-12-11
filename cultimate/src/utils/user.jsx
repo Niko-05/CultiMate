@@ -5,6 +5,11 @@ export const checkValidEmail = (email) => {
   return isValidEmail;
 };
 
+export const checkNumerical = (string) => {
+  const pattern = /^[0-9]*$/;
+  return pattern.test(string);
+};
+
 export const profilePictures = [
   {
     id: 1,
@@ -16,10 +21,10 @@ export const profilePictures = [
     title: "Strawberry",
     imageSource: require("../../assets/Fresa.png"),
   },
-  { 
-    id: 3, 
-    title: "Grape", 
-    imageSource: require("../../assets/mora.png") 
+  {
+    id: 3,
+    title: "Grape",
+    imageSource: require("../../assets/mora.png"),
   },
   {
     id: 4,
@@ -31,10 +36,10 @@ export const profilePictures = [
     title: "Pepper",
     imageSource: require("../../assets/pimientos.png"),
   },
-  { 
-    id: 6, 
-    title: "Lechuga", 
-    imageSource: require("../../assets/lechuga.png") 
+  {
+    id: 6,
+    title: "Lechuga",
+    imageSource: require("../../assets/lechuga.png"),
   },
   {
     id: 7,
