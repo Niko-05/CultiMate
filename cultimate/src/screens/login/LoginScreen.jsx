@@ -1,21 +1,13 @@
-import React, { useState, useEffect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
- 
   View,
- 
   Text,
- 
   TouchableOpacity,
- 
   Alert,
- 
   Image,
- 
   StyleSheet,
   TextInput,
   KeyboardAvoidingView,
-,
-  TextInput,
   ActivityIndicator,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

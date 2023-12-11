@@ -22,12 +22,6 @@ import {
   changeState,
   changeCountry,
   changePostalCode,
-  changeFullName,
-  changeAddress,
-  changeCity,
-  changeState,
-  changeCountry,
-  changePostalCode,
 } from "../api/user";
 import validator from "validator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -75,16 +69,10 @@ function AccountSettings({ navigation }) {
     if (username === "") {
       setUsername(user.username);
       throw new Error("Username cannot be empty");
-    if (username === "") {
-      setUsername(user.username);
-      throw new Error("Username cannot be empty");
     }
     if (!(await checkDuplicateUsername(username))) {
       throw new Error("The username is already taken");
-    if (!(await checkDuplicateUsername(username))) {
-      throw new Error("The username is already taken");
     }
-    const result = await changeUsername(username);
     const result = await changeUsername(username);
   };
 
@@ -92,12 +80,7 @@ function AccountSettings({ navigation }) {
     if (email === "") {
       setEmail(user.email);
       throw new Error("Email cannot be empty");
-    if (email === "") {
-      setEmail(user.email);
-      throw new Error("Email cannot be empty");
     }
-    if (!validator.isEmail(email)) {
-      throw new Error("The email is not valid");
     if (!validator.isEmail(email)) {
       throw new Error("The email is not valid");
     }
