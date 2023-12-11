@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   saveText: {
-    color: "#095A87",
+    color: "#007AFF",
     fontFamily: "Inter-Bold",
     fontSize: 18,
   },
