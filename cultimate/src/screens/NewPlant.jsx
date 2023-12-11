@@ -18,12 +18,8 @@ import {
 } from "../utils/colores";
 import { getDataPlants } from "../api/dataplantas";
 import { favoritosData } from "../api/dataplantas";
-import { getDataPlants } from "../api/dataplantas";
-import { favoritosData } from "../api/dataplantas";
 const NewPlant = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [favoritos, setFavoritos] = useState([]);
-  const { modoOscuroActivado } = useModoOscuro();
   const [favoritos, setFavoritos] = useState([]);
   const { modoOscuroActivado } = useModoOscuro();
   const styles = getStyles(modoOscuroActivado);

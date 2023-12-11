@@ -123,8 +123,6 @@ const HuertoSimulado = ({ navigation }) => {
     console.log("Planta regada:", planta.nombre);
     navigation.navigate("Tienda");
     navigation.navigate("Guias de Plantado");
-    navigation.navigate("Tienda");
-    navigation.navigate("Guias de Plantado");
     // Puedes llamar a una función aquí para actualizar el estado de la planta en la base de datos
   };
 

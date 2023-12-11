@@ -13,7 +13,6 @@ import DropDownPicker from "react-native-dropdown-picker";
 import PlantListItem from "./PlantListItem";
 import config from "../../config";
 import { favoritosData } from "../api/dataplantas";
-import { favoritosData } from "../api/dataplantas";
 
 const ListaPlanta = (props) => {
   const { data, navigation, favoritos } = props;
@@ -51,12 +50,10 @@ const ListaPlanta = (props) => {
           updatedFavoritos.some((favItem) => favItem.PlantaID === item.id)
         );
         setLoading(true);
-        setLoading(true);
       } else {
         filteredItems = await data.filter(
           (item) => item.estacion_recomendada === selectedValue
         );
-        setLoading(true);
         setLoading(true);
       }
     }
