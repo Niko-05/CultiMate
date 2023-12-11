@@ -45,6 +45,11 @@
     "react-native-web": "~0.19.6",
     "validator": "^13.11.0"
   },
+  "overrides": {
+    "react-native-picker-select": {
+      "@react-native-picker/picker": "$@react-native-picker/picker"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "metro-config": "^0.79.1",

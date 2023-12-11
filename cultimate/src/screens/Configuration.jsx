@@ -7,6 +7,7 @@ import {
   Image,
   Switch,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ArrowBack from "../../assets/login/arrow_back.svg";
@@ -93,6 +94,7 @@ function AccountSettings({ navigation }) {
             onValueChange={(value) => setLanguage(value)}
             items={LANGUAGES}
             Icon={() => <Dropdown />}
+            useNativeAndroidPickerStyle={false}
             style={styles.picker}
           />
         </View>
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
       paddingRight: 40,
     },
     iconContainer: {
-      top: 5,
+      top: "40%",
       right: 20,
     },
   },
