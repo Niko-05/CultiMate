@@ -26,7 +26,6 @@ const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const getUser = async () => {
     if (email === "" || password === "") {
