@@ -267,14 +267,13 @@ const styles = StyleSheet.create({
     color: "#000",
     fontFamily: "Integral CF",
     fontSize: 20,
-    fontWeight: 400,
     marginBottom: 6,
+    lineHeight: 22,
   },
   userName: {
     color: "#939393",
     fontFamily: "Inter",
     fontSize: 14,
-    fontWeight: 400,
   },
   button: {
     backgroundColor: "white",
@@ -337,12 +336,10 @@ const styles = StyleSheet.create({
 //   },
 //   userName: {
 //     fontSize: 20,
-//     fontWeight: "bold",
 //     marginVertical: 15,
 //   },
 //   title: {
 //     fontSize: 30,
-//     fontWeight: "bold",
 //     marginBottom: 10,
 //     textAlign: "left",
 //   },

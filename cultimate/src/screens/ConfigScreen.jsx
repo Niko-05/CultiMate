@@ -1,21 +1,21 @@
 // ConfigScreen.js
-import React, { useEffect } from 'react';
-import { View, Text, Switch, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useModoOscuro } from '../context/ModoOscuroContext';
-import { 
-  lightModeBackground, 
-  darkModeBackground, 
-  lightModeText, 
-  darkModeText, 
-  lightbuttonBackground, 
-  darkbuttonBackground, 
-  lightbuttonText, 
-  darkbuttonText 
+import React, { useEffect } from "react";
+import { View, Text, Switch, TouchableOpacity } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useModoOscuro } from "../context/ModoOscuroContext";
+import {
+  lightModeBackground,
+  darkModeBackground,
+  lightModeText,
+  darkModeText,
+  lightbuttonBackground,
+  darkbuttonBackground,
+  lightbuttonText,
+  darkbuttonText,
 } from "../utils/colores";
 
-const STORAGE_KEY = 'modoOscuro';
+const STORAGE_KEY = "modoOscuro";
 
 const ConfigScreen = ({ navigation }) => {
   const { modoOscuroActivado, toggleModoOscuro } = useModoOscuro();
@@ -24,7 +24,7 @@ const ConfigScreen = ({ navigation }) => {
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(valor));
     } catch (error) {
-      console.error('Error al guardar en AsyncStorage:', error);
+      console.error("Error al guardar en AsyncStorage:", error);
     }
   };
 
@@ -33,7 +33,7 @@ const ConfigScreen = ({ navigation }) => {
       const valorGuardado = await AsyncStorage.getItem(STORAGE_KEY);
       return valorGuardado !== null ? JSON.parse(valorGuardado) : false;
     } catch (error) {
-      console.error('Error al obtener de AsyncStorage:', error);
+      console.error("Error al obtener de AsyncStorage:", error);
       return false;
     }
   };
@@ -48,7 +48,7 @@ const ConfigScreen = ({ navigation }) => {
   }, []);
 
   const handleProfileSettings = () => {
-    navigation.navigate('AccountSettings');
+    navigation.navigate("AccountSettings");
   };
 
   const styles = getStyles(modoOscuroActivado);
@@ -58,23 +58,27 @@ const ConfigScreen = ({ navigation }) => {
       <View style={styles.languagePickerContainer}>
         <Text style={styles.text}>Language:</Text>
         <Picker
-          selectedValue={'Español'}
+          selectedValue={"Español"}
           onValueChange={(valor) => console.log(valor)}
         >
           <Picker.Item label="Español" value="Español" />
           <Picker.Item label="English" value="English" />
         </Picker>
-        
       </View>
-        <View style={styles.switchContainer}>
-          <Text style={styles.text}>Notifications:</Text>
-          <Switch value={true} onValueChange={() => console.log('Toggle Notifications')}
+      <View style={styles.switchContainer}>
+        <Text style={styles.text}>Notifications:</Text>
+        <Switch
+          value={true}
+          onValueChange={() => console.log("Toggle Notifications")}
         />
       </View>
 
       <View style={styles.switchContainer}>
         <Text style={styles.text}>Sonidos:</Text>
-        <Switch value={true} onValueChange={() => console.log('Toggle Sonidos')} />
+        <Switch
+          value={true}
+          onValueChange={() => console.log("Toggle Sonidos")}
+        />
       </View>
 
       <View style={styles.switchContainer}>
@@ -88,10 +92,7 @@ const ConfigScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleProfileSettings}
-        >
+        <TouchableOpacity style={styles.button} onPress={handleProfileSettings}>
           <Text style={styles.buttonText}>Account settings</Text>
         </TouchableOpacity>
       </View>
@@ -101,14 +102,15 @@ const ConfigScreen = ({ navigation }) => {
 
 export default ConfigScreen;
 
-
 const getStyles = (modoOscuroActivado) => {
   return {
     container: {
       flex: 1,
-      alignItems: 'center',
+      alignItems: "center",
       padding: 20,
-      backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground, // Ajusta el fondo según el modo oscuro
+      backgroundColor: modoOscuroActivado
+        ? darkModeBackground
+        : lightModeBackground, // Ajusta el fondo según el modo oscuro
     },
     languagePickerContainer: {
       width: 200,
@@ -117,20 +119,20 @@ const getStyles = (modoOscuroActivado) => {
     buttonText: {
       color: modoOscuroActivado ? darkbuttonText : lightbuttonText, // Ajusta el color del texto del botón según el modo oscuro
       fontSize: 16,
-      fontWeight: 'bold',
     },
     text: {
-      fontWeight: 'bold',
       fontSize: 16,
       color: modoOscuroActivado ? darkModeText : lightModeText, // Ajusta el color del texto según el modo oscuro
     },
     switchContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: "row",
+      alignItems: "center",
       marginBottom: 20,
     },
     button: {
-      backgroundColor: modoOscuroActivado ? darkbuttonBackground : lightbuttonBackground, // Ajusta el color del botón según el modo oscuro
+      backgroundColor: modoOscuroActivado
+        ? darkbuttonBackground
+        : lightbuttonBackground, // Ajusta el color del botón según el modo oscuro
       padding: 15,
       borderRadius: 10,
       marginTop: 20,

@@ -7,19 +7,16 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  ActivityIndicator,
   KeyboardAvoidingView,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { loginUser } from "../../api/user";
 import Logo from "../../../assets/login/logo_new.svg";
-import * as Font from "expo-font";
 
 const LoginScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const getUser = async () => {
     if (email === "" || password === "") {
@@ -31,17 +28,6 @@ const LoginScreen = ({ navigation }) => {
       navigation.navigate("navigation");
     }
   };
-
-  useEffect(() => {
-    async function loadFont() {
-      await Font.loadAsync({
-        "Integral CF": require("../../../assets/fonts/Integral_CF_medium.otf"),
-        Inter: require("../../../assets/fonts/Inter.ttf"),
-      });
-      setFontsLoaded(true);
-    }
-    loadFont();
-  }, []);
 
   //   return (
   //     <View className="flex-1">
@@ -106,13 +92,6 @@ const LoginScreen = ({ navigation }) => {
   //   },
   // });
 
-  if (!fontsLoaded) {
-    return (
-      <View className="items-center justify-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
   return (
     <KeyboardAvoidingView
       className="flex-1 bg-white"
@@ -244,6 +223,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "Integral CF",
     fontSize: 18,
+    lineHeight: 20,
   },
   input: {
     borderRadius: 15,
@@ -255,13 +235,11 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "Inter",
     fontSize: 14,
-    fontWeight: 500,
   },
   registerText: {
     color: "#939393",
     fontFamily: "Inter",
     fontSize: 12,
-    fontWeight: 400,
   },
   loginButton: {
     alignItems: "center",
@@ -278,7 +256,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "Inter",
     fontSize: 15,
-    fontWeight: 400,
   },
   subscribeButton: {
     paddingHorizontal: 22,
@@ -294,7 +271,6 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "Inter",
     fontSize: 15,
-    fontWeight: 400,
   },
 });
 

@@ -10,6 +10,7 @@ import {
   ScrollView,
   TextInput,
   KeyboardAvoidingView,
+  ActivityIndicator,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { registerUserAddress } from "../../api/user";
@@ -120,6 +121,7 @@ const RegisterScreen = ({ navigation }) => {
   //     </View>
   //   </View>
   // );
+
   return (
     <KeyboardAvoidingView
       style={styles.bg}
@@ -216,10 +218,10 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontFamily: "Integral CF",
     fontSize: 24,
-    fontWeight: 400,
     position: "absolute",
     bottom: 12,
     left: 30,
+    lineHeight: 26,
   },
   arrow: {
     top: 10,
@@ -229,7 +231,6 @@ const styles = StyleSheet.create({
     color: "#000",
     fontFamily: "Inter",
     fontSize: 14,
-    fontWeight: 500,
   },
   switchContainer: {
     width: 85,
@@ -258,7 +259,6 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "Inter",
     fontSize: 14,
-    fontWeight: 500,
   },
   continueButton: {
     width: 65,

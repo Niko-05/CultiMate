@@ -18,6 +18,12 @@ import {
   changePassword,
   checkDuplicateUsername,
   checkDuplicateEmail,
+  changeFullName,
+  changeAddress,
+  changeCity,
+  changeState,
+  changeCountry,
+  changePostalCode,
 } from "../api/user";
 import validator from "validator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -37,10 +43,12 @@ function AccountSettings({ navigation }) {
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
 
-  const [newUsername, setNewUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [somethingIsChanged, setSomethingIsChanged] = useState(false);
 
   const setUserInfo = async () => {
     const userinfo = await getUserInfo();
@@ -61,63 +69,128 @@ function AccountSettings({ navigation }) {
   }, []);
 
   const handleSubmitNewUsername = async () => {
-    if (newUsername === "") {
-      Alert.alert("Error", "You must fill all the fields");
-      return;
+    if (username === "") {
+      setUsername(user.username);
+      throw new Error("Username cannot be empty");
     }
-    if (!(await checkDuplicateUsername(newUsername))) {
-      Alert.alert("Error", "The username is already taken");
-      return;
+    if (!(await checkDuplicateUsername(username))) {
+      throw new Error("The username is already taken");
     }
-    const result = await changeUsername(newUsername);
-    if (result) {
-      Alert.alert("Success", "Username changed successfully");
-      setUserInfo();
-      setNewUsername("");
-    }
+    const result = await changeUsername(username);
   };
 
   const handleSubmitNewEmail = async () => {
-    if (newEmail === "") {
-      Alert.alert("Error", "You must fill all the fields");
-      return;
+    if (email === "") {
+      setEmail(user.email);
+      throw new Error("Email cannot be empty");
     }
-    if (!validator.isEmail(newEmail)) {
-      Alert.alert("Error", "The email is not valid");
-      return;
+    if (!validator.isEmail(email)) {
+      throw new Error("The email is not valid");
     }
-    if (!(await checkDuplicateEmail(newEmail))) {
-      Alert.alert("Error", "The email is already taken");
-      return;
+    if (!(await checkDuplicateEmail(email))) {
+      throw new Error("The email is already taken");
     }
-    const result = await changeEmail(newEmail);
-    if (result) {
-      Alert.alert("Success", "Email changed successfully");
-      setUserInfo();
-      setNewEmail("");
-    }
+    const result = await changeEmail(email);
   };
 
   const handleSubmitNewPassword = async () => {
     if (password === "" || newPassword === "" || newPasswordConfirm === "") {
-      Alert.alert("Error", "You must fill all the fields");
-      return;
+      throw new Error("Please fill all password-fields");
     }
     if (newPassword !== newPasswordConfirm) {
-      Alert.alert("Error", "The new passwords don't match");
-      return;
+      throw new Error("The new passwords don't match");
     }
     if (password !== user.password) {
-      Alert.alert("Error", "The current password is incorrect");
-      return;
+      throw new Error("The current password is incorrect");
     }
     const result = await changePassword(newPassword);
-    if (result) {
-      Alert.alert("Success", "Password changed successfully");
-      setUserInfo();
-      setPassword("");
-      setNewPassword("");
-      setNewPasswordConfirm("");
+    setPassword("");
+    setNewPassword("");
+    setNewPasswordConfirm("");
+  };
+
+  const handleSubmitNewFullName = async () => {
+    if (fullName === "") {
+      setFullName(user.fullName);
+      throw new Error("Name cannot be empty");
+    }
+    const result = await changeFullName(fullName);
+  };
+
+  const handleSubmitNewAddress = async () => {
+    if (address === "") {
+      setAddress(user.address);
+      throw new Error("Address cannot be empty");
+    }
+    const result = await changeAddress(address);
+  };
+
+  const handleSubmitNewCity = async () => {
+    if (city === "") {
+      setCity(user.city);
+      throw new Error("City cannot be empty");
+    }
+    const result = await changeCity(city);
+  };
+
+  const handleSubmitNewState = async () => {
+    if (state === "") {
+      setState(user.state);
+      throw new Error("State cannot be empty");
+    }
+    const result = await changeState(state);
+  };
+
+  const handleSubmitNewCountry = async () => {
+    if (country === "") {
+      setCountry(user.country);
+      throw new Error("Country cannot be empty");
+    }
+    const result = await changeCountry(country);
+  };
+
+  const handleSubmitNewPostalCode = async () => {
+    if (postalCode === "") {
+      setPostalCode(user.postalCode);
+      throw new Error("Postal code cannot be empty");
+    }
+    const result = await changePostalCode(postalCode);
+  };
+
+  const handleSubmitForm = async () => {
+    try {
+      if (fullName !== user.fullName) {
+        await handleSubmitNewFullName();
+      }
+      if (username !== user.username) {
+        await handleSubmitNewUsername();
+      }
+      if (email !== user.email) {
+        await handleSubmitNewEmail();
+      }
+      if (password !== "" || newPassword !== "" || newPasswordConfirm !== "") {
+        await handleSubmitNewPassword();
+      }
+      if (address !== user.address) {
+        await handleSubmitNewAddress();
+      }
+      if (city !== user.city) {
+        await handleSubmitNewCity();
+      }
+      if (state !== user.state) {
+        await handleSubmitNewState();
+      }
+      if (country !== user.country) {
+        await handleSubmitNewCountry();
+      }
+      if (postalCode !== user.postalCode) {
+        await handleSubmitNewPostalCode();
+      }
+      Alert.alert("Success", "All changes saved successfully");
+      setIsEditing(false);
+      setSomethingIsChanged(false);
+    } catch (error) {
+      Alert.alert("Error", error.message);
     }
   };
 
@@ -240,22 +313,59 @@ function AccountSettings({ navigation }) {
         <View style={styles.personalData}>
           <View className="flex-row justify-between">
             <Text style={styles.titles}>Datos personales</Text>
-            <TouchableOpacity>
-              <Edit />
-            </TouchableOpacity>
+            {!isEditing ? (
+              <TouchableOpacity onPress={() => setIsEditing(true)}>
+                <Edit />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => handleSubmitForm()}>
+                <Text style={styles.saveText}>Guardar</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <View className="mt-[8]">
             <InputField
               label="Nombre"
               value={fullName}
               onChangeText={setFullName}
+              editable={isEditing}
             />
             <InputField
               label="Usario"
               value={username}
               onChangeText={setUsername}
+              editable={isEditing}
             />
-            <InputField label="Email" value={email} onChangeText={setEmail} />
+            <InputField
+              label="Email"
+              value={email}
+              onChangeText={setEmail}
+              editable={isEditing}
+            />
+            {isEditing ? (
+              <>
+                <InputField
+                  label="Contraseña"
+                  value={password}
+                  onChangeText={setPassword}
+                  editable={isEditing}
+                />
+                <InputField
+                  label="Nueva contraseña"
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  editable={isEditing}
+                />
+                <InputField
+                  label="Repetir contraseña"
+                  value={newPasswordConfirm}
+                  onChangeText={setNewPasswordConfirm}
+                  editable={isEditing}
+                />
+              </>
+            ) : (
+              <></>
+            )}
           </View>
         </View>
         <View style={styles.personalData}>
@@ -267,18 +377,31 @@ function AccountSettings({ navigation }) {
               label="Calle y número"
               value={address}
               onChangeText={setAddress}
+              editable={isEditing}
             />
-            <InputField label="Ciudad" value={city} onChangeText={setCity} />
-            <InputField label="Región" value={state} onChangeText={setState} />
+            <InputField
+              label="Ciudad"
+              value={city}
+              onChangeText={setCity}
+              editable={isEditing}
+            />
+            <InputField
+              label="Región"
+              value={state}
+              onChangeText={setState}
+              editable={isEditing}
+            />
             <InputField
               label="Código postal"
               value={postalCode}
               onChangeText={setPostalCode}
+              editable={isEditing}
             />
             <InputField
               label="País"
               value={country}
               onChangeText={setCountry}
+              editable={isEditing}
             />
           </View>
         </View>
@@ -312,10 +435,10 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontFamily: "Integral CF",
     fontSize: 24,
-    fontWeight: 400,
     position: "absolute",
     bottom: 12,
     left: 30,
+    lineHeight: 26,
   },
   arrow: {
     top: 10,
@@ -325,16 +448,19 @@ const styles = StyleSheet.create({
     color: "#000",
     fontFamily: "Inter",
     fontSize: 14,
-    fontWeight: 500,
   },
   personalData: {
     margin: 25,
   },
   titles: {
     color: "#000",
-    fontFamily: "Inter",
+    fontFamily: "Inter-Bold",
     fontSize: 18,
-    fontWeight: "bold",
+  },
+  saveText: {
+    color: "#095A87",
+    fontFamily: "Inter-Bold",
+    fontSize: 18,
   },
 });
 

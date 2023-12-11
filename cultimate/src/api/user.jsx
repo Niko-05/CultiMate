@@ -279,3 +279,189 @@ export const changeProfilePicture = async (profilePictureId) => {
     Alert.alert("Network error");
   }
 };
+
+export const changeFullName = async (fullName) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      fullName: fullName,
+    };
+    const api_call = await fetch(`${config.API}/user/changeFullName`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
+
+export const changeAddress = async (address) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      address: address,
+    };
+    const api_call = await fetch(`${config.API}/user/changeAddress`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
+
+export const changeCity = async (city) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      city: city,
+    };
+    const api_call = await fetch(`${config.API}/user/changeCity`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
+
+export const changeState = async (state) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      password: password,
+    };
+    const api_call = await fetch(`${config.API}/user/changeState`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
+
+export const changeCountry = async (country) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      country: country,
+    };
+    const api_call = await fetch(`${config.API}/user/changeCountry`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
+
+export const changePostalCode = async (postalCode) => {
+  try {
+    const token = await SecureStore.getItemAsync("accesstoken");
+    const updatedData = {
+      postalCode: postalCode,
+    };
+    const api_call = await fetch(`${config.API}/user/changePostalCode`, {
+      method: "PATCH", // Use PATCH instead of GET
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData), // Include the data you want to update in the request body
+    });
+
+    if (!api_call.ok) {
+      // Handle non-OK response status
+      Alert.alert(
+        "API error",
+        `Failed to update user data. Status: ${api_call.status}`
+      );
+      return;
+    }
+    console.log(api_call.json());
+    return true;
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Network error");
+  }
+};
