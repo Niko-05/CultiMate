@@ -52,17 +52,36 @@ function MyTabs() {
       />
 
       <Tab.Screen  name="Foro" component={ForosScreen} options={{
-          tabBarLabel: "Foro",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="forum" color={color} size={size} />
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Image 
+                 source={require("../../assets/foro.png")}
+                 resizeMode="contain"
+                 style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? '#FFC300' : '#FFFFFF'
+                 }}
+              />
+            </View>
           ),
           headerShown: false,
         }}
       />
 
       <Tab.Screen name="Nueva Planta" component={newPlant} options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="flower" size={size} color={color} />
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Image 
+                 source={require("../../assets/nueva_planta.png")}
+                 resizeMode="contain"
+                 style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? '#FFC300' : '#FFFFFF'
+                 }}
+              />
+            </View>
           ),
           headerTintColor: "green",
         }}
@@ -100,7 +119,8 @@ function MyTabs() {
               />
             </View>
           ),
-          headerTintColor: "green",
+          headerShown: false,
+
         }}
       />
 
