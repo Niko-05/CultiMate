@@ -50,7 +50,7 @@ const ListaPlanta = (props) => {
           (item) => item.estacion_recomendada === selectedValue,
           
         );
-        console.log(filteredItems)
+       
         setLoading(true);
       }
     }
