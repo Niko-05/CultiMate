@@ -6,7 +6,7 @@ import config from "../../config";
 import { getPlantPicture } from "../utils/user";
 import { addFav, deleteFav, favoritosData } from "../api/dataplantas";
 function PlantListItem(props) {
-  const { item, navigation, data, fav, onLoad } = props
+  const { item, navigation, data, fav, onLoad, filtro } = props
   const [check, setCheck] = useState(false);
   const [picture, setPicture] = useState(null);
   const [favoritos, setfavoritos] = useState(fav);
@@ -21,8 +21,9 @@ function PlantListItem(props) {
     setPicture(imagen);
     setfavoritos(updatedFavs);
     setCheck(await updatedFavs.some((favit) => favit.PlantaID === item.id));
-   
-    if (updatedFavs.length === 0 || data[data.length - 1].id === item.id ){
+    console.log("OLA:" + updatedFavs.length)
+    console.log(filtro)
+    if ((updatedFavs.length === 0 && filtro == "Favoritos")|| data[data.length - 1].id === item.id ){
       
       onLoad(); // Llama a onLoad si es el último elemento o si no hay elementos
     }

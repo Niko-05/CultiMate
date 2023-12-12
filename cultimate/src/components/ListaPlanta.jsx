@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, Modal, TouchableOpacity } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  FlatList,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -8,9 +17,8 @@ import config from "../../config";
 import { favoritosData } from "../api/dataplantas";
 
 const ListaPlanta = (props) => {
-  const { data, navigation, favoritos} = props;
+  const { data, navigation, favoritos } = props;
   const [searchTerm, setSearchTerm] = useState("");
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Todos", value: null },
@@ -18,81 +26,80 @@ const ListaPlanta = (props) => {
     { label: "Verano", value: "VERANO" },
     { label: "Primavera", value: "PRIMAVERA" },
     { label: "Otoño", value: "OTOÑO" },
-    { label: "Favoritas", value: "FAVORITOS" },
+    { label: "Favoritos", value: "Favoritos" },
   ]);
-  
+
   const [filteredData, setFilteredData] = useState(data);
   const [favoritosActualizados, setFav] = useState(favoritos);
   const [loading, setLoading] = useState(true);
+  const [forceRender, setForceRender] = useState(0); // Nuevo estado para forzar el renderizado
+
   const handleFilterChange = (selectedValue) => {
-    const actualValue = (typeof selectedValue === 'function' ? selectedValue() : selectedValue);
+    const actualValue = typeof selectedValue === 'function' ? selectedValue() : selectedValue;
     if (String(actualValue) !== String(value)) {
       setValue(selectedValue);
       setSearchTerm("");
-      console.log(selectedValue);
       filterData(selectedValue, "");
+      setForceRender(forceRender + 1); // Incrementar el contador para forzar el renderizado
     }
   };
 
   const filterData = async (selectedValue, searchTerm) => {
+    setLoading(true)
     let filteredItems = await data;
     let updatedFavoritos = await favoritosData();
-    console.log("filtrado" + selectedValue)
+
     if (selectedValue !== null) {
-      if (selectedValue === "FAVORITOS") {
+      if (selectedValue === "Favoritos") {
         filteredItems = await data.filter((item) =>
           updatedFavoritos.some((favItem) => favItem.PlantaID === item.id)
         );
-        setLoading(true);
       } else {
-       
         filteredItems = await data.filter(
-          (item) => item.estacion_recomendada === selectedValue,
-          
+          (item) => item.estacion_recomendada === selectedValue
         );
-       
-        setLoading(true);
       }
     }
-    
+
     if (searchTerm) {
-      console.log(filteredItems)
       filteredItems = await filteredItems.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     setFilteredData(filteredItems);
-    setFav(updatedFavoritos); // Update favoritos after filtering
+    setFav(updatedFavoritos);
+    
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      filterData(value, searchTerm);
-    };
-  
-    fetchData();
-  }, [value, searchTerm]);
   const onLoad = () => {
     setLoading(false);
-    console.log("Dejo de cargar" + loading);
-  }
+  };
+
   const renderItem = ({ item }) => (
-    <PlantListItem item={item} navigation={navigation} data={filteredData} fav={favoritosActualizados } onLoad={onLoad}/>
-    
+    <PlantListItem
+      item={item}
+      navigation={navigation}
+      data={filteredData}
+      fav={favoritosActualizados}
+      onLoad={onLoad}
+      filtro={value}
+    />
   );
 
-  if (data == []|| favoritosActualizados == []) {
-    return <Text>Loading...</Text>;
+  if (data == []) {
+    return  <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'white', overflow: 'hidden', zIndex: 1, alignItems: "top", justifyContent: "top" }}>
+    <ActivityIndicator size="large" color="#0000ff" />
+  </View>
   }
 
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.searchSection}>
-        <Icon style={styles.searchIcon} name="search" size={20} color="#000"/>
+        <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
         <TextInput
           style={styles.searchInput}
-          placeholder="Buscar planta..."
+          placeholder="¿Que vas a plantar hoy?"
           onChangeText={(text) => {
             setSearchTerm(text);
             filterData("", text);
@@ -100,35 +107,41 @@ const ListaPlanta = (props) => {
           value={searchTerm}
         />
       </View>
-    
-      <Text style={{ justifyContent: "center" }}>Seleccionar Filtro:</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollView}>
-      {items.map((label) => (
-        <TouchableOpacity
-          key={label.label}
-          style={[styles.filter, value === label.value && styles.selectedFilter]}
-          onPress={() => {
-            handleFilterChange(label.value)
-          }}
-        >
-          <Text style={styles.filterText}>{label.label}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+      <View style={{paddingTop: 10,zIndex: 2}}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollView}>
+          {items.map((label) => (
+            <TouchableOpacity
+              key={label.value}
+              style={[
+                styles.filter,
+                value === label.value && styles.selectedFilter
+              ]}
+              onPress={() => handleFilterChange(label.value)}
+            >
+              <Text style={[styles.filterText, value === label.value && styles.selectedFilterText]}>
+                    {label.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
       <FlatList
         data={filteredData}
         renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2} // Esto establecerá la lista en dos columnas
+        keyExtractor={(item, index) => `${item.id}-${index}`} // Cambiado para que sea único
+        numColumns={2}
         columnWrapperStyle={styles.row}
+        extraData={forceRender} // Este extraData forzará el renderizado cuando cambie
       />
-    
+
       {loading && (
-        <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'white', overflow: 'hidden', zIndex: 1, alignItems: "center", justifyContent: "center" }}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
+      <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'white', overflow: 'hidden', zIndex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+ 
       )}
-  </View>
+    </View>
   );
 };
 
@@ -159,26 +172,33 @@ const styles = StyleSheet.create({
   },
   row: {
     flex: 1,
-    justifyContent: "space-around", // Esto distribuirá el espacio uniformemente alrededor de los elementos
+    justifyContent: "space-around",
   },
   scrollView: {
     flexDirection: 'row',
-    backgroundColor: '#f5f5f5', // Use the color that fits your app design
+    backgroundColor: '#ffffff',
   },
   filter: {
+    
     paddingVertical: 8,
     paddingHorizontal: 16,
     margin: 4,
     borderRadius: 20,
-    backgroundColor: '#e0e0e0', // Again, choose appropriate colors
   },
   selectedFilter: {
-    backgroundColor: '#007bff', // Color for selected filter
-  },
-  filterText: {
-    color: '#000', // Text color, change as needed
+   
   },
 
+  selectedFilterText: {
+    fontWeight: 'bold',
+    color: 'black', // Puedes ajustar el color del texto cuando está seleccionado
+  },
+  filterText: {
+    color: "grey",
+    fontSize: 13,
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
 });
 
 export default ListaPlanta;

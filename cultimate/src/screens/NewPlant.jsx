@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, SafeAreaView, Text, Pressable, Alert, Image } from "react-native";
+import { View, ScrollView, SafeAreaView, Text, Pressable, Alert, Image,ActivityIndicator } from "react-native";
 import ListaPlanta from "../components/ListaPlanta";
 import { SuggestionModal } from "../components/SuggestionModal";
 import * as SecureStore from "expo-secure-store";
@@ -49,8 +49,10 @@ const NewPlant = ({ navigation }) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  if (data.length == 0|| favoritos.length == 0) {
-    return <Text>Loading...</Text>;
+  if (data.length == 0) {
+    return <View style={{ backgroundColor: 'white', overflow: 'hidden', zIndex: 1, alignItems: "center", justifyContent: "center" }}>
+    <ActivityIndicator size="large" color="#0000ff" />
+  </View>
   }
   return (
     <View style={styles.container}>
@@ -62,45 +64,12 @@ const NewPlant = ({ navigation }) => {
           <Text style={styles.newPlant}>NUEVA PLANTA</Text>
           <View style={{marginTop: 20}}>
             <ListaPlanta data={data} navigation={navigation} favoritos = {favoritos}/>
-            <Pressable
-              style={{
-                backgroundColor: "lightgreen",
-                padding: 10,
-                borderRadius: 20,
-                elevation: 2,
-                position: "absolute",
-                bottom: 20,
-              }}
-              onPress={toggleModal}
-            >
-              <Text>Suggest new plant</Text>
-            </Pressable>
+           
             <SuggestionModal isVisible={isModalVisible} closeModal={toggleModal} />
           </View>
         </View>
       </ScrollView>
     </View>
-    /*
-    <SafeAreaView
-      style={styles.container}
-    >
-      <ListaPlanta data={data} navigation={navigation} favoritos = {favoritos}/>
-      <Pressable
-        style={{
-          backgroundColor: "lightgreen",
-          padding: 10,
-          borderRadius: 20,
-          elevation: 2,
-          position: "absolute",
-          bottom: 20,
-        }}
-        onPress={toggleModal}
-      >
-        <Text>Suggest new plant</Text>
-      </Pressable>
-      <SuggestionModal isVisible={isModalVisible} closeModal={toggleModal} />
-    </SafeAreaView>
-    */
   );
 };
 
