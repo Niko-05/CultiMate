@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import Collapsible from "react-native-collapsible";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
@@ -65,7 +65,23 @@ const PreguntasFrecuentes = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}></View>
+      <View style={styles.top}>
+        <Image
+          style={styles.imageBackground}
+          source={require("../../assets/ESPINACAS_LINEA_BLANCA.png")}
+        />
+        <Text
+          style={{
+            color: "white",
+            fontSize: 24,
+            textAlign: "center",
+            fontFamily: "Integral CF",
+            lineHeight: 28,
+          }}
+        >
+          Preguntas Frecuentes
+        </Text>
+      </View>
       <View style={styles.modal}>
         {preguntas.map((section, index) => (
           <View key={index}>
@@ -82,9 +98,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#09873D",
+    alignItems: "center",
+    justifyContent: "center",
   },
   top: {
     flex: 0.3,
+    flexDirection: "column",
+    width: "100%",
+    alignItems: "center",
   },
   modal: {
     flex: 0.7,
@@ -110,17 +131,10 @@ const styles = StyleSheet.create({
   respuesta: {
     fontSize: 16,
   },
-  profileImageContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  profileImageBackground: {
-    borderRadius: 100,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
+  imageBackground: {
+    alignSelf: "flex-end",
+    width: 210,
+    height: 200,
   },
 });
 
