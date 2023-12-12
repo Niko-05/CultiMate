@@ -68,11 +68,11 @@ const Tienda = () => {
     // Set navigation options when the component is focused
     const setNavigationOptions = () => {
       navigation.setOptions({
-        headerTitle: 'Tienda',
+        headerTitle: 'TIENDA',
         headerTitleStyle: {
           color: '#FFF',
-          fontSize: 20,
-          fontWeight: 'bold',
+          fontSize: 22,
+          fontFamily: "Inter-Bold",
         },
         headerStyle: {
           backgroundColor: '#09873D',
@@ -162,7 +162,7 @@ const getStyles = (modoOscuroActivado) => {
   },
   productName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: "Inter-Bold",
     marginTop: 5,
     marginBottom: 5,
     color: modoOscuroActivado ? darkModeText : lightModeText,
@@ -178,7 +178,7 @@ const getStyles = (modoOscuroActivado) => {
   },
   productPrice: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     marginBottom: 5,
     //color: modoOscuroActivado ? darkModeText : lightModeText,
     color: '#FFFFFF',
@@ -186,6 +186,7 @@ const getStyles = (modoOscuroActivado) => {
   productDescription: {
     fontSize: 14,
     textAlign: "center",
+    fontFamily: "Inter",
     color: modoOscuroActivado ? darkModeText : lightModeText,
   },
 }};
