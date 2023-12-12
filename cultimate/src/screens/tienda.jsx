@@ -23,11 +23,14 @@ import {
   darkbuttonText 
 } from "../utils/colores";
 
+import { useNavigation } from '@react-navigation/native';
+
 const Tienda = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { modoOscuroActivado }= useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
+  const navigation = useNavigation();
 
   const fetchData = async () => {
     try {
@@ -60,6 +63,38 @@ const Tienda = () => {
     Linking.openURL(productUrl);
   };
 
+
+  useEffect(() => {
+    // Set navigation options when the component is focused
+    const setNavigationOptions = () => {
+      navigation.setOptions({
+        headerTitle: 'TIENDA',
+        headerTitleStyle: {
+          color: '#FFF',
+          fontSize: 22,
+          fontFamily: "Inter-Bold",
+        },
+        headerStyle: {
+          backgroundColor: '#09873D',
+          height: 100,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+        },
+        headerRight: () => (
+          <Image
+            source={require('../../assets/BROCOLI_LINEA_BLANCA.png')}
+            style={{ width: 100, height: 100, marginRight: 10 }} // Adjust image size and spacing
+          />
+        ),
+      });
+    };
+    const unsubscribeFocus = navigation.addListener('focus', setNavigationOptions);
+    return unsubscribeFocus;
+  }, [navigation]);
+
+
+
+
   return (
     <View style={styles.container}>
       {loading ? ( // Show loading indicator while fetching data
@@ -77,7 +112,9 @@ const Tienda = () => {
                 style={styles.productImage}
               />
               <Text style={styles.productName}>{product.nombre}</Text>
-              <Text style={styles.productPrice}>{product.precio}€</Text>
+              <View style={styles.priceContainer}>
+                <Text style={styles.productPrice}>{product.precio}€</Text>
+              </View>
               <Text style={styles.productDescription}>
                 {product.descripcion}
               </Text>
@@ -96,42 +133,60 @@ const getStyles = (modoOscuroActivado) => {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   scrollView: {
-    flexGrow: 1,
-    alignItems: "center",
-    paddingVertical: 20,
+    paddingTop: 10, 
+    paddingHorizontal: 10,
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: 'space-between', 
   },
   productContainer: {
-    width: "80%",
-    alignItems: "center",
+    width: '48%',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 20,
     borderWidth: 1,
     borderColor: modoOscuroActivado ? darkModeText : 'lightgray',
-    borderRadius: 8,
+    borderRadius: 10, 
     padding: 10,
+    backgroundColor: '#D1EAD0', 
   },
   productImage: {
-    width: 200,
-    height: 200,
-    resizeMode: "contain",
+    width: '100%', // Adjust image size as needed
+    aspectRatio: 1,  // Adjust image size as needed
+    resizeMode: 'contain',
     marginBottom: 10,
   },
   productName: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontFamily: "Inter-Bold",
+    marginTop: 5,
     marginBottom: 5,
     color: modoOscuroActivado ? darkModeText : lightModeText,
   },
+  priceContainer: {
+    backgroundColor: '#2EC26A',
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    alignItems: 'center',
+  },
   productPrice: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     marginBottom: 5,
-    color: modoOscuroActivado ? darkModeText : lightModeText,
+    //color: modoOscuroActivado ? darkModeText : lightModeText,
+    color: '#FFFFFF',
   },
   productDescription: {
     fontSize: 14,
     textAlign: "center",
+    fontFamily: "Inter",
     color: modoOscuroActivado ? darkModeText : lightModeText,
   },
 }};
