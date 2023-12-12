@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, Modal } from "react-native";
+import { View, ScrollView, Text, FlatList, TextInput, StyleSheet, ActivityIndicator, Modal, TouchableOpacity } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -14,20 +14,22 @@ const ListaPlanta = (props) => {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Todos", value: null },
-    { label: "Invierno", value: "Invierno" },
-    { label: "Verano", value: "Verano" },
-    { label: "Primavera", value: "Primavera" },
-    { label: "Otoño", value: "Otoño" },
-    { label: "Favoritos", value: "Favoritos" },
+    { label: "Invierno", value: "INVIERNO" },
+    { label: "Verano", value: "VERANO" },
+    { label: "Primavera", value: "PRIMAVERA" },
+    { label: "Otoño", value: "OTOÑO" },
+    { label: "Favoritas", value: "FAVORITOS" },
   ]);
+  
   const [filteredData, setFilteredData] = useState(data);
   const [favoritosActualizados, setFav] = useState(favoritos);
   const [loading, setLoading] = useState(true);
   const handleFilterChange = (selectedValue) => {
-    const actualValue = typeof selectedValue === 'function' ? selectedValue() : selectedValue;
+    const actualValue = (typeof selectedValue === 'function' ? selectedValue() : selectedValue);
     if (String(actualValue) !== String(value)) {
       setValue(selectedValue);
       setSearchTerm("");
+      console.log(selectedValue);
       filterData(selectedValue, "");
     }
   };
@@ -35,18 +37,20 @@ const ListaPlanta = (props) => {
   const filterData = async (selectedValue, searchTerm) => {
     let filteredItems = await data;
     let updatedFavoritos = await favoritosData();
-    
+    console.log("filtrado" + selectedValue)
     if (selectedValue !== null) {
-      if (selectedValue === "Favoritos") {
+      if (selectedValue === "FAVORITOS") {
         filteredItems = await data.filter((item) =>
           updatedFavoritos.some((favItem) => favItem.PlantaID === item.id)
         );
         setLoading(true);
       } else {
+       
         filteredItems = await data.filter(
-          (item) => item.estacion_recomendada === selectedValue
+          (item) => item.estacion_recomendada === selectedValue,
           
         );
+        console.log(filteredItems)
         setLoading(true);
       }
     }
@@ -98,16 +102,19 @@ const ListaPlanta = (props) => {
       </View>
     
       <Text style={{ justifyContent: "center" }}>Seleccionar Filtro:</Text>
-    
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={handleFilterChange}
-        setItems={setItems}
-      />
-    
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollView}>
+      {items.map((label) => (
+        <TouchableOpacity
+          key={label.label}
+          style={[styles.filter, value === label.value && styles.selectedFilter]}
+          onPress={() => {
+            handleFilterChange(label.value)
+          }}
+        >
+          <Text style={styles.filterText}>{label.label}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
       <FlatList
         data={filteredData}
         renderItem={renderItem}
@@ -154,6 +161,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around", // Esto distribuirá el espacio uniformemente alrededor de los elementos
   },
+  scrollView: {
+    flexDirection: 'row',
+    backgroundColor: '#f5f5f5', // Use the color that fits your app design
+  },
+  filter: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    margin: 4,
+    borderRadius: 20,
+    backgroundColor: '#e0e0e0', // Again, choose appropriate colors
+  },
+  selectedFilter: {
+    backgroundColor: '#007bff', // Color for selected filter
+  },
+  filterText: {
+    color: '#000', // Text color, change as needed
+  },
+
 });
 
 export default ListaPlanta;
