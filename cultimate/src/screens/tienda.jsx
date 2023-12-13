@@ -96,99 +96,128 @@ const Tienda = () => {
 
 
   return (
-    <View style={styles.container}>
-      {loading ? ( // Show loading indicator while fetching data
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          {products.map((product) => (
-            <TouchableOpacity
-              key={product.id}
-              style={styles.productContainer}
-              onPress={() => openProductLink(product.url)}
-            >
-              <Image
-                source={{ uri: product.imagen }}
-                style={styles.productImage}
-              />
-              <Text style={styles.productName}>{product.nombre}</Text>
-              <View style={styles.priceContainer}>
-                <Text style={styles.productPrice}>{product.precio}€</Text>
-              </View>
-              <Text style={styles.productDescription}>
-                {product.descripcion}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      )}
+    <View>
+      <View style={styles.backgroundLayer}>
+        <Image source={require('../../assets/BROCOLI_LINEA_BLANCA.png')} style={styles.plantImage} />
+      </View>
+      <ScrollView>
+        <Text style={styles.title}>TIENDA</Text>
+        <View style={styles.container}>
+          {loading ? ( // Show loading indicator while fetching data
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <ScrollView contentContainerStyle={styles.scrollView}>
+              {products.map((product) => (
+                <TouchableOpacity
+                  key={product.id}
+                  style={styles.productContainer}
+                  onPress={() => openProductLink(product.url)}
+                >
+                  <Image
+                    source={{ uri: product.imagen }}
+                    style={styles.productImage}
+                  />
+                  <Text style={styles.productName}>{product.nombre}</Text>
+                  <View style={styles.priceContainer}>
+                    <Text style={styles.productPrice}>{product.precio}€</Text>
+                  </View>
+                  <Text style={styles.productDescription}>
+                    {product.descripcion}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const getStyles = (modoOscuroActivado) => {
   return {
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  scrollView: {
-    paddingTop: 10, 
-    paddingHorizontal: 10,
-    flexDirection: 'row', 
-    flexWrap: 'wrap', 
-    justifyContent: 'space-between', 
-  },
-  productContainer: {
-    width: '48%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: modoOscuroActivado ? darkModeText : 'lightgray',
-    borderRadius: 10, 
-    padding: 10,
-    backgroundColor: '#D1EAD0', 
-  },
-  productImage: {
-    width: '100%', // Adjust image size as needed
-    aspectRatio: 1,  // Adjust image size as needed
-    resizeMode: 'contain',
-    marginBottom: 10,
-  },
-  productName: {
-    fontSize: 16,
-    fontFamily: "Inter-Bold",
-    marginTop: 5,
-    marginBottom: 5,
-    color: modoOscuroActivado ? darkModeText : lightModeText,
-  },
-  priceContainer: {
-    backgroundColor: '#2EC26A',
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginTop: 5,
-    marginBottom: 5,
-    alignItems: 'center',
-  },
-  productPrice: {
-    fontSize: 16,
-    fontFamily: "Inter-Bold",
-    marginBottom: 5,
-    //color: modoOscuroActivado ? darkModeText : lightModeText,
-    color: '#FFFFFF',
-  },
-  productDescription: {
-    fontSize: 14,
-    textAlign: "center",
-    fontFamily: "Inter",
-    color: modoOscuroActivado ? darkModeText : lightModeText,
-  },
+    backgroundLayer: {
+      backgroundColor: '#09873D', // O el color de fondo verde que desees
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+    },
+    container: {
+      backgroundColor: 'white',
+      borderRadius: 20, // Ajusta el borde como desees
+      paddingTop: 20,
+      paddingHorizontal: 5,
+      marginTop: 200,
+      zIndex: 0,
+      height: '100%',
+    },
+    scrollView: {
+      paddingTop: 10, 
+      paddingHorizontal: 10,
+      flexDirection: 'row', 
+      flexWrap: 'wrap', 
+      justifyContent: 'space-between', 
+    },
+    productContainer: {
+      width: '48%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 20,
+      borderColor: modoOscuroActivado ? darkModeText : 'lightgray',
+      borderRadius: 10, 
+      padding: 10,
+      backgroundColor: '#D1EAD0', 
+    },
+    productImage: {
+      width: '100%', // Adjust image size as needed
+      aspectRatio: 1,  // Adjust image size as needed
+      resizeMode: 'contain',
+      marginBottom: 10,
+    },
+    productName: {
+      fontSize: 16,
+      fontFamily: "Inter-Bold",
+      marginTop: 5,
+      marginBottom: 5,
+      color: modoOscuroActivado ? darkModeText : lightModeText,
+    },
+    priceContainer: {
+      backgroundColor: '#2EC26A',
+      borderRadius: 5,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      marginTop: 5,
+      marginBottom: 5,
+      alignItems: 'center',
+    },
+    productPrice: {
+      fontSize: 16,
+      fontFamily: "Inter-Bold",
+      marginBottom: 5,
+      //color: modoOscuroActivado ? darkModeText : lightModeText,
+      color: '#FFFFFF',
+    },
+    productDescription: {
+      fontSize: 14,
+      textAlign: "center",
+      fontFamily: "Inter",
+      color: modoOscuroActivado ? darkModeText : lightModeText,
+    },
+    plantImage: {
+      marginTop: 0,
+      marginLeft: 243,
+      width: 240, // Ajusta al tamaño que necesites
+      height: 240, // Ajusta al tamaño que necesites
+    },
+    title: {
+      color: "#FFF",
+      fontFamily: "Integral CF",
+      fontSize: 24,
+      position: "absolute",
+      top: 165,
+      left: 30,
+      lineHeight: 26,
+    },
 }};
 
 export default Tienda;
