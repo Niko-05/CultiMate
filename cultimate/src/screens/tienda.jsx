@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useModoOscuro } from '../context/ModoOscuroContext';
+import { useModoOscuro } from "../context/ModoOscuroContext";
 import {
   View,
   ScrollView,
@@ -12,23 +12,23 @@ import {
   Alert,
 } from "react-native";
 import config from "../../config";
-import { 
-  lightModeBackground, 
-  darkModeBackground, 
-  lightModeText, 
-  darkModeText, 
-  lightbuttonBackground, 
-  darkbuttonBackground, 
-  lightbuttonText, 
-  darkbuttonText 
+import {
+  lightModeBackground,
+  darkModeBackground,
+  lightModeText,
+  darkModeText,
+  lightbuttonBackground,
+  darkbuttonBackground,
+  lightbuttonText,
+  darkbuttonText,
 } from "../utils/colores";
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 const Tienda = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { modoOscuroActivado }= useModoOscuro();
+  const { modoOscuroActivado } = useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
   const navigation = useNavigation();
 
@@ -63,43 +63,55 @@ const Tienda = () => {
     Linking.openURL(productUrl);
   };
 
+  // useEffect(() => {
+  //   // Set navigation options when the component is focused
+  //   const setNavigationOptions = () => {
+  //     navigation.setOptions({
+  //       headerTitle: "TIENDA",
+  //       headerTitleStyle: {
+  //         color: "#FFF",
+  //         fontSize: 22,
+  //         fontFamily: "Inter-Bold",
+  //       },
+  //       headerStyle: {
+  //         backgroundColor: "#09873D",
+  //         height: 100,
+  //         borderBottomLeftRadius: 20,
+  //         borderBottomRightRadius: 20,
+  //       },
+  //       headerRight: () => (
+  //         <Image
+  //           source={require("../../assets/BROCOLI_LINEA_BLANCA.png")}
+  //           style={{ width: 100, height: 100, marginRight: 10 }} // Adjust image size and spacing
+  //         />
+  //       ),
+  //     });
+  //   };
+  //   const unsubscribeFocus = navigation.addListener(
+  //     "focus",
+  //     setNavigationOptions
+  //   );
+  //   return unsubscribeFocus;
+  // }, [navigation]);
 
-  useEffect(() => {
-    // Set navigation options when the component is focused
-    const setNavigationOptions = () => {
-      navigation.setOptions({
-        headerTitle: 'TIENDA',
-        headerTitleStyle: {
-          color: '#FFF',
-          fontSize: 22,
-          fontFamily: "Inter-Bold",
-        },
-        headerStyle: {
-          backgroundColor: '#09873D',
-          height: 100,
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-        },
-        headerRight: () => (
-          <Image
-            source={require('../../assets/BROCOLI_LINEA_BLANCA.png')}
-            style={{ width: 100, height: 100, marginRight: 10 }} // Adjust image size and spacing
-          />
-        ),
-      });
-    };
-    const unsubscribeFocus = navigation.addListener('focus', setNavigationOptions);
-    return unsubscribeFocus;
-  }, [navigation]);
-
-
-
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="white" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      {loading ? ( // Show loading indicator while fetching data
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
+      <View style={styles.top}>
+        <Image
+          source={require("../../assets/brocoli_transparent.png")}
+          style={styles.brocoli}
+        />
+        <Text style={styles.titulo}>TIENDA</Text>
+      </View>
+      <View style={styles.modal}>
         <ScrollView contentContainerStyle={styles.scrollView}>
           {products.map((product) => (
             <TouchableOpacity
@@ -121,74 +133,97 @@ const Tienda = () => {
             </TouchableOpacity>
           ))}
         </ScrollView>
-      )}
+      </View>
     </View>
   );
 };
 
 const getStyles = (modoOscuroActivado) => {
   return {
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: modoOscuroActivado ? darkModeBackground: lightModeBackground,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  scrollView: {
-    paddingTop: 10, 
-    paddingHorizontal: 10,
-    flexDirection: 'row', 
-    flexWrap: 'wrap', 
-    justifyContent: 'space-between', 
-  },
-  productContainer: {
-    width: '48%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: modoOscuroActivado ? darkModeText : 'lightgray',
-    borderRadius: 10, 
-    padding: 10,
-    backgroundColor: '#D1EAD0', 
-  },
-  productImage: {
-    width: '100%', // Adjust image size as needed
-    aspectRatio: 1,  // Adjust image size as needed
-    resizeMode: 'contain',
-    marginBottom: 10,
-  },
-  productName: {
-    fontSize: 16,
-    fontFamily: "Inter-Bold",
-    marginTop: 5,
-    marginBottom: 5,
-    color: modoOscuroActivado ? darkModeText : lightModeText,
-  },
-  priceContainer: {
-    backgroundColor: '#2EC26A',
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginTop: 5,
-    marginBottom: 5,
-    alignItems: 'center',
-  },
-  productPrice: {
-    fontSize: 16,
-    fontFamily: "Inter-Bold",
-    marginBottom: 5,
-    //color: modoOscuroActivado ? darkModeText : lightModeText,
-    color: '#FFFFFF',
-  },
-  productDescription: {
-    fontSize: 14,
-    textAlign: "center",
-    fontFamily: "Inter",
-    color: modoOscuroActivado ? darkModeText : lightModeText,
-  },
-}};
+    container: {
+      flex: 1,
+      backgroundColor: "#09873D",
+    },
+    top: {
+      flex: 0.2,
+    },
+    modal: {
+      flex: 0.8,
+      backgroundColor: "white",
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+    },
+    scrollView: {
+      paddingTop: 10,
+      paddingHorizontal: 10,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      paddingBottom: 75,
+    },
+    brocoli: {
+      width: 192,
+      height: 203,
+      position: "absolute",
+      top: -5,
+      right: -10,
+    },
+    titulo: {
+      color: "#FFF",
+      fontFamily: "Integral CF",
+      fontSize: 24,
+      position: "absolute",
+      bottom: 12,
+      left: 30,
+      lineHeight: 26,
+    },
+    productContainer: {
+      width: "48%",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 20,
+      borderRadius: 10,
+      padding: 10,
+      backgroundColor: "#D1EAD0",
+    },
+    productImage: {
+      width: "100%", // Adjust image size as needed
+      aspectRatio: 1, // Adjust image size as needed
+      resizeMode: "contain",
+      marginBottom: 10,
+    },
+    productName: {
+      fontSize: 16,
+      fontFamily: "Inter-Bold",
+      marginTop: 5,
+      marginBottom: 5,
+      color: "black",
+    },
+    priceContainer: {
+      backgroundColor: "#2EC26A",
+      borderRadius: 5,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      marginTop: 5,
+      marginBottom: 5,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    productPrice: {
+      fontSize: 16,
+      fontFamily: "Inter-Bold",
+      //color: modoOscuroActivado ? darkModeText : lightModeText,
+      color: "#FFFFFF",
+    },
+    productDescription: {
+      fontSize: 14,
+      textAlign: "center",
+      fontFamily: "Inter",
+      color: "#939393",
+    },
+  };
+};
 
 export default Tienda;

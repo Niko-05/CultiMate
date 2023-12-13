@@ -8,12 +8,15 @@ import user from "../screens/User";
 import GuiasPlantado from "../screens/GuiasPlantado";
 import HuertoSimulado from "../screens/huertoSimulado";
 import Tienda from "../screens/tienda";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -21,7 +24,7 @@ function MyTabs() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          bottom: 25,
+          bottom: insets.bottom,
           left: 20,
           right: 20,
           elevation: 0,
@@ -116,6 +119,7 @@ function MyTabs() {
             </View>
           ),
           headerTintColor: "green",
+          headerShown: false,
         }}
       />
 
