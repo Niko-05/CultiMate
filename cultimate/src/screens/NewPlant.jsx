@@ -57,8 +57,8 @@ const NewPlant = ({ navigation }) => {
         <Image source={require('../../assets/lineales/mora-linea-blanca.png')} style={styles.plantImage} />
       </View>
       <ScrollView>
+        <Text style={styles.newPlant}>NUEVA PLANTA</Text>
         <View style={styles.infoLayer}>
-          <Text style={styles.newPlant}>NUEVA PLANTA</Text>
           <View style={{marginTop: 20}}>
             <ListaPlanta data={data} navigation={navigation} favoritos = {favoritos}/>
            
@@ -83,20 +83,21 @@ const getStyles = (modoOscuroActivado) => {
     position: 'absolute',
   },
   newPlant: {
-    marginTop: -55,
-    marginLeft: 15,
-    fontSize: 24,
-    fontWeight: "bold",
-    color: 'white',
-    marginBottom: 0,
+    color: "#FFF",
     fontFamily: "Integral CF",
+    fontSize: 24,
+    position: "absolute",
+    top: 165,
+    left: 30,
+    lineHeight: 26,
   },
   infoLayer: {
     backgroundColor: 'white',
     borderRadius: 20, // Ajusta el borde como desees
     paddingTop: 20,
     paddingHorizontal: 5,
-    marginTop: 170,
+    marginTop: 200,
+    marginBottom: 80,
     zIndex: 0,
     height: '100%',
   },

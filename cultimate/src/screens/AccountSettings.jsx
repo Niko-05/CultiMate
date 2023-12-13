@@ -191,117 +191,121 @@ function AccountSettings({ navigation }) {
   };
 
   return (
+    /*
+    <TouchableOpacity
+      style={[styles.arrow, { marginTop: insets.top }]}
+      onPress={() => navigation.navigate("navigation")}
+    >
+      <ArrowBack />
+    </TouchableOpacity>
+    */
     <KeyboardAvoidingView
       style={styles.bg}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.top}>
-        <TouchableOpacity
-          style={[styles.arrow, { marginTop: insets.top }]}
-          onPress={() => navigation.navigate("navigation")}
-        >
-          <ArrowBack />
-        </TouchableOpacity>
         <Image
           source={require("../../assets/login/avocado_transparent.png")}
           style={styles.avocado}
         />
-        <Text style={styles.formularioText}>MIS DATOS PERSONALES</Text>
       </View>
-      <ScrollView style={styles.modal} showsVerticalScrollIndicator={false}>
-        <View style={styles.personalData}>
-          <View className="flex-row justify-between">
-            <Text style={styles.titles}>Datos personales</Text>
-            {!isEditing ? (
-              <TouchableOpacity onPress={() => setIsEditing(true)}>
-                <Edit />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => handleSubmitForm()}>
-                <Text style={styles.saveText}>Guardar</Text>
-              </TouchableOpacity>
-            )}
+      <ScrollView>
+        <Text style={styles.formularioText}>MIS DATOS PERSONALES</Text>
+        <View style={styles.infoLayer}>
+          <View style={styles.personalData}>
+            <View className="flex-row justify-between">
+              <Text style={styles.titles}>Datos personales</Text>
+              {!isEditing ? (
+                <TouchableOpacity onPress={() => setIsEditing(true)}>
+                  <Edit />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={() => handleSubmitForm()}>
+                  <Text style={styles.saveText}>Guardar</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            <View className="mt-[8]">
+              <InputField
+                label="Nombre"
+                value={fullName}
+                onChangeText={setFullName}
+                editable={isEditing}
+              />
+              <InputField
+                label="Usario"
+                value={username}
+                onChangeText={setUsername}
+                editable={isEditing}
+              />
+              <InputField
+                label="Email"
+                value={email}
+                onChangeText={setEmail}
+                editable={isEditing}
+              />
+              {isEditing ? (
+                <>
+                  <InputField
+                    label="Contraseña"
+                    value={password}
+                    onChangeText={setPassword}
+                    editable={isEditing}
+                  />
+                  <InputField
+                    label="Nueva contraseña"
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                    editable={isEditing}
+                  />
+                  <InputField
+                    label="Repetir contraseña"
+                    value={newPasswordConfirm}
+                    onChangeText={setNewPasswordConfirm}
+                    editable={isEditing}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
+            </View>
           </View>
-          <View className="mt-[8]">
-            <InputField
-              label="Nombre"
-              value={fullName}
-              onChangeText={setFullName}
-              editable={isEditing}
-            />
-            <InputField
-              label="Usario"
-              value={username}
-              onChangeText={setUsername}
-              editable={isEditing}
-            />
-            <InputField
-              label="Email"
-              value={email}
-              onChangeText={setEmail}
-              editable={isEditing}
-            />
-            {isEditing ? (
-              <>
-                <InputField
-                  label="Contraseña"
-                  value={password}
-                  onChangeText={setPassword}
-                  editable={isEditing}
-                />
-                <InputField
-                  label="Nueva contraseña"
-                  value={newPassword}
-                  onChangeText={setNewPassword}
-                  editable={isEditing}
-                />
-                <InputField
-                  label="Repetir contraseña"
-                  value={newPasswordConfirm}
-                  onChangeText={setNewPasswordConfirm}
-                  editable={isEditing}
-                />
-              </>
-            ) : (
-              <></>
-            )}
-          </View>
-        </View>
-        <View style={styles.personalData}>
-          <View className="flex-row">
-            <Text style={styles.titles}>Dirección</Text>
-          </View>
-          <View className="mt-[8]">
-            <InputField
-              label="Calle y número"
-              value={address}
-              onChangeText={setAddress}
-              editable={isEditing}
-            />
-            <InputField
-              label="Ciudad"
-              value={city}
-              onChangeText={setCity}
-              editable={isEditing}
-            />
-            <InputField
-              label="Región"
-              value={state}
-              onChangeText={setState}
-              editable={isEditing}
-            />
-            <InputField
-              label="Código postal"
-              value={postalCode}
-              onChangeText={setPostalCode}
-              editable={isEditing}
-            />
-            <InputField
-              label="País"
-              value={country}
-              onChangeText={setCountry}
-              editable={isEditing}
-            />
+          <View style={styles.personalData}>
+            <View className="flex-row">
+              <Text style={styles.titles}>Dirección</Text>
+            </View>
+            <View className="mt-[8]">
+              <InputField
+                label="Calle y número"
+                value={address}
+                onChangeText={setAddress}
+                editable={isEditing}
+              />
+              <InputField
+                label="Ciudad"
+                value={city}
+                onChangeText={setCity}
+                editable={isEditing}
+              />
+              <InputField
+                label="Región"
+                value={state}
+                onChangeText={setState}
+                editable={isEditing}
+              />
+              <InputField
+                label="Código postal"
+                value={postalCode}
+                onChangeText={setPostalCode}
+                editable={isEditing}
+              />
+              <InputField
+                label="País"
+                value={country}
+                onChangeText={setCountry}
+                editable={isEditing}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -335,7 +339,7 @@ const styles = StyleSheet.create({
     fontFamily: "Integral CF",
     fontSize: 24,
     position: "absolute",
-    bottom: 12,
+    top: 150,
     left: 30,
     lineHeight: 26,
   },
@@ -360,6 +364,14 @@ const styles = StyleSheet.create({
     color: "#007AFF",
     fontFamily: "Inter-Bold",
     fontSize: 18,
+  },
+  infoLayer: {
+    backgroundColor: 'white',
+    borderRadius: 20, // Ajusta el borde como desees
+    padding: 20,
+    paddingTop: 20, // Espacio en la parte superior para evitar que el contenido se superponga con la imagen
+    marginTop: 190,
+    zIndex: 0,
   },
 });
 
