@@ -97,6 +97,7 @@ const getStyles = (modoOscuroActivado) => {
     paddingTop: 20,
     paddingHorizontal: 5,
     marginTop: 170,
+    marginBottom: 80,
     zIndex: 0,
     height: '100%',
   },
