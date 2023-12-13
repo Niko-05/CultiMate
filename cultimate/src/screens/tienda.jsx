@@ -147,6 +147,7 @@ const getStyles = (modoOscuroActivado) => {
       borderRadius: 20, // Ajusta el borde como desees
       paddingTop: 20,
       paddingHorizontal: 5,
+      marginBottom: 65,
       marginTop: 200,
       zIndex: 0,
       height: '100%',
