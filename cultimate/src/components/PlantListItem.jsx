@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     alignSelf: 'center',
+    fontFamily: "Inter",
   },
   imagen: {
     width: 150,

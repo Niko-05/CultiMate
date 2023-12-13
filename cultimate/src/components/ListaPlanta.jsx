@@ -103,7 +103,7 @@ const ListaPlanta = (props) => {
           placeholder="¿Que vas a plantar hoy?"
           onChangeText={(text) => {
             setSearchTerm(text);
-            filterData("", text);
+            filterData(value, text);
           }}
           value={searchTerm}
         />
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     backgroundColor: '#fff',
     color: '#424242',
+    fontFamily: "Inter",
   },
   row: {
     flex: 1,
@@ -191,10 +192,12 @@ const styles = StyleSheet.create({
   },
 
   selectedFilterText: {
+    fontFamily: "Inter",
     fontWeight: 'bold',
     color: 'black', // Puedes ajustar el color del texto cuando está seleccionado
   },
   filterText: {
+    fontFamily: "Inter",
     color: "grey",
     fontSize: 13,
     textAlign: 'center',

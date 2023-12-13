@@ -89,6 +89,7 @@ const getStyles = (modoOscuroActivado) => {
     fontWeight: "bold",
     color: 'white',
     marginBottom: 0,
+    fontFamily: "Integral CF",
   },
   infoLayer: {
     backgroundColor: 'white',
