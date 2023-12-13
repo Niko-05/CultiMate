@@ -107,6 +107,7 @@ function MyTabs() {
           ),
 
           headerTintColor: "green",
+          headerShown: false,
         }}
       />
 
