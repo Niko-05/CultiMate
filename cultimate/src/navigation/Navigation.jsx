@@ -50,6 +50,7 @@ function MyTabs() {
             <MaterialCommunityIcons name="flower" size={size} color={color} />
           ),
           headerTintColor: "green",
+          headerShown: false,
         }}
       />
 
