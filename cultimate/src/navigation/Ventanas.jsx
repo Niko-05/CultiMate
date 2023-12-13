@@ -44,12 +44,20 @@ const Ventanas = () => {
         component={Navigation}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="newPlant" component={newPlant} />
+      <Stack.Screen name="newPlant" component={newPlant} options={{
+                headerTransparent: true,
+                headerTitle: "",
+                headerTintColor: "#fff"
+              }}/>
       <Stack.Screen name="Settings" component={ConfigScreen} />
       <Stack.Screen
         name="AccountSettings"
         component={AccountSettingsScreen}
-        options={{ headerShown: true }}
+        options={{ 
+          headerTransparent: true,
+          headerTitle: "",
+          headerTintColor: "#fff"
+       }}
       />
       <Stack.Screen
         name="ConfigurationScreen"
@@ -61,7 +69,10 @@ const Ventanas = () => {
         component={ProfilePicture}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Infoplanta" component={Infoplanta} />
+      <Stack.Screen name="Infoplanta" component={Infoplanta}  options={{
+                headerTransparent: true,
+                headerTitle: "",
+              }}/>
       <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen

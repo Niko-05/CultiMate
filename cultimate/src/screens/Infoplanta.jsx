@@ -393,7 +393,7 @@ const getStyles = (modoOscuroActivado) => {
   return {
   container: {
     flex: 1,
-    backgroundColor: modoOscuroActivado ? darkModeBackground : lightModeBackground,
+    backgroundColor: '#EDE7D9'
   },
   header: {
     position: 'absolute',
@@ -406,6 +406,8 @@ const getStyles = (modoOscuroActivado) => {
     fontWeight: "bold",
     color: modoOscuroActivado ? darkModeText : lightModeText,
     marginBottom: 0,
+    marginTop:70,
+    fontFamily: "Inter",
   },
   subtitle: {
     marginTop: 0,
@@ -477,7 +479,7 @@ const getStyles = (modoOscuroActivado) => {
     borderRadius: 20, // Ajusta el borde como desees
     padding: 20,
     paddingTop: 20, // Espacio en la parte superior para evitar que el contenido se superponga con la imagen
-    marginTop: 300,
+    marginTop: 370,
     zIndex: 0,
   },
   circle: {
@@ -590,7 +592,7 @@ const getStyles = (modoOscuroActivado) => {
   floatingButton: {
     position: 'absolute',
     right: 30, // Ajusta según la necesidad de tu diseño
-    marginTop: 263,
+    marginTop: 333,
     zIndex: 10,
   },
   addButtonText: {
