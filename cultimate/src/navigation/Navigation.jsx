@@ -105,11 +105,20 @@ function MyTabs() {
         name="Tienda"
         component={Tienda}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="shopping" color={color} size={size} />
+          tabBarIcon: ({ focused }) => (
+            <View>
+              <Image
+                source={require("../../assets/tienda.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? "#FFC300" : "#FFFFFF",
+                }}
+              />
+            </View>
           ),
-
-          headerTintColor: "green",
+          
           headerShown: false,
         }}
       />
