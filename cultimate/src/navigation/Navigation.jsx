@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 //screens
 import ForosScreen from "../screens/Foro/ForosScreen";
 import newPlant from "../screens/NewPlant";
@@ -20,29 +20,33 @@ function MyTabs() {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          position: 'absolute',
+          position: "absolute",
           bottom: 25,
           left: 20,
           right: 20,
           elevation: 0,
-          backgroundColor: '#09873D',
+          backgroundColor: "#09873D",
           borderRadius: 15,
           height: 50,
-          ... styles.shadow,
-        }
+          paddingBottom: 5,
+          ...styles.shadow,
+        },
       }}
     >
-      <Tab.Screen name="Usuario" component={user} options={{
-          tabBarIcon: ({focused}) => (
+      <Tab.Screen
+        name="Usuario"
+        component={user}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Image 
-                 source={require("../../assets/usuario.png")}
-                 resizeMode="contain"
-                 style={{
+              <Image
+                source={require("../../assets/usuario.png")}
+                resizeMode="contain"
+                style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#FFC300' : '#FFFFFF'
-                 }}
+                  tintColor: focused ? "#FFC300" : "#FFFFFF",
+                }}
               />
             </View>
           ),
@@ -51,17 +55,20 @@ function MyTabs() {
         }}
       />
 
-      <Tab.Screen  name="Foro" component={ForosScreen} options={{
-          tabBarIcon: ({focused}) => (
+      <Tab.Screen
+        name="Foro"
+        component={ForosScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Image 
-                 source={require("../../assets/foro.png")}
-                 resizeMode="contain"
-                 style={{
+              <Image
+                source={require("../../assets/foro.png")}
+                resizeMode="contain"
+                style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#FFC300' : '#FFFFFF'
-                 }}
+                  tintColor: focused ? "#FFC300" : "#FFFFFF",
+                }}
               />
             </View>
           ),
@@ -69,17 +76,20 @@ function MyTabs() {
         }}
       />
 
-      <Tab.Screen name="Nueva Planta" component={newPlant} options={{
-          tabBarIcon: ({focused}) => (
+      <Tab.Screen
+        name="Nueva Planta"
+        component={newPlant}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Image 
-                 source={require("../../assets/nueva_planta.png")}
-                 resizeMode="contain"
-                 style={{
+              <Image
+                source={require("../../assets/nueva_planta.png")}
+                resizeMode="contain"
+                style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#FFC300' : '#FFFFFF'
-                 }}
+                  tintColor: focused ? "#FFC300" : "#FFFFFF",
+                }}
               />
             </View>
           ),
@@ -88,17 +98,20 @@ function MyTabs() {
         }}
       />
 
-      <Tab.Screen name="Tienda" component={Tienda} options={{
-          tabBarIcon: ({focused}) => (
+      <Tab.Screen
+        name="Tienda"
+        component={Tienda}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Image 
-                 source={require("../../assets/tienda.png")}
-                 resizeMode="contain"
-                 style={{
+              <Image
+                source={require("../../assets/tienda.png")}
+                resizeMode="contain"
+                style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#FFC300' : '#FFFFFF'
-                 }}
+                  tintColor: focused ? "#FFC300" : "#FFFFFF",
+                }}
               />
             </View>
           ),
@@ -106,25 +119,26 @@ function MyTabs() {
         }}
       />
 
-      <Tab.Screen name="Guias de Plantado" component={HuertoSimulado /*GuiasPlantado*/} options={{
-          tabBarIcon: ({focused}) => (
+      <Tab.Screen
+        name="Guias de Plantado"
+        component={HuertoSimulado /*GuiasPlantado*/}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <View>
-              <Image 
-                 source={require("../../assets/huerto.png")}
-                 resizeMode="contain"
-                 style={{
+              <Image
+                source={require("../../assets/huerto.png")}
+                resizeMode="contain"
+                style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#FFC300' : '#FFFFFF'
-                 }}
+                  tintColor: focused ? "#FFC300" : "#FFFFFF",
+                }}
               />
             </View>
           ),
           headerShown: false,
-
         }}
       />
-
     </Tab.Navigator>
   );
 }
@@ -133,12 +147,11 @@ export default function Navigation() {
   return <MyTabs />;
 }
 
-
 //color barra #09873D
 
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#036925',
+    shadowColor: "#036925",
     shadowOffset: {
       width: 0,
       height: 10,
@@ -146,5 +159,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
     elevation: 5,
-  }
-})
+  },
+});
