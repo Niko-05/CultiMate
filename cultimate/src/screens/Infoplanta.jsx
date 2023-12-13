@@ -99,7 +99,7 @@ const Infoplanta = ({navigation}) => {
         </TouchableOpacity>
         <Collapsible collapsed={collapsed}>
           <View style={styles.content}>
-            <Text>{content}</Text>
+            <Text style = {styles.textodespl}>{content}</Text>
           </View>
         </Collapsible>
       </View>
@@ -413,6 +413,7 @@ const getStyles = (modoOscuroActivado) => {
     fontWeight: "bold",
     color: 'grey',
     marginBottom: 10,
+    fontFamily: "Inter",
   },
   gCalendarFont: {
     fontSize: 18,
@@ -488,6 +489,7 @@ const getStyles = (modoOscuroActivado) => {
     justifyContent: 'center', // Centra la imagen en el círculo
     alignItems: 'center', // Centra la imagen en el círculo
     marginVertical: 10,
+    fontFamily: "Inter",
   },
   iconGota: {
     width: 50, // Ajusta según el tamaño de tu icono
@@ -502,16 +504,19 @@ const getStyles = (modoOscuroActivado) => {
   circleTop: {
     fontSize: 15,
     fontWeight: "bold",
+    fontFamily: "Inter",
   },
   circleBottom: {
     fontSize: 16,
     fontWeight: '900',
+    fontFamily: "Inter",
   },
   regarCada: {
     fontSize: 12,
     color: '#939393',
     fontWeight: "bold",
     marginBottom: -4,
+    fontFamily: "Inter",
   },
   divider: {
     height: '80%',
@@ -522,6 +527,7 @@ const getStyles = (modoOscuroActivado) => {
   circleText: {
     fontSize: 36,
     fontWeight: 'bold',
+    fontFamily: "Inter",
   },
   row: {
     flexDirection: 'row',
@@ -535,10 +541,12 @@ const getStyles = (modoOscuroActivado) => {
     justifyContent: 'space-between',
     padding: 10,
     alignItems: 'center',
+    fontFamily: "Inter",
   },
   acordion: {
-    fontSize: 16,
-    fontWeight: `bold`
+    fontSize: 15,
+    fontWeight: `bold`,
+    fontFamily: "Inter",
   },
   content: {
     padding: 20,
@@ -589,6 +597,10 @@ const getStyles = (modoOscuroActivado) => {
     fontSize: 60,
     color: 'white',
     marginTop: -8,
+  },
+  textodespl:{
+    fontFamily: "Inter",
+    fontSize:14,
   }
 }};
 
