@@ -9,6 +9,7 @@ import GuiasPlantado from "../screens/GuiasPlantado";
 import HuertoSimulado from "../screens/huertoSimulado";
 import Tienda from "../screens/tienda";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Platform } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -24,7 +25,7 @@ function MyTabs() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          bottom: insets.bottom,
+          bottom: Platform.OS === "android" ? insets.bottom + 10 : insets.bottom,
           left: 20,
           right: 20,
           elevation: 0,
@@ -118,7 +119,7 @@ function MyTabs() {
               />
             </View>
           ),
-          
+
           headerShown: false,
         }}
       />
