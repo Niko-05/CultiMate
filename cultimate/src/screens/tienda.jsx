@@ -63,37 +63,6 @@ const Tienda = () => {
     Linking.openURL(productUrl);
   };
 
-  // useEffect(() => {
-  //   // Set navigation options when the component is focused
-  //   const setNavigationOptions = () => {
-  //     navigation.setOptions({
-  //       headerTitle: "TIENDA",
-  //       headerTitleStyle: {
-  //         color: "#FFF",
-  //         fontSize: 22,
-  //         fontFamily: "Inter-Bold",
-  //       },
-  //       headerStyle: {
-  //         backgroundColor: "#09873D",
-  //         height: 100,
-  //         borderBottomLeftRadius: 20,
-  //         borderBottomRightRadius: 20,
-  //       },
-  //       headerRight: () => (
-  //         <Image
-  //           source={require("../../assets/BROCOLI_LINEA_BLANCA.png")}
-  //           style={{ width: 100, height: 100, marginRight: 10 }} // Adjust image size and spacing
-  //         />
-  //       ),
-  //     });
-  //   };
-  //   const unsubscribeFocus = navigation.addListener(
-  //     "focus",
-  //     setNavigationOptions
-  //   );
-  //   return unsubscribeFocus;
-  // }, [navigation]);
-
   if (loading) {
     return (
       <View style={styles.container}>

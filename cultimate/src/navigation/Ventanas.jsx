@@ -62,12 +62,14 @@ const Ventanas = () => {
           headerTransparent: true,
           headerTitle: "",
           headerTintColor: "#fff",
+          headerBackTitle: " ",
         }}
       />
       <Stack.Screen
         name="ConfigurationScreen"
         component={Configuration}
-        options={{ headerShown: false }}
+        options={{ headerShown: false}}
+        
       />
       <Stack.Screen
         name="ProfilePicture"
@@ -80,6 +82,7 @@ const Ventanas = () => {
         options={{
           headerTransparent: true,
           headerTitle: "",
+          headerBackTitle: " "
         }}
       />
       <Stack.Screen 
@@ -95,16 +98,16 @@ const Ventanas = () => {
       <Stack.Screen
         name="PreguntasFrecuentes"
         component={PreguntasFrecuentes}
-        options={{
-          headerTransparent: true,
-          headerTitle: "",
-        }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
       <Stack.Screen name="NewRespuesta" component={NewRespuesta} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
-      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} />
+      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
+          headerTransparent: true,
+          headerBackTitle: " ",
+          headerTitle: "",
+        }}/>
       <Stack.Screen name="ListaPlantadas" component={ListaPlantadas} />
     </Stack.Navigator>
   );
