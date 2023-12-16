@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import config from '../../../config';
-import { getUserInfo } from "../api/user";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from "react-native";
+import config from "../../../config";
+import { getUserInfo } from "../../api/user";
 
 const NewPublication = ({ route }) => {
   const { foroId, userId } = route.params;
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-
-  
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleTitleChange = (text) => {
     setTitle(text);
@@ -28,23 +32,26 @@ const NewPublication = ({ route }) => {
         userId: userInfoResponse.id,
       };
 
-      const response = await fetch(`${config.API}/publicacion/crearPublicacion`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      });
-        
+      const response = await fetch(
+        `${config.API}/publicacion/crearPublicacion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
+
       if (response.ok) {
-        console.log('Publicación creada con éxito');
+        console.log("Publicación creada con éxito");
         // Resto del código después de la creación exitosa...
       } else {
-        console.error('Error al crear la publicación', response.status);
+        console.error("Error al crear la publicación", response.status);
         // Resto del código después de un error...
       }
     } catch (error) {
-      console.error('Error al enviar la publicación', error);
+      console.error("Error al enviar la publicación", error);
       // Resto del código después de un error...
     }
   };
@@ -74,30 +81,30 @@ const NewPublication = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff', // Puedes cambiar esto según tu estilo
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff", // Puedes cambiar esto según tu estilo
   },
   input: {
-    width: '80%',
+    width: "80%",
     height: 40,
     borderWidth: 1,
-    borderColor: '#000', // Puedes cambiar esto según tu estilo
+    borderColor: "#000", // Puedes cambiar esto según tu estilo
     borderRadius: 5,
     padding: 10,
     marginVertical: 10,
-    color: '#000', // Puedes cambiar esto según tu estilo
+    color: "#000", // Puedes cambiar esto según tu estilo
   },
   button: {
-    backgroundColor: '#007BFF', // Puedes cambiar esto según tu estilo
+    backgroundColor: "#007BFF", // Puedes cambiar esto según tu estilo
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
   },
   buttonText: {
-    color: '#fff', // Puedes cambiar esto según tu estilo
+    color: "#fff", // Puedes cambiar esto según tu estilo
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
