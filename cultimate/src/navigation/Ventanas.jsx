@@ -14,10 +14,12 @@ import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
 import ForoPlantaScreen from "../screens/Foro/ForoPlantaScreen";
 import ForosScreen from "../screens/Foro/ForosScreen";
 import NewPublication from "../screens/Foro/NewPublication";
+import NewRespuesta from "../screens/Foro/NewRespuesta";
 import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
 import Configuration from "../screens/Configuration";
+import NewRespuesta from "../screens/Foro/NewRespuesta";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -81,6 +83,7 @@ const Ventanas = () => {
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
+      <Stack.Screen name="NewRespuesta" component={NewRespuesta} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
       <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} />
       <Stack.Screen name="ListaPlantadas" component={ListaPlantadas} />

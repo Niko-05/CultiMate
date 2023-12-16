@@ -25,6 +25,10 @@ const ForoScreen = ({ route, navigation }) => {
     navigation.navigate('NewPublication', { foroId }); // Asegúrate de tener esta pantalla registrada en tu sistema de navegación
   };
 
+  const navigateToNewRespuesta = () => {
+    navigation.navigate('NewRespuesta', {publicacionId});
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {publicaciones.map((item) => (
