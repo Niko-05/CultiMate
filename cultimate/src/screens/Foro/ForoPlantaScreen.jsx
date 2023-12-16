@@ -28,7 +28,7 @@ const ForoScreen = ({ route, navigation }) => {
   };
 
   const navigateToNewRespuesta = () => {
-    navigation.navigate('NewRespuesta', {publicacionId});
+    navigation.navigate('NewRespuesta', {publicacionId });
   };
 
   return (

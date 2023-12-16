@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import config from '../../../config';
+import { getUserInfo } from "../api/user";
 
 const NewRespuesta = ({ route }) => {
     const { publicacionId } = route.params;
@@ -12,9 +13,11 @@ const NewRespuesta = ({ route }) => {
   
     const handleSubmit = async () => {
       try {
+        const userInfoResponse = await getUserInfo();
         const requestData = {
           publicacionId: publicacionId,
           cuerpo: description,
+          userId: userInfoResponse.id,
         };
   
         const response = await fetch(`${config.API}/publicacion/crearRespuesta`, {
