@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import config from '../../../config';
 
 const NewPublication = ({ route }) => {
   const { foroId } = route.params;
-  const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleImageUpload = () => {
-    // Establecer un URL ficticio para simular la carga de una imagen
-    const fakeImageUrl = 'https://example.com/fake-image.jpg';
-    setImage(fakeImageUrl);
-  };
+  
 
   const handleTitleChange = (text) => {
     setTitle(text);
@@ -29,7 +24,6 @@ const NewPublication = ({ route }) => {
         //usuarioId: usuarioId,
         titulo: title,
         cuerpo: description,
-        imagen: image, // Utilizar el URL ficticio o proporcionar la lógica real aquí
       };
 
       const response = await fetch(`${config.API}/publicacion`, {
@@ -55,10 +49,6 @@ const NewPublication = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleImageUpload}>
-        <Text style={styles.input}>Seleccionar imagen (ficticia)</Text>
-      </TouchableOpacity>
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       <TextInput
         value={title}
         onChangeText={handleTitleChange}
