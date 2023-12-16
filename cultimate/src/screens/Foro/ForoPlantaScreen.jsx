@@ -3,8 +3,10 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'rea
 import config from '../../../config';
 
 const ForoScreen = ({ route, navigation }) => {
-  const { foroId } = route.params;
+  const { foroId, nombreplanta } = route.params;
   const [publicaciones, setPublicaciones] = useState([]);
+  console.log('el foro es', foroId);
+  console.log('el nombre de la planta es', nombreplanta);//usethis to get the image of each plant in the header, in assets there is an image with that name.png
 
   useEffect(() => {
     const obtenerPublicaciones = async () => {

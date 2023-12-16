@@ -96,64 +96,6 @@ const User = ({ navigation }) => {
     isFocused && setUserInfo();
   }, [isFocused]);
 
-  //   return (
-  //     <View style={styles.container}>
-
-  //       {Object.keys(user) !== 0 ? (
-  //         <>
-  //           <View style={styles.centeredView}>
-  //             <View style={styles.profileImageBackground}>
-  //               <TouchableOpacity
-  //                 onPress={() =>
-  //                   navigation.navigate("ProfilePicture", {
-  //                     profilePictureId: user.profilePictureId,
-  //                   })
-  //                 }
-  //               >
-  //                 {profilePicture ? (
-  //                   <Image
-  //                     source={profilePicture} // Ruta de la imagen
-  //                     style={styles.profileImage}
-  //                   />
-  //                 ) : (
-  //                   <></>
-  //                 )}
-  //               </TouchableOpacity>
-  //             </View>
-
-  //             <TouchableOpacity
-  //               className="w-7 h-7 absolute left-3 top-3"
-  //               onPress={() => handleSettings()}
-  //             >
-  //               <Gear />
-  //             </TouchableOpacity>
-  //             <Text style={styles.userName}>{user.username}</Text>
-  //             <Text style={styles.userName}>{user.email}</Text>
-  //           </View>
-  //           <View style={styles.centeredView}>
-  //             <View style={styles.containerTitle}>
-  //               <Text style={styles.title}>Agrupaciones</Text>
-  //               <TouchableOpacity
-  //               className="w-7 h-7 absolute right-3 top-3"
-  //               onPress={() => {navigation.navigate("CrearAgrupaciones", {
-  //                 user: user,
-  //               })}}
-  //             >
-  //               <Gear />
-  //             </TouchableOpacity>
-  //             </View>
-  //             <GridIconos elements={elements} navigation={navigation} />
-  //           </View>
-  //         </>
-  //       ) : (
-  //         <View className="flex-1 content-center justify-center">
-  //           <ActivityIndicator size="large" color="#0000ff" />
-  //         </View>
-  //       )}
-  //     </View>
-  //   );
-  // };
-
   if (Object.keys(user).length === 0) {
     return (
       <View className="flex-1 content-center justify-center">
