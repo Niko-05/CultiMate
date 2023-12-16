@@ -63,11 +63,14 @@ const Ventanas = () => {
           headerTitle: "",
           headerTintColor: "#fff",
           headerBackTitle: " ",
+          headerBackTitle: " ",
         }}
       />
       <Stack.Screen
         name="ConfigurationScreen"
         component={Configuration}
+        options={{ headerShown: false}}
+        
         options={{ headerShown: false}}
         
       />
@@ -83,21 +86,23 @@ const Ventanas = () => {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitle: " "
+          headerBackTitle: " "
         }}
       />
-      <Stack.Screen 
-        name="GuiaPlantado" 
-        component={GuiaPlantado}
-        options={{
+      <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} options={{
           headerTransparent: true,
+          headerBackTitle: " ",
           headerTitle: "",
-          headerTintColor: "#fff",
-        }}
-        />
+        }} />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen
         name="PreguntasFrecuentes"
         component={PreguntasFrecuentes}
+        options={{
+          headerTransparent: true,
+          headerBackTitle: " ",
+          headerTitle: "",
+        }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
