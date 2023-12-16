@@ -26,7 +26,7 @@ const NewPublication = ({ route }) => {
         cuerpo: description,
       };
 
-      const response = await fetch(`${config.API}/publicacion`, {
+      const response = await fetch(`${config.API}/publicacion/crearPublicacion`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
