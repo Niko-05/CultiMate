@@ -7,7 +7,7 @@ const GuiasPlantado = ({ navigation }) => {
     {
       id: 1,
       nombre: "Fresa",
-      Image: require("../../assets/Fresa.png"),
+      Image: require("../../assets/fresa.png"),
       FechaPlantado: "17/11/2022",
       PeriodicidadRegado: 3,
       CondTemperatura: "15ºC-25ºC",

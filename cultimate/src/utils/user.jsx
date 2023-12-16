@@ -19,7 +19,7 @@ export const profilePictures = [
   {
     id: 2,
     title: "Strawberry",
-    imageSource: require("../../assets/Fresa.png"),
+    imageSource: require("../../assets/fresa.png"),
   },
   {
     id: 3,

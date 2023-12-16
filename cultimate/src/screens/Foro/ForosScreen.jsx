@@ -15,7 +15,7 @@ const imagenes = {
   cherry: require("../../../assets/cherry.png"),
   espinaca: require("../../../assets/espinaca.png"),
   frambuesa: require("../../../assets/frambuesa.png"),
-  fresa: require("../../../assets/Fresa.png"),
+  fresa: require("../../../assets/fresa.png"),
   lechuga: require("../../../assets/lechuga.png"),
   limon: require("../../../assets/limon.png"),
   menta: require("../../../assets/menta.png"),

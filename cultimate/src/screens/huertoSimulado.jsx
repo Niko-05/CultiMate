@@ -31,7 +31,7 @@ const gridData2 = [
   },
   {
     id: 2,
-    centerImage: require("../../assets/Fresa.png"),
+    centerImage: require("../../assets/fresa.png"),
     topRightImage: require("../../assets/gotas_agua.png"),
     opacity: 0,
     nombre: "Fresa",
@@ -57,7 +57,7 @@ const gridData2 = [
   },
   {
     id: 4,
-    centerImage: require("../../assets/Fresa.png"),
+    centerImage: require("../../assets/fresa.png"),
     topRightImage: require("../../assets/gotas_agua.png"),
     opacity: 0,
     nombre: "Fresa",

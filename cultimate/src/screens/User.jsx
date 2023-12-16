@@ -31,7 +31,7 @@ const User = ({ navigation }) => {
   const [profilePicture, setProfilePicture] = useState(null);
 
   const elements = [
-    { id: 1, title: "balcon", imageSource: require("../../assets/Fresa.png") },
+    { id: 1, title: "balcon", imageSource: require("../../assets/fresa.png") },
     { id: 2, title: "cuarto", imageSource: require("../../assets/mora.png") },
     {
       id: 3,
@@ -48,7 +48,7 @@ const User = ({ navigation }) => {
       title: "Comedor",
       imageSource: require("../../assets/pimientos.png"),
     },
-    { id: 6, title: "Agru6", imageSource: require("../../assets/Fresa.png") },
+    { id: 6, title: "Agru6", imageSource: require("../../assets/fresa.png") },
     {
       id: 7,
       title: "Livingroom",

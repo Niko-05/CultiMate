@@ -26,7 +26,7 @@ const ListaPlantadas= ({ navigation }) => {
   const { modoOscuroActivado }= useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
   const dat =[
-  { id: 1, nombre: "Fresa", imagen: require("../../assets/Fresa.png") },
+  { id: 1, nombre: "Fresa", imagen: require("../../assets/fresa.png") },
   { id: 2,  nombre: "Mora", imagen: require("../../assets/mora.png") },
   {
     id: 3,
