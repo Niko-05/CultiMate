@@ -14,6 +14,7 @@ import { getProfilePictureSource } from "../utils/user";
 import { getPlantPicture } from "../utils/user";
 import * as SecureStore from "expo-secure-store";
 import { useFocusEffect } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const gridData2 = [
   {
@@ -99,6 +100,7 @@ const HuertoSimulado = ({ navigation }) => {
   const [userinfo, setUserinfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [updateTriggered, setUpdateTriggered] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const handleWateringPress = (planta) => {
     Alert.alert(
