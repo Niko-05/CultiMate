@@ -20,6 +20,15 @@ import InactivePlants from "../../assets/iconosSVG/IconoPlantas.svg"
 import ActiveShop from "../../assets/iconosSVG/IconoTienda_Relleno.svg"
 import InactiveShop from "../../assets/iconosSVG/IconoTienda.svg"
 
+import ActiveHuerto from "../../assets/iconosSVG/IconoHuerto_Relleno.svg"
+import InactiveHuerto from "../../assets/iconosSVG/IconoHuerto.svg"
+import ActiveUser from "../../assets/iconosSVG/IconoPerfil_Relleno.svg"
+import InactiveUser from "../../assets/iconosSVG/IconoPerfil.svg"
+import ActivePlants from "../../assets/iconosSVG/IconoPlantas_Relleno.svg"
+import InactivePlants from "../../assets/iconosSVG/IconoPlantas.svg"
+import ActiveShop from "../../assets/iconosSVG/IconoTienda_Relleno.svg"
+import InactiveShop from "../../assets/iconosSVG/IconoTienda.svg"
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
@@ -46,12 +55,49 @@ function MyTabs() {
         },
       }}
     >
+      <Tab.Screen
+        name="Usuario"
+        component={user}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            focused ? <ActiveUser width={24} height={24} /> : <InactiveUser width={24} height={24} />
+          ),
+          headerShown: false,
+          headerTintColor: "green",
+        }}
+      />
+
       
       <Tab.Screen
         name="Huerto"
         component={HuertoSimulado /*GuiasPlantado*/}
         options={{
           tabBarIcon: ({ focused }) => (
+            focused ?
+              <View>
+                <Image
+                  source={require("../../assets/iconosSVG/foro_relleno.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    tintColor: "#FFFFFF",
+                  }}
+                />
+              </View>
+            :
+              <View>
+                <Image
+                  source={require("../../assets/iconosSVG/foro.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 28,
+                    height: 28,
+                    tintColor: "#FFFFFF",
+                  }}
+                />
+              </View>
+
             focused ? <ActiveHuerto width={24} height={24} /> : <InactiveHuerto width={24} height={24} />
           ),
           headerShown: false,
@@ -64,6 +110,7 @@ function MyTabs() {
         options={{
           tabBarIcon: ({ focused }) => (
             focused ? <ActivePlants width={24} height={24} /> : <InactivePlants width={24} height={24} />
+            focused ? <ActivePlants width={24} height={24} /> : <InactivePlants width={24} height={24} />
           ),
           headerTintColor: "green",
           headerShown: false,
@@ -75,6 +122,10 @@ function MyTabs() {
         component={ForosScreen}
         options={{
           tabBarIcon: ({ focused }) => (
+            focused ? <ActiveShop width={24} height={24} /> : <InactiveShop width={24} height={24} />
+          ),
+
+          headerTintColor: "green",
             focused ?
               <View>
                 <Image
