@@ -8,6 +8,7 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
+  ScrollView,
 } from "react-native";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
