@@ -55,15 +55,27 @@ function MyTabs() {
         },
       }}
     >
+      
       <Tab.Screen
-        name="Usuario"
-        component={user}
+        name="Huerto"
+        component={HuertoSimulado /*GuiasPlantado*/}
         options={{
           tabBarIcon: ({ focused }) => (
-            focused ? <ActiveUser width={24} height={24} /> : <InactiveUser width={24} height={24} />
+            focused ? <ActiveHuerto width={24} height={24} /> : <InactiveHuerto width={24} height={24} />
           ),
           headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Nueva Planta"
+        component={newPlant}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            focused ? <ActivePlants width={24} height={24} /> : <InactivePlants width={24} height={24} />
+          ),
           headerTintColor: "green",
+          headerShown: false,
         }}
       />
 
