@@ -15,12 +15,13 @@ import { getPlantPicture } from "../utils/user";
 import * as SecureStore from "expo-secure-store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useModoOscuro } from "../context/ModoOscuroContext";
+import NoRegada from "../../assets/iconosSVG/GotaSinRegar.svg"
 
 const gridData2 = [
   {
     id: 1,
     centerImage: require("../../assets/tomate.png"),
-    topRightImage: require("../../assets/gotas_agua.png"),
+    topRightImage: require("../../assets/iconosSVG/GotaSinRegar.svg"),
     opacity: 1,
     nombre: "Tomate",
     FechaPlantado: "2023-11-01",
@@ -73,7 +74,7 @@ const gridData2 = [
 
 const defaultSquareData = {
   centerImage: require("../../assets/mas.png"),
-  topRightImage: require("../../assets/gotas_agua.png"),
+  topRightImage: require("../../assets/iconosSVG/GotaSinRegar.svg"),
   opacity: 0,
 };
 
@@ -285,17 +286,16 @@ const HuertoSimulado = ({ navigation }) => {
                         source={planta.centerImage}
                         style={styles.centeredImage}
                       />
-                      <TouchableOpacity
-                        onPress={() => handleWateringPress(planta)}
-                      >
-                        <Image
-                          source={require("../../assets/agua.png")}
-                          style={[
-                            styles.topRightImage,
-                            { opacity: planta.regada === 1 ? 0 : 1 },
-                          ]}
-                        />
-                      </TouchableOpacity>
+                      {planta.regada == 0 ?
+                        <TouchableOpacity
+                          onPress={() => handleWateringPress(planta)}
+                          style={styles.topRightImage}
+                        >
+                          <NoRegada width={34} height={34} />
+                        </TouchableOpacity>
+                        :
+                        <View></View>
+                      }
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity
@@ -304,7 +304,7 @@ const HuertoSimulado = ({ navigation }) => {
                     >
                       <Image
                         source={defaultSquareData.centerImage}
-                        style={styles.centeredImage}
+                        style={styles.centeredAdd}
                       />
                       <Image
                         source={defaultSquareData.topRightImage}
@@ -353,6 +353,7 @@ const getStyles = (modoOscuroActivado) => {
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
       alignItems: "center",
+      paddingTop: 30
     },
     plantImage: {
       marginTop: 10,
@@ -379,13 +380,18 @@ const getStyles = (modoOscuroActivado) => {
       margin: 5,
     },
     centeredImage: {
+      top: -5,
+      width: 70, // Adjust the size as needed
+      height: 70, // Adjust the size as needed
+    },
+    centeredAdd: {
       width: 50, // Adjust the size as needed
       height: 50, // Adjust the size as needed
     },
     topRightImage: {
       position: "absolute",
-      top: -90, // Ajusta a 0 o a un valor que posicione la imagen correctamente
-      right: -65, // Ajusta a 0 o a un valor que posicione la imagen correctamente
+      top: -10, // Ajusta a 0 o a un valor que posicione la imagen correctamente
+      right: 53, // Ajusta a 0 o a un valor que posicione la imagen correctamente
       width: 60, // Ajusta el tamaño como sea necesario
       height: 60, // Ajusta el tamaño como sea necesario
     },
@@ -393,7 +399,7 @@ const getStyles = (modoOscuroActivado) => {
       position: "absolute",
       width: 85, // Ajusta el tamaño como sea necesario
       height: 85,
-      top: 15,
+      top: 35,
     },
     FAQButton: {
       backgroundColor: "#D1EAD0",

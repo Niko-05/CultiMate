@@ -82,7 +82,15 @@ const Ventanas = () => {
           headerTitle: "",
         }}
       />
-      <Stack.Screen name="GuiaPlantado" component={GuiaPlantado} />
+      <Stack.Screen 
+        name="GuiaPlantado" 
+        component={GuiaPlantado}
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+          headerTintColor: "#fff",
+        }}
+        />
       <Stack.Screen name="GuiasPlantado" component={GuiasPlantado} />
       <Stack.Screen
         name="PreguntasFrecuentes"
