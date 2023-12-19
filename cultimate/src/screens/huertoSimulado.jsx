@@ -14,6 +14,7 @@ import { getProfilePictureSource } from "../utils/user";
 import { getPlantPicture } from "../utils/user";
 import * as SecureStore from "expo-secure-store";
 import { useFocusEffect } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const gridData2 = [
   {
@@ -99,6 +100,7 @@ const HuertoSimulado = ({ navigation }) => {
   const [userinfo, setUserinfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [updateTriggered, setUpdateTriggered] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const handleWateringPress = (planta) => {
     Alert.alert(
@@ -272,6 +274,10 @@ const HuertoSimulado = ({ navigation }) => {
                 onPress={() => handlePress(planta)}
               >
                 <Image
+                  source={require("../../assets/Maceta.png")}
+                  style={styles.maceta}
+                />
+                <Image
                   source={planta.centerImage}
                   style={styles.centeredImage}
                 />
@@ -345,6 +351,12 @@ const styles = StyleSheet.create({
     width: 60, // Ajusta el tamaño como sea necesario
     height: 60, // Ajusta el tamaño como sea necesario
   },
+  maceta: {
+    position: "absolute",
+    width: 85, // Ajusta el tamaño como sea necesario
+    height: 85,
+    top: 15,
+  }
 });
 
 export default HuertoSimulado;

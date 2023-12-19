@@ -11,6 +11,15 @@ import Tienda from "../screens/tienda";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 
+import ActiveHuerto from "../../assets/iconosSVG/IconoHuerto_Relleno.svg"
+import InactiveHuerto from "../../assets/iconosSVG/IconoHuerto.svg"
+import ActiveUser from "../../assets/iconosSVG/IconoPerfil_Relleno.svg"
+import InactiveUser from "../../assets/iconosSVG/IconoPerfil.svg"
+import ActivePlants from "../../assets/iconosSVG/IconoPlantas_Relleno.svg"
+import InactivePlants from "../../assets/iconosSVG/IconoPlantas.svg"
+import ActiveShop from "../../assets/iconosSVG/IconoTienda_Relleno.svg"
+import InactiveShop from "../../assets/iconosSVG/IconoTienda.svg"
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
@@ -42,17 +51,7 @@ function MyTabs() {
         component={user}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View>
-              <Image
-                source={require("../../assets/usuario.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#FFC300" : "#FFFFFF",
-                }}
-              />
-            </View>
+            focused ? <ActiveUser width={24} height={24} /> : <InactiveUser width={24} height={24} />
           ),
           headerShown: false,
           headerTintColor: "green",
@@ -64,17 +63,31 @@ function MyTabs() {
         component={ForosScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View>
-              <Image
-                source={require("../../assets/foro.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#FFC300" : "#FFFFFF",
-                }}
-              />
-            </View>
+            focused ?
+              <View>
+                <Image
+                  source={require("../../assets/iconosSVG/foro_relleno.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    tintColor: "#FFFFFF",
+                  }}
+                />
+              </View>
+            :
+              <View>
+                <Image
+                  source={require("../../assets/iconosSVG/foro.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 28,
+                    height: 28,
+                    tintColor: "#FFFFFF",
+                  }}
+                />
+              </View>
+
           ),
           headerShown: false,
         }}
@@ -85,17 +98,7 @@ function MyTabs() {
         component={newPlant}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View>
-              <Image
-                source={require("../../assets/nueva_planta.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#FFC300" : "#FFFFFF",
-                }}
-              />
-            </View>
+            focused ? <ActivePlants width={24} height={24} /> : <InactivePlants width={24} height={24} />
           ),
           headerTintColor: "green",
           headerShown: false,
@@ -107,39 +110,20 @@ function MyTabs() {
         component={Tienda}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View>
-              <Image
-                source={require("../../assets/tienda.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#FFC300" : "#FFFFFF",
-                }}
-              />
-            </View>
+            focused ? <ActiveShop width={24} height={24} /> : <InactiveShop width={24} height={24} />
           ),
 
+          headerTintColor: "green",
           headerShown: false,
         }}
       />
 
       <Tab.Screen
-        name="Guias de Plantado"
+        name="Huerto"
         component={HuertoSimulado /*GuiasPlantado*/}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View>
-              <Image
-                source={require("../../assets/huerto.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#FFC300" : "#FFFFFF",
-                }}
-              />
-            </View>
+            focused ? <ActiveHuerto width={24} height={24} /> : <InactiveHuerto width={24} height={24} />
           ),
           headerShown: false,
         }}
