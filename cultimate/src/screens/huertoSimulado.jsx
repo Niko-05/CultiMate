@@ -253,7 +253,7 @@ const HuertoSimulado = ({ navigation }) => {
         style={{
           backgroundColor: "#3A73F7",
           position: "absolute",
-          top: 10,
+          top: 40,
           left: 10,
           zIndex: 2,
         }}
