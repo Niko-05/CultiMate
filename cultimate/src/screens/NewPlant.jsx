@@ -74,7 +74,7 @@ export default NewPlant;
 
 const getStyles = (modoOscuroActivado) => {
   return {
-    container: {
+  container: {
   },
   backgroundLayer: {
     backgroundColor: '#09873D', // O el color de fondo verde que desees
