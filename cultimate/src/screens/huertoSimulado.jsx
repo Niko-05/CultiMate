@@ -274,6 +274,10 @@ const HuertoSimulado = ({ navigation }) => {
                 onPress={() => handlePress(planta)}
               >
                 <Image
+                  source={require("../../assets/Maceta.png")}
+                  style={styles.maceta}
+                />
+                <Image
                   source={planta.centerImage}
                   style={styles.centeredImage}
                 />
@@ -347,6 +351,12 @@ const styles = StyleSheet.create({
     width: 60, // Ajusta el tamaño como sea necesario
     height: 60, // Ajusta el tamaño como sea necesario
   },
+  maceta: {
+    position: "absolute",
+    width: 85, // Ajusta el tamaño como sea necesario
+    height: 85,
+    top: 15,
+  }
 });
 
 export default HuertoSimulado;
