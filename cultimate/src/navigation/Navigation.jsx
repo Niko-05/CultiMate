@@ -29,7 +29,7 @@ function MyTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Huerto"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -46,15 +46,27 @@ function MyTabs() {
         },
       }}
     >
+      
       <Tab.Screen
-        name="Usuario"
-        component={user}
+        name="Huerto"
+        component={HuertoSimulado /*GuiasPlantado*/}
         options={{
           tabBarIcon: ({ focused }) => (
-            focused ? <ActiveUser width={24} height={24} /> : <InactiveUser width={24} height={24} />
+            focused ? <ActiveHuerto width={24} height={24} /> : <InactiveHuerto width={24} height={24} />
           ),
           headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Nueva Planta"
+        component={newPlant}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            focused ? <ActivePlants width={24} height={24} /> : <InactivePlants width={24} height={24} />
+          ),
           headerTintColor: "green",
+          headerShown: false,
         }}
       />
 
@@ -92,19 +104,7 @@ function MyTabs() {
           headerShown: false,
         }}
       />
-
-      <Tab.Screen
-        name="Nueva Planta"
-        component={newPlant}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            focused ? <ActivePlants width={24} height={24} /> : <InactivePlants width={24} height={24} />
-          ),
-          headerTintColor: "green",
-          headerShown: false,
-        }}
-      />
-
+      
       <Tab.Screen
         name="Tienda"
         component={Tienda}
@@ -119,13 +119,14 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Huerto"
-        component={HuertoSimulado /*GuiasPlantado*/}
+        name="Usuario"
+        component={user}
         options={{
           tabBarIcon: ({ focused }) => (
-            focused ? <ActiveHuerto width={24} height={24} /> : <InactiveHuerto width={24} height={24} />
+            focused ? <ActiveUser width={24} height={24} /> : <InactiveUser width={24} height={24} />
           ),
           headerShown: false,
+          headerTintColor: "green",
         }}
       />
     </Tab.Navigator>
