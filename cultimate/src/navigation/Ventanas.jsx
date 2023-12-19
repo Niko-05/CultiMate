@@ -83,6 +83,7 @@ const Ventanas = () => {
           headerTransparent: true,
           headerTitle: "",
           headerBackTitle: " "
+          headerBackTitle: " "
         }}
       />
       <Stack.Screen 
@@ -98,11 +99,21 @@ const Ventanas = () => {
       <Stack.Screen
         name="PreguntasFrecuentes"
         component={PreguntasFrecuentes}
+        options={{
+          headerTransparent: true,
+          headerBackTitle: " ",
+          headerTitle: "",
+        }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
       <Stack.Screen name="NewRespuesta" component={NewRespuesta} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
+      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
+          headerTransparent: true,
+          headerBackTitle: " ",
+          headerTitle: "",
+        }}/>
       <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
           headerTransparent: true,
           headerBackTitle: " ",
