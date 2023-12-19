@@ -7,14 +7,14 @@ import {
   Image,
   Alert,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
-import { getProfilePictureSource } from "../utils/user";
 import { getPlantPicture } from "../utils/user";
 import * as SecureStore from "expo-secure-store";
-import { useFocusEffect } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useModoOscuro } from "../context/ModoOscuroContext";
 
 const gridData2 = [
   {
@@ -101,6 +101,8 @@ const HuertoSimulado = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [updateTriggered, setUpdateTriggered] = useState(false);
   const insets = useSafeAreaInsets();
+  const { modoOscuroActivado } = useModoOscuro();
+  const styles = getStyles(modoOscuroActivado);
 
   const handleWateringPress = (planta) => {
     Alert.alert(
@@ -250,113 +252,163 @@ const HuertoSimulado = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Botón en la esquina superior izquierda */}
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#3A73F7",
-          position: "absolute",
-          top: 40,
-          left: 10,
-          zIndex: 2,
-        }}
-        onPress={() => navigation.navigate("PreguntasFrecuentes")}
-      >
-        <Text style={{ color: "white", fontSize: 18 }}>FAQ</Text>
-      </TouchableOpacity>
-
-      {/* Contenido principal */}
-      <View style={styles.grid}>
-        {filledGridData.map((planta, index) => (
-          <View key={index} style={styles.row}>
-            {planta && planta.id !== undefined ? (
-              <TouchableOpacity
-                style={styles.square}
-                onPress={() => handlePress(planta)}
-              >
-                <Image
-                  source={require("../../assets/Maceta.png")}
-                  style={styles.maceta}
-                />
-                <Image
-                  source={planta.centerImage}
-                  style={styles.centeredImage}
-                />
-                <TouchableOpacity onPress={() => handleWateringPress(planta)}>
-                  <Image
-                    source={require("../../assets/agua.png")}
-                    style={[
-                      styles.topRightImage,
-                      { opacity: planta.regada === 1 ? 0 : 1 },
-                    ]}
-                  />
-                </TouchableOpacity>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.square}
-                onPress={() => navigation.navigate("newPlant")}
-              >
-                <Image
-                  source={defaultSquareData.centerImage}
-                  style={styles.centeredImage}
-                />
-                <Image
-                  source={defaultSquareData.topRightImage}
-                  style={[
-                    styles.topRightImage,
-                    { opacity: defaultSquareData.opacity },
-                  ]}
-                />
-              </TouchableOpacity>
-            )}
+      <View style={styles.top}>
+        <Image
+          source={require("../../assets/lineales/mora-linea-blanca.png")}
+          style={styles.plantImage}
+        />
+        <Text style={styles.heading}>MI HUERTO</Text>
+        <TouchableOpacity
+          style={styles.FAQButton}
+          onPress={() => navigation.navigate("PreguntasFrecuentes")}
+        >
+          <Text style={styles.FAQButtonText}>FAQ</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.infoLayer}>
+        <ScrollView>
+          <View style={{ marginTop: 20 }}>
+            {/* Contenido principal */}
+            <View style={styles.grid}>
+              {filledGridData.map((planta, index) => (
+                <View key={index} style={styles.row}>
+                  {planta && planta.id !== undefined ? (
+                    <TouchableOpacity
+                      style={styles.square}
+                      onPress={() => handlePress(planta)}
+                    >
+                      <Image
+                        source={require("../../assets/Maceta.png")}
+                        style={styles.maceta}
+                      />
+                      <Image
+                        source={planta.centerImage}
+                        style={styles.centeredImage}
+                      />
+                      <TouchableOpacity
+                        onPress={() => handleWateringPress(planta)}
+                      >
+                        <Image
+                          source={require("../../assets/agua.png")}
+                          style={[
+                            styles.topRightImage,
+                            { opacity: planta.regada === 1 ? 0 : 1 },
+                          ]}
+                        />
+                      </TouchableOpacity>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      style={styles.square}
+                      onPress={() => navigation.navigate("newPlant")}
+                    >
+                      <Image
+                        source={defaultSquareData.centerImage}
+                        style={styles.centeredImage}
+                      />
+                      <Image
+                        source={defaultSquareData.topRightImage}
+                        style={[
+                          styles.topRightImage,
+                          { opacity: defaultSquareData.opacity },
+                        ]}
+                      />
+                    </TouchableOpacity>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
-        ))}
+        </ScrollView>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  grid: {
-    flexDirection: "row", // Create squares in a row
-    flexWrap: "wrap", // Allow them to wrap to the next row
-    justifyContent: "center",
-  },
-  row: {
-    flexDirection: "row", // Each row is a row of squares
-    marginBottom: 5, // Adjust the margin between rows
-  },
-  square: {
-    width: 100,
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "lightblue",
-    borderRadius: 15,
-    margin: 5,
-  },
-  centeredImage: {
-    width: 50, // Adjust the size as needed
-    height: 50, // Adjust the size as needed
-  },
-  topRightImage: {
-    position: "absolute",
-    top: -90, // Ajusta a 0 o a un valor que posicione la imagen correctamente
-    right: -65, // Ajusta a 0 o a un valor que posicione la imagen correctamente
-    width: 60, // Ajusta el tamaño como sea necesario
-    height: 60, // Ajusta el tamaño como sea necesario
-  },
-  maceta: {
-    position: "absolute",
-    width: 85, // Ajusta el tamaño como sea necesario
-    height: 85,
-    top: 15,
-  }
-});
+const getStyles = (modoOscuroActivado) => {
+  return {
+    container: {
+      flex: 1,
+    },
+    top: {
+      backgroundColor: "#09873D",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+    },
+    heading: {
+      flex: 0.3,
+      color: "#FFF",
+      fontFamily: "Integral CF",
+      fontSize: 24,
+      position: "absolute",
+      top: 165,
+      left: 30,
+      lineHeight: 26,
+    },
+    infoLayer: {
+      flex: 1,
+      backgroundColor: "white",
+      marginTop: 200,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      alignItems: "center",
+    },
+    plantImage: {
+      marginTop: 10,
+      marginLeft: 243,
+      width: 180, // Ajusta al tamaño que necesites
+      height: 180, // Ajusta al tamaño que necesites
+    },
+    grid: {
+      flexDirection: "row", // Create squares in a row
+      flexWrap: "wrap", // Allow them to wrap to the next row
+      justifyContent: "center",
+    },
+    row: {
+      flexDirection: "row", // Each row is a row of squares
+      marginBottom: 5, // Adjust the margin between rows
+    },
+    square: {
+      width: 110,
+      height: 128,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#D1EAD0",
+      borderRadius: 15,
+      margin: 5,
+    },
+    centeredImage: {
+      width: 50, // Adjust the size as needed
+      height: 50, // Adjust the size as needed
+    },
+    topRightImage: {
+      position: "absolute",
+      top: -90, // Ajusta a 0 o a un valor que posicione la imagen correctamente
+      right: -65, // Ajusta a 0 o a un valor que posicione la imagen correctamente
+      width: 60, // Ajusta el tamaño como sea necesario
+      height: 60, // Ajusta el tamaño como sea necesario
+    },
+    maceta: {
+      position: "absolute",
+      width: 85, // Ajusta el tamaño como sea necesario
+      height: 85,
+      top: 15,
+    },
+    FAQButton: {
+      backgroundColor: "#D1EAD0",
+      padding: 10,
+      borderRadius: 50,
+      margin: 30,
+      alignItems: "center",
+      position: "absolute",
+    },
+    FAQButtonText: {
+      color: "#black",
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+  };
+};
 
 export default HuertoSimulado;
