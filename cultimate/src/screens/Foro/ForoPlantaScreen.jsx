@@ -1,22 +1,40 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert, RefreshControl, Image} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import config from '../../../config';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { getUserInfo } from "../../api/user";
-import { getProfilePictureSource } from "../../utils/user";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getUserInfo } from '../../api/user';
+import { getProfilePictureSource } from '../../utils/user';
+import NewPublication from './NewPublicationModal';
 
 const ForoPlantaScreen = ({ route, navigation }) => {
   const { foroId, nombreplanta } = route.params;
   const [publicaciones, setPublicaciones] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [user, setUser] = useState([]);
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [hasPublications, setHasPublications] = useState(true);
+
+  const handleNewPublicationPress = () => {
+    setIsModalVisible(true);
+    //console.log(publicaciones);
+  };
 
   const obtenerPublicaciones = async () => {
     try {
       const response = await fetch(`${config.API}/publicacion/foro/${foroId}`);
       const data = await response.json();
+  
       setPublicaciones(data);
+      setHasPublications(data.length > 0);
     } catch (error) {
       console.error('Error al obtener las publicaciones', error);
       Alert.alert('Error', 'Hubo un problema al obtener las publicaciones');
@@ -25,17 +43,9 @@ const ForoPlantaScreen = ({ route, navigation }) => {
     }
   };
 
-  const obtenerRespuestas = async () => {
-    try {
-      const response = await fetch(`${config.API}/publicacion/foro/${foroId}`);
-      const data = await response.json();
-      setPublicaciones(data);
-    } catch (error) {
-      console.error('Error al obtener las publicaciones', error);
-      Alert.alert('Error', 'Hubo un problema al obtener las publicaciones');
-    } finally {
-      setRefreshing(false);
-    }
+  const handlePublicacionClick = (publicationid) => {
+    //console.log('publicationid desde la screen del foro:', publicationid);
+    navigation.navigate('PublicationScreen', { publicacionId: publicationid, nombreplanta });
   };
 
   const onRefresh = useCallback(() => {
@@ -57,42 +67,64 @@ const ForoPlantaScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}/>
+      <View style={styles.header} />
       <Text style={styles.foroTitle}>FORO {nombreplanta.toUpperCase()}</Text>
       <View style={styles.greenBackground}>
         <View style={styles.container2}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.contentContainer}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          {refreshing && <ActivityIndicator size="large" color="#0000ff" />}
+          {!hasPublications && !refreshing && (
+            <Text style={styles.noPublicationsText}>Aún no hay publicaciones en este foro.</Text>
+          )}
+          {!hasPublications && !refreshing && (
+            <Text style={styles.noPublicationsText}>¡Escribe la primera!</Text>
+          )}
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.contentContainer}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           >
-          {publicaciones.map((item) => (
-            <View key={item.id} style={styles.publicacionContainer}>
-              <View style={styles.publicacionHeader}>
-              </View>
-              <View>
-                <Text style={styles.titulo}>{item.titulo}</Text>
-                <Text style={styles.cuerpo}>{item.cuerpo}</Text>
-              </View>
-              <View style={styles.comentarioContainer}>
-                <TouchableOpacity onPress={() => navigateToNewRespuesta(item.id)}>
-                  <View style={styles.ComentarContainer}>
-                    <Icon name="comment" style={styles.iconoComentario} />
-                    <Text style={styles.textoComentario}>Comentar</Text>
+            {publicaciones.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => handlePublicacionClick(item.id, nombreplanta)}
+              >
+                <View key={item.id} style={styles.publicacionContainer}>
+                  <View style={styles.publicacionHeader}></View>
+                  <View>
+                    <Text style={styles.titulo}>{item.titulo}</Text>
+                  </View>
+                  <View style={styles.comentarioContainer}>
+                    <TouchableOpacity onPress={() => navigateToNewRespuesta(item.id)}>
+                      <View style={styles.ComentarContainer}>
+                        <Icon name="comment" style={styles.iconoComentario} />
+                        <Text style={styles.textoComentario}>Comentarios</Text>
                       </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
-          <TouchableOpacity style={styles.botonMas} onPress={navigateToNewPublication}>
-              <Icon name="plus" style={styles.textoBotonMas} />
-          </TouchableOpacity>
+        <TouchableOpacity onPress={handleNewPublicationPress} style={styles.botonMas}>
+          <Icon name="plus" style={styles.textoBotonMas} />
+        </TouchableOpacity>
+        {isModalVisible && (
+          <NewPublication
+            route={route}
+            foroId={foroId}
+            nombreplanta={nombreplanta}
+            isVisible={isModalVisible}
+            onClose={() => {
+              setIsModalVisible(false);
+              obtenerPublicaciones(); // Actualiza la lista después de cerrar el modal
+            }}
+          />
+        )}
       </View>
     </View>
   );
-  };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -120,14 +152,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   greenBackground: {
-    backgroundColor: '#09873D', // Color verde que deseas
+    backgroundColor: '#09873D',
     flex: 1,
   },
   contentContainer: {
     padding: 16,
     paddingBottom: 80,
-    borderTopLeftRadius: 20,  // Añadí estas líneas para las esquinas redondeadas
-    borderTopRightRadius: 20, // Añadí estas líneas para las esquinas redondeadas
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   publicacionContainer: {
     marginBottom: 16,
@@ -143,7 +175,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     height: '100%',
-
   },
   titulo: {
     fontSize: 18,
@@ -173,20 +204,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 8,
   },
-  userimage: { 
-    width: 80, 
-    height: 80, 
-    borderRadius: 50, 
-    marginRight: 12, 
-  },
   iconoComentario: {
     fontSize: 24,
     marginRight: 8,
   },
   ComentarContainer: {
-    flexDirection: 'row', // Añadí esta línea para que los elementos estén en 'fila
+    flexDirection: 'row',
     alignItems: 'center',
     marginTop: 8,
+  },
+  noPublicationsText: {
+    fontSize: 17,
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#000',
   },
 });
 
