@@ -1,7 +1,7 @@
 // remember to change this to your ip address (localhost)
-const ip = "192.168.0.14";
+const ip = "3.75.158.163";
 const port = "3000";
-const API = "http://" + ip + ":" + port;
+const API = "https://cultimate.onrender.com";
 
 export default {
   API: API,
