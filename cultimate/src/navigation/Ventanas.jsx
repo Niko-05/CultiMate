@@ -13,12 +13,13 @@ import ProfilePicture from "../screens/ProfilePicture";
 import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
 import ForoPlantaScreen from "../screens/Foro/ForoPlantaScreen";
 import ForosScreen from "../screens/Foro/ForosScreen";
-import NewPublication from "../screens/Foro/NewPublication";
+import PublicationScreen from "../screens/Foro/PublicationScreen";
 import NewRespuesta from "../screens/Foro/NewRespuesta";
 import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
 import Configuration from "../screens/Configuration";
+import NewPublicationModal from "../screens/Foro/NewPublicationModal";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -82,8 +83,7 @@ const Ventanas = () => {
         options={{
           headerTransparent: true,
           headerTitle: "",
-          headerBackTitle: " "
-          headerBackTitle: " "
+          headerBackTitle: " ",
         }}
       />
       <Stack.Screen 
@@ -106,19 +106,19 @@ const Ventanas = () => {
         }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
-      <Stack.Screen name="NewPublication" component={NewPublication} />
+      <Stack.Screen name="PublicationScreen" component={PublicationScreen} options={{ 
+        headerTransparent: true, 
+        headerBackTitle: " ", 
+        headerTitle: ""
+        }} />
       <Stack.Screen name="NewRespuesta" component={NewRespuesta} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
       <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
-          headerTransparent: true,
-          headerBackTitle: " ",
-          headerTitle: "",
-        }}/>
-      <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
-          headerTransparent: true,
-          headerBackTitle: " ",
-          headerTitle: "",
-        }}/>
+        headerTransparent: true,
+        headerBackTitle: " ",
+        headerTitle: "",
+      }}/>
+      <Stack.Screen name="NewPublicationModal" component={NewPublicationModal} />
       <Stack.Screen name="ListaPlantadas" component={ListaPlantadas} />
     </Stack.Navigator>
   );
