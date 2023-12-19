@@ -87,6 +87,10 @@ const Ventanas = () => {
       <Stack.Screen
         name="PreguntasFrecuentes"
         component={PreguntasFrecuentes}
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+        }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="NewPublication" component={NewPublication} />
