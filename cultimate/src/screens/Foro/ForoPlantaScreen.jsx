@@ -8,7 +8,9 @@ import {
   Alert,
   RefreshControl,
   ActivityIndicator,
-} from 'react-native';
+  Image,
+} 
+from 'react-native';
 import config from '../../../config';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getUserInfo } from '../../api/user';
@@ -32,7 +34,7 @@ const ForoPlantaScreen = ({ route, navigation }) => {
     try {
       const response = await fetch(`${config.API}/publicacion/foro/${foroId}`);
       const data = await response.json();
-  
+      console.log(data);
       setPublicaciones(data);
       setHasPublications(data.length > 0);
     } catch (error) {
@@ -80,17 +82,28 @@ const ForoPlantaScreen = ({ route, navigation }) => {
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           >
             {publicaciones.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => handlePublicacionClick(item.id)}
-              >
-                <View key={item.id} style={styles.publicacionContainer}>
-                  <View style={styles.publicacionHeader}></View>
-                  <View>
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => handlePublicacionClick(item.id)}
+                >
+                  <View key={item.id} style={styles.publicacionContainer}>
+                    <View style={styles.publicacionHeader}></View>
+                    <View style={{flexDirection: "row"}}>
+                      <View style={{borderRadius: 15, marginRight: 10, marginTop: 3}}>
+                        <Image source={require('../../../assets/zanahoria.png')} style={{ width: 20, height: 20 }} />
+                      </View>
+                      <View>
+                        <Text style={styles.autor}>{item.autor}</Text>
+                      </View>
+                    </View>
                     <Text style={styles.titulo}>{item.titulo}</Text>
+                    <View style={{flexDirection: "row", alignSelf: 'flex-end', marginTop: 5, alignItems: "center"}}>
+                      <Icon name="comment" style={styles.iconoComentario} />
+                      <Text style={styles.cuerpo}>{item.contador_respuestas}</Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
+                < View style={styles.row}></View>
+                </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
@@ -154,19 +167,17 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
     borderRadius: 8,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   scrollView: {
     flex: 1,
     height: '100%',
   },
   titulo: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+  },
+  autor: {
+    fontSize: 18,
     marginBottom: 8,
   },
   cuerpo: {
@@ -206,6 +217,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     color: '#000',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
 });
 

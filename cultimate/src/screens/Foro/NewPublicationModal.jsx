@@ -85,7 +85,7 @@ const NewPublicationModal = ({ route, isVisible, onClose }) => {
             multiline
           />
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Crear</Text>
+            <Text style={styles.buttonText}>Publicar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
             <Text style={styles.buttonText}>Cerrar</Text>
