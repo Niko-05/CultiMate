@@ -14,7 +14,7 @@ import PreguntasFrecuentes from "../screens/PreguntasFrecuentes";
 import ForoPlantaScreen from "../screens/Foro/ForoPlantaScreen";
 import ForosScreen from "../screens/Foro/ForosScreen";
 import PublicationScreen from "../screens/Foro/PublicationScreen";
-import NewRespuesta from "../screens/Foro/NewRespuesta";
+import NewRespuestaModal from "../screens/Foro/NewRespuestaModal";
 import newPlant from "../screens/NewPlant";
 import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
@@ -110,7 +110,7 @@ const Ventanas = () => {
         headerBackTitle: " ", 
         headerTitle: ""
         }} />
-      <Stack.Screen name="NewRespuesta" component={NewRespuesta} />
+      <Stack.Screen name="NewRespuestaModal" component={NewRespuestaModal} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
       <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
           headerTransparent: true,
