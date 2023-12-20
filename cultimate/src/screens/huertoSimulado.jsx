@@ -246,7 +246,7 @@ const HuertoSimulado = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="white" />
       </View>
     );
   }
@@ -254,70 +254,63 @@ const HuertoSimulado = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
+        <Text style={styles.heading}>MI HUERTO</Text>
         <TouchableOpacity
           style={[styles.FAQButton, { top: insets.top + 10 }]}
           onPress={() => navigation.navigate("PreguntasFrecuentes")}
         >
           <Text style={styles.FAQButtonText}>FAQ</Text>
         </TouchableOpacity>
-        <Image
-          source={require("../../assets/lineales/mora-linea-blanca.png")}
-          style={styles.plantImage}
-        />
-        <Text style={styles.heading}>MI HUERTO</Text>
       </View>
       <View style={styles.infoLayer}>
         <ScrollView>
-          <View>
-            {/* Contenido principal */}
-            <View style={styles.grid}>
-              {filledGridData.map((planta, index) => (
-                <View key={index} style={styles.row}>
-                  {planta && planta.id !== undefined ? (
-                    <TouchableOpacity
-                      style={styles.square}
-                      onPress={() => handlePress(planta)}
-                    >
-                      <Image
-                        source={require("../../assets/Maceta.png")}
-                        style={styles.maceta}
-                      />
-                      <Image
-                        source={planta.centerImage}
-                        style={styles.centeredImage}
-                      />
-                      {planta.regada == 0 ? (
-                        <TouchableOpacity
-                          onPress={() => handleWateringPress(planta)}
-                          style={styles.topRightImage}
-                        >
-                          <NoRegada width={34} height={34} />
-                        </TouchableOpacity>
-                      ) : (
-                        <View></View>
-                      )}
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
-                      style={styles.square}
-                      onPress={() => navigation.navigate("newPlant")}
-                    >
-                      <Image
-                        source={defaultSquareData.centerImage}
-                        style={styles.centeredAdd}
-                      />
-                      <Image
-                        source={defaultSquareData.topRightImage}
-                        style={[
-                          styles.topRightImage,
-                          { opacity: defaultSquareData.opacity },
-                        ]}
-                      />
-                    </TouchableOpacity>
-                  )}
-                </View>
-              ))}
-            </View>
+          <View style={styles.grid}>
+            {filledGridData.map((planta, index) => (
+              <View key={index} style={styles.row}>
+                {planta && planta.id !== undefined ? (
+                  <TouchableOpacity
+                    style={styles.square}
+                    onPress={() => handlePress(planta)}
+                  >
+                    <Image
+                      source={require("../../assets/Maceta.png")}
+                      style={styles.maceta}
+                    />
+                    <Image
+                      source={planta.centerImage}
+                      style={styles.centeredImage}
+                    />
+                    {planta.regada == 0 ? (
+                      <TouchableOpacity
+                        onPress={() => handleWateringPress(planta)}
+                        style={styles.topRightImage}
+                      >
+                        <NoRegada width={34} height={34} />
+                      </TouchableOpacity>
+                    ) : (
+                      <View></View>
+                    )}
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.square}
+                    onPress={() => navigation.navigate("newPlant")}
+                  >
+                    <Image
+                      source={defaultSquareData.centerImage}
+                      style={styles.centeredAdd}
+                    />
+                    <Image
+                      source={defaultSquareData.topRightImage}
+                      style={[
+                        styles.topRightImage,
+                        { opacity: defaultSquareData.opacity },
+                      ]}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
+            ))}
           </View>
         </ScrollView>
       </View>
@@ -329,27 +322,26 @@ const getStyles = (modoOscuroActivado) => {
   return {
     container: {
       flex: 1,
+      backgroundColor: "#09873D",
+      alignItems: "center",
+      justifyContent: "center",
     },
     top: {
-      backgroundColor: "#09873D",
+      flex: 0.25,
       width: "100%",
-      height: "100%",
-      position: "absolute",
     },
     heading: {
-      flex: 0.3,
       color: "#FFF",
       fontFamily: "Integral CF",
       fontSize: 24,
       position: "absolute",
-      top: 165,
+      bottom: 22,
       left: 30,
       lineHeight: 26,
     },
     infoLayer: {
-      flex: 1,
+      flex: 0.75,
       backgroundColor: "white",
-      marginTop: 200,
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
       alignItems: "center",
@@ -405,7 +397,7 @@ const getStyles = (modoOscuroActivado) => {
       backgroundColor: "#D1EAD0",
       padding: 10,
       borderRadius: 50,
-      marginLeft: 30,
+      right: 30,
       alignItems: "center",
       position: "absolute",
     },
