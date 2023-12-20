@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import config from "../../config";
 import { getUserInfo } from "../api/user";
-import { getPlantPicture } from "../utils/user";
+import { getPlantPicture, getPlantPaso} from "../utils/user";
 import * as SecureStore from "expo-secure-store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useModoOscuro } from "../context/ModoOscuroContext";
@@ -73,7 +73,7 @@ const gridData2 = [
 ];
 
 const defaultSquareData = {
-  centerImage: require("../../assets//huerto/AñadirMaceta.png"),
+  centerImage: require("../../assets/huerto/AnadirMaceta.png"),
   topRightImage: require("../../assets/iconosSVG/GotaSinRegar.svg"),
   marcadores: require("../../assets/huerto/Marcadores.png"),
   opacity: 0,
@@ -195,7 +195,8 @@ const HuertoSimulado = ({ navigation }) => {
         const updatedData = await Promise.all(
           gridData.current.map(async (item) => {
             const imageResource = getPlantPicture(item.planta_id);
-            return { ...item, centerImage: imageResource };
+            const plantaPaso = getPlantPaso (item.planta_id, item.paso);
+            return { ...item, centerImage: imageResource, pasofoto: plantaPaso };
           })
         );
         setUpdatedGridData(updatedData);
@@ -283,15 +284,29 @@ const HuertoSimulado = ({ navigation }) => {
                     onPress={() => handlePress(planta)}
                   >
                     <Image
-                      source={require("../../assets/huerto/MacetaA.png")}
-                      style={styles.maceta}
+                         source={
+                          Math.floor(Math.random() * 3) + 1 === 1
+                            ? require("../../assets/huerto/MacetaA.png")
+                            : Math.floor(Math.random() * 3) + 1 === 2
+                            ? require("../../assets/huerto/MacetaB.png")
+                            : require("../../assets/huerto/MacetaC.png")
+                        }
+                        style={styles.maceta}
+                    />
+                    <Image
+                         source={planta.pasofoto}
+                        style={styles.plantImage}
                     />
                     <Image
                       source={defaultSquareData.marcadores}
                       style={styles.layer}
                     />
                     <View style={styles.numeroContainer}>
-                      <Text style={styles.numero}>1</Text>
+                      <Text style={styles.numero}>{planta.paso}</Text>
+                    
+                    </View>
+                    <View style={styles.imagenMarcadorContainer}>
+                      <Image style={styles.imagenMarcador} source={planta.centerImage}/>     
                     </View>
                     {planta.regada == 0 ? (
                       <TouchableOpacity
@@ -310,7 +325,12 @@ const HuertoSimulado = ({ navigation }) => {
                     onPress={() => navigation.navigate("newPlant")}
                   >
                     <Image
-                      source={require("../../assets/huerto/MacetaA.png")}
+                      source={ Math.floor(Math.random() * 3) + 1 === 1
+                            ? require("../../assets/huerto/MacetaA.png")
+                            : Math.floor(Math.random() * 3) + 1 === 2
+                            ? require("../../assets/huerto/MacetaB.png")
+                            : require("../../assets/huerto/MacetaC.png")
+                        }
                       style={styles.maceta}
                     />
                     <Image
@@ -364,8 +384,10 @@ const getStyles = (modoOscuroActivado) => {
     plantImage: {
       marginTop: 10,
       marginLeft: 243,
-      width: 180, // Ajusta al tamaño que necesites
-      height: 180, // Ajusta al tamaño que necesites
+      width: 108,
+      height: 137,
+      position: "absolute", // Ajusta al tamaño que necesites
+      resizeMode: 'contain'
     },
     grid: {
       flexDirection: "row", // Create squares in a row
@@ -377,13 +399,14 @@ const getStyles = (modoOscuroActivado) => {
       marginBottom: 5, // Adjust the margin between rows
     },
     macetaContainer: {
-      width: 118,
-      height: 150,
+      width: 108,
+      height: 137,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "white",
       borderRadius: 15,
       margin: 5,
+      
     },
     centeredImage: {
       top: -5,
@@ -397,12 +420,15 @@ const getStyles = (modoOscuroActivado) => {
     },
     topRightImage: {
       position: "absolute",
-      top: -10, // Ajusta a 0 o a un valor que posicione la imagen correctamente
-      right: 53, // Ajusta a 0 o a un valor que posicione la imagen correctamente
+      bottom:71, // Ajusta a 0 o a un valor que posicione la imagen correctamente
+      left: 83, // Ajusta a 0 o a un valor que posicione la imagen correctamente
       width: 60, // Ajusta el tamaño como sea necesario
       height: 60, // Ajusta el tamaño como sea necesario
+      resizeMode: 'contain'
     },
-    maceta: {},
+    maceta: {width: 108,
+      height: 137,
+      resizeMode: 'contain'},
     FAQButton: {
       backgroundColor: "#D1EAD0",
       padding: 10,
@@ -414,23 +440,43 @@ const getStyles = (modoOscuroActivado) => {
     FAQButtonText: {
       color: "black",
       fontSize: 16,
+      
     },
     layer: {
       width: 118,
       height: 150,
       position: "absolute",
+
+    },
+    plantaMarcador: {
+      width: 118,
+      height: 150,
+      position: "absolute",
+      resizeMode: 'contain'
     },
     numeroContainer: {
       position: "absolute",
-      bottom: 46,
-      left: 26,
-      width: 6,
+      bottom: 40,
+      left: 21,
+      width: 8,
       height: 11.25,
     },
     numero: {
       color: "white",
       fontFamily: "Inter",
-      fontSize: 11,
+      fontSize: 10,
+    },
+    imagenMarcadorContainer: {
+      position: "absolute",
+      bottom: 34,
+      left: 70,
+      width: 19,
+      height: 20,
+    },
+    imagenMarcador: {
+      width: 19,
+      height: 20,
+      resizeMode: 'contain'
     },
   };
 };

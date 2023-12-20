@@ -350,6 +350,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end', // Alinea el contenedor hacia la derecha del contenedor padre
     marginEnd: 10,
     marginTop: 30,
+    marginBottom: 10,
   },
 });
 

@@ -92,6 +92,152 @@ export const profilePictures = [
     imageSource: require("../../assets/menta.png"),
   },
 ];
+export const pasoPlanta = [
+  {
+    id: 1,
+    title: "Tomato",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 2,
+    title: "Strawberry",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 3,
+    title: "Grape",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 4,
+    title: "Cucumber",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 5,
+    title: "Pepper",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 6,
+    title: "Lechuga",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 7,
+    title: "Cebolla",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 8,
+    title: "Zanahoria",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 9,
+    title: "Espinaca",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 10,
+    title: "Calabacín",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 11,
+    title: "Frambuesa",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 12,
+    title: "Brócoli",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 13,
+    title: "Limon",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 14,
+    title: "Tomate cherry",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 15,
+    title: "Albahaca",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+  {
+    id: 16,
+    title: "Menta",
+    paso1: require("../../assets/huerto/Tomate_Fase1.png"), 
+    paso2: require("../../assets/huerto/Tomate_Fase2.png"), 
+    paso3: require("../../assets/huerto/Tomate_Fase3.png"), 
+    paso4: require("../../assets/huerto/Tomate_Fase4.png"), 
+    paso5: require("../../assets/huerto/Tomate_Fase5.png"),
+  },
+];
 
 export const avatarPictures = [
   {
@@ -164,4 +310,28 @@ export const getAvatarPictureSource = (id) => {
 export const getPlantPicture = (id) => {
   const profilePicture = profilePictures.find((picture) => picture.id === id);
   return profilePicture.imageSource;
+};
+export const getPlantPaso = (id, paso) => {
+  var resultPicture ;
+  if(paso == 1){
+     const profilePicture = pasoPlanta.find((picture) => picture.id === id);
+     resultPicture = profilePicture.paso1;
+  }else if(paso == 2){
+      const profilePicture = pasoPlanta.find((picture) => picture.id === id);
+      resultPicture = profilePicture.paso2;
+
+  }else if(paso == 3){
+    const profilePicture = pasoPlanta.find((picture) => picture.id === id);
+    resultPicture = profilePicture.paso3;
+
+  }else if(paso == 4){
+    const profilePicture = pasoPlanta.find((picture) => picture.id === id);
+    resultPicture = profilePicture.paso4;
+
+  }else{
+    const profilePicture = pasoPlanta.find((picture) => picture.id === id);
+    resultPicture = profilePicture.paso5;
+  }
+  
+  return resultPicture;
 };
