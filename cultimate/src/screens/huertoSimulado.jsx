@@ -73,8 +73,9 @@ const gridData2 = [
 ];
 
 const defaultSquareData = {
-  centerImage: require("../../assets/mas.png"),
+  centerImage: require("../../assets//huerto/AñadirMaceta.png"),
   topRightImage: require("../../assets/iconosSVG/GotaSinRegar.svg"),
+  marcadores: require("../../assets/huerto/Marcadores.png"),
   opacity: 0,
 };
 
@@ -246,7 +247,16 @@ const HuertoSimulado = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="white" />
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "white",
+          }}
+        >
+          <ActivityIndicator size="large" color="#09873D" />
+        </View>
       </View>
     );
   }
@@ -269,17 +279,20 @@ const HuertoSimulado = ({ navigation }) => {
               <View key={index} style={styles.row}>
                 {planta && planta.id !== undefined ? (
                   <TouchableOpacity
-                    style={styles.square}
+                    style={styles.macetaContainer}
                     onPress={() => handlePress(planta)}
                   >
                     <Image
-                      source={require("../../assets/Maceta.png")}
+                      source={require("../../assets/huerto/MacetaA.png")}
                       style={styles.maceta}
                     />
                     <Image
-                      source={planta.centerImage}
-                      style={styles.centeredImage}
+                      source={defaultSquareData.marcadores}
+                      style={styles.layer}
                     />
+                    <View style={styles.numeroContainer}>
+                      <Text style={styles.numero}>1</Text>
+                    </View>
                     {planta.regada == 0 ? (
                       <TouchableOpacity
                         onPress={() => handleWateringPress(planta)}
@@ -293,12 +306,16 @@ const HuertoSimulado = ({ navigation }) => {
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity
-                    style={styles.square}
+                    style={styles.macetaContainer}
                     onPress={() => navigation.navigate("newPlant")}
                   >
                     <Image
+                      source={require("../../assets/huerto/MacetaA.png")}
+                      style={styles.maceta}
+                    />
+                    <Image
                       source={defaultSquareData.centerImage}
-                      style={styles.centeredAdd}
+                      style={styles.layer}
                     />
                     <Image
                       source={defaultSquareData.topRightImage}
@@ -323,12 +340,9 @@ const getStyles = (modoOscuroActivado) => {
     container: {
       flex: 1,
       backgroundColor: "#09873D",
-      alignItems: "center",
-      justifyContent: "center",
     },
     top: {
       flex: 0.25,
-      width: "100%",
     },
     heading: {
       color: "#FFF",
@@ -362,12 +376,12 @@ const getStyles = (modoOscuroActivado) => {
       flexDirection: "row", // Each row is a row of squares
       marginBottom: 5, // Adjust the margin between rows
     },
-    square: {
-      width: 110,
-      height: 128,
+    macetaContainer: {
+      width: 118,
+      height: 150,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#D1EAD0",
+      backgroundColor: "white",
       borderRadius: 15,
       margin: 5,
     },
@@ -377,8 +391,9 @@ const getStyles = (modoOscuroActivado) => {
       height: 70, // Adjust the size as needed
     },
     centeredAdd: {
-      width: 50, // Adjust the size as needed
-      height: 50, // Adjust the size as needed
+      width: 118, // Adjust the size as needed
+      height: 150, // Adjust the size as needed
+      position: "absolute",
     },
     topRightImage: {
       position: "absolute",
@@ -387,12 +402,7 @@ const getStyles = (modoOscuroActivado) => {
       width: 60, // Ajusta el tamaño como sea necesario
       height: 60, // Ajusta el tamaño como sea necesario
     },
-    maceta: {
-      position: "absolute",
-      width: 85, // Ajusta el tamaño como sea necesario
-      height: 85,
-      top: 35,
-    },
+    maceta: {},
     FAQButton: {
       backgroundColor: "#D1EAD0",
       padding: 10,
@@ -402,9 +412,25 @@ const getStyles = (modoOscuroActivado) => {
       position: "absolute",
     },
     FAQButtonText: {
-      color: "#black",
+      color: "black",
       fontSize: 16,
-      fontWeight: "bold",
+    },
+    layer: {
+      width: 118,
+      height: 150,
+      position: "absolute",
+    },
+    numeroContainer: {
+      position: "absolute",
+      bottom: 46,
+      left: 26,
+      width: 6,
+      height: 11.25,
+    },
+    numero: {
+      color: "white",
+      fontFamily: "Inter",
+      fontSize: 11,
     },
   };
 };
