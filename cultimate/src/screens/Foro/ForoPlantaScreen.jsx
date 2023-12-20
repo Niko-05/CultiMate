@@ -57,10 +57,6 @@ const ForoPlantaScreen = ({ route, navigation }) => {
     obtenerPublicaciones();
   }, [foroId]);
 
-  const navigateToNewPublication = () => {
-    navigation.navigate('NewPublication', { foroId });
-  };
-
   const navigateToNewRespuesta = (publicacionId) => {
     navigation.navigate('NewRespuesta', { publicacionId });
   };
@@ -86,20 +82,12 @@ const ForoPlantaScreen = ({ route, navigation }) => {
             {publicaciones.map((item) => (
               <TouchableOpacity
                 key={item.id}
-                onPress={() => handlePublicacionClick(item.id, nombreplanta)}
+                onPress={() => handlePublicacionClick(item.id)}
               >
                 <View key={item.id} style={styles.publicacionContainer}>
                   <View style={styles.publicacionHeader}></View>
                   <View>
                     <Text style={styles.titulo}>{item.titulo}</Text>
-                  </View>
-                  <View style={styles.comentarioContainer}>
-                    <TouchableOpacity onPress={() => navigateToNewRespuesta(item.id)}>
-                      <View style={styles.ComentarContainer}>
-                        <Icon name="comment" style={styles.iconoComentario} />
-                        <Text style={styles.textoComentario}>Comentarios</Text>
-                      </View>
-                    </TouchableOpacity>
                   </View>
                 </View>
               </TouchableOpacity>

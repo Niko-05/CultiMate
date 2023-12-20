@@ -5,39 +5,80 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
+  
 } from "react-native";
 import config from "../../../config";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NewRespuestaModal from './NewRespuestaModal';
+
 
 const PublicationScreen = ({ route }) => {
   const { publicacionId, nombreplanta } = route.params;
+  const [publicacionid, setPublicacionid] = useState(publicacionId);
   const [refreshing, setRefreshing] = useState(false);
+  const [UserInfo, setUserInfo] = useState([]);
   const [respuestas, setRespuestas] = useState([]);
+  const [username, setUsername] = useState("");
+  const [isRespuestaModalVisible, setIsRespuestaModalVisible] = useState(false);
+
+  const openRespuestaModal = () => {
+    setIsRespuestaModalVisible(true);
+  };
+
+  const closeRespuestaModal = () => {
+    setIsRespuestaModalVisible(false);
+    obtenerRespuestas(); // Actualiza las respuestas después de cerrar el modal
+  };
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-  }, []);
-
-  useEffect(() => {
-    const obtenerRespuestas = async () => {
-      try {
-        const response = await fetch(`${config.API}/publicacion/respuestas/${publicacionId}`);
-        const data = await response.json();
-
-        if (response.ok) {
-          setRespuestas(data); // Actualizado para usar directamente el array de respuestas
-          console.log('Respuestas:', data); // Muestra toda la respuesta
-        } else {
-          console.error('Error al obtener respuestas', response.status);
-        }
-      } catch (error) {
-        console.error('Error al obtener respuestas', error);
-      } finally {
-        setRefreshing(false);
-      }
-    };
-
     obtenerRespuestas();
-  }, [publicacionId]);
+  }, [publicacionid]);
+
+  const obtenerRespuestas = async () => {
+    try {
+      const response = await fetch(`${config.API}/publicacion/respuestas/${publicacionid}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setRespuestas(data);
+        console.log('Respuestas:', data);
+      } else {
+        console.error('Error al obtener respuestas', response.status);
+      }
+    } catch (error) {
+      console.error('Error al obtener respuestas', error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  /** const obtenerUserInfo = async () => {
+    try {
+      const userInfoData = await getUserInfo();
+      setUserInfo(userInfoData);
+
+      // Verificar si hay información de usuario y si tiene la propiedad _j
+      if (userInfoData && userInfoData._j) {
+        // Extraer el nombre de usuario y actualizar el estado 'username'
+        setUsername(userInfoData._j.username);
+
+        // Ahora que tenemos el nombre de usuario, podemos obtener las respuestas
+        obtenerRespuestas();
+      }
+
+      console.log("UserInfo:", userInfoData);
+    } catch (error) {
+      console.error('Error al obtener la información del usuario', error);
+    }
+  };
+**/
+    useEffect(() => {
+      obtenerRespuestas();
+      //obtenerUserInfo();
+      //setUsername(UserInfo.username);
+      //console.log('Username:', username);
+    }, [publicacionId]);
 
   return (
     <View style={styles.container}>
@@ -51,8 +92,24 @@ const PublicationScreen = ({ route }) => {
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           >
             <View style={styles.publicacionContainer}>
-              <Text style={styles.titulo}>Título</Text>
-              <Text style={styles.cuerpo}>Cuerpo</Text>
+              <Text style={styles.titulo}>Tendria que ponerse aqui el titulo</Text>
+              <Text style={styles.cuerpo}>Por para ello habia que usar un metodo del backend nuevo que no está ne el docker por lo que wacho tiene que actualizar el docker para que peuda usar el metodo gracias</Text>
+              <View style={styles.comentarioContainer}>
+                    <TouchableOpacity onPress={openRespuestaModal} style={styles.comentarContainer}>
+                      <View style={styles.ComentarContainer}>
+                        <Icon name="comment" style={styles.iconoComentario} />
+                        <Text style={styles.textoComentario}>Añadir comentario</Text>
+                      </View>
+                    </TouchableOpacity>
+                    {isRespuestaModalVisible && (
+                      <NewRespuestaModal
+                        publicacionId={publicacionid}
+                        isVisible={isRespuestaModalVisible}
+                        onClose={closeRespuestaModal}
+                        onRespuestaCreated={obtenerRespuestas} // Puedes pasar cualquier dato necesario
+                      />
+                    )}
+                  </View>
             </View>
             {respuestas &&
               respuestas.map((respuesta) => (
@@ -85,11 +142,25 @@ const styles = StyleSheet.create({
   foroTitle: {
     color: "#FFF",
     fontFamily: "Integral CF",
-    fontSize: 24,
+    fontSize: 26,
     position: "absolute",
     top: 80,
     left: 30,
     lineHeight: 26,
+  },
+  comentarioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  iconoComentario: {
+    fontSize: 24,
+    marginRight: 8,
+  },
+  ComentarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
   },
   container2: {
     backgroundColor: '#fff',
