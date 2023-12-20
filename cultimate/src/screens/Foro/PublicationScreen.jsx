@@ -15,8 +15,9 @@ import NewRespuestaModal from './NewRespuestaModal';
 
 const PublicationScreen = ({ route }) => {
   const { publicacionId, nombreplanta } = route.params;
-  const [publicacionid, setPublicacionid] = useState(publicacionId);
+  console.log('PublicacionId:', publicacionId);
   const [refreshing, setRefreshing] = useState(false);
+  const [publicacion, setPublicacion] = useState({});
   const [UserInfo, setUserInfo] = useState([]);
   const [respuestas, setRespuestas] = useState([]);
   const [username, setUsername] = useState("");
@@ -26,6 +27,24 @@ const PublicationScreen = ({ route }) => {
     setIsRespuestaModalVisible(true);
   };
 
+  const obtenerPublicacionbyId = async () => {
+    try {
+      const response = await fetch(`${config.API}/publicacion/usuario/${publicacionId}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setPublicacion(data);
+        console.log('Publicacion:', data);
+      } else {
+        console.error('Error al obtener publicacion', response.status);
+      }
+    } catch (error) {
+      console.error('Error al obtener publicacion', error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   const closeRespuestaModal = () => {
     setIsRespuestaModalVisible(false);
     obtenerRespuestas(); // Actualiza las respuestas después de cerrar el modal
@@ -33,11 +52,11 @@ const PublicationScreen = ({ route }) => {
 
   const onRefresh = useCallback(() => {
     obtenerRespuestas();
-  }, [publicacionid]);
+  }, [publicacionId]);
 
   const obtenerRespuestas = async () => {
     try {
-      const response = await fetch(`${config.API}/publicacion/respuestas/${publicacionid}`);
+      const response = await fetch(`${config.API}/publicacion/respuestas/${publicacionId}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -75,6 +94,7 @@ const PublicationScreen = ({ route }) => {
 **/
     useEffect(() => {
       obtenerRespuestas();
+      obtenerPublicacionbyId();
       //obtenerUserInfo();
       //setUsername(UserInfo.username);
       //console.log('Username:', username);
@@ -94,9 +114,9 @@ const PublicationScreen = ({ route }) => {
             <View style={styles.publicacionContainer}>
               <View style={styles.constainer_row}>
                 <Icon name="account-circle" style={styles.iconoUsuario} />
-                <Text style={styles.titulo}>Tendria que ponerse aqui el titulo</Text>
+                <Text style={styles.titulo}>{publicacion.titulo}</Text>
               </View>
-              <Text style={styles.cuerpo}>Por para ello habia que usar un metodo del backend nuevo que no está ne el docker por lo que wacho tiene que actualizar el docker para que peuda usar el metodo gracias</Text>
+              <Text style={styles.cuerpo}>{publicacion.cuerpo}</Text>
               <View style={styles.comentarioContainer}>
                 <TouchableOpacity onPress={openRespuestaModal} style={styles.comentarContainer}>
                   <View style={styles.ComentarContainer}>
@@ -106,7 +126,7 @@ const PublicationScreen = ({ route }) => {
                 </TouchableOpacity>
                 {isRespuestaModalVisible && (
                   <NewRespuestaModal
-                    publicacionId={publicacionid}
+                    publicacionId={publicacionId}
                     isVisible={isRespuestaModalVisible}
                     onClose={closeRespuestaModal}
                     onRespuestaCreated={obtenerRespuestas} // Puedes pasar cualquier dato necesario

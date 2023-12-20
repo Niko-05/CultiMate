@@ -11,16 +11,19 @@ import Modal from "react-native-modal";
 import config from "../../../config";
 import { getUserInfo } from "../../api/user";
 
-const NewRespuestaModal = ({ publicacionid, isVisible, onClose, onRespuestaCreated }) => {
+const NewRespuestaModal = ({ publicacionId, isVisible, onClose, onRespuestaCreated}) => {
   const [contenido, setContenido] = useState("");
 
   const handleSubmit = async () => {
     try {
       const userInfoResponse = await getUserInfo();
+      console.log("userInfoResponse", userInfoResponse);
       const requestData = {
-        publicacionId: publicacionid, 
+        publicacionId: publicacionId, 
         cuerpo: contenido,
         userId: userInfoResponse.id,
+        autor: userInfoResponse.username, 
+        ProfilePictureId: userInfoResponse.profilePictureId,
       };
 
       const response = await fetch(`${config.API}/publicacion/crearRespuesta`, {
