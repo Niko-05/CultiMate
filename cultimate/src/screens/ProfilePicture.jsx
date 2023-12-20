@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { profilePictures } from "../utils/user";
+import { avatarPictures } from "../utils/user";
 import { CommonActions } from "@react-navigation/native";
 import { changeProfilePicture } from "../api/user";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -59,7 +59,7 @@ function ProfilePicture({ route, navigation }) {
       <View style={styles.modal}>
         <View style={{ marginBottom: insets.bottom }}>
           <FlatList
-            data={profilePictures}
+            data={avatarPictures}
             keyExtractor={(item) => item.id.toString()}
             numColumns={3}
             renderItem={renderAchievement}

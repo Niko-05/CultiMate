@@ -93,9 +93,72 @@ export const profilePictures = [
   },
 ];
 
+export const avatarPictures = [
+  {
+    id: 1,
+    title: "Man1",
+    imageSource: require("../../assets/avatars/man1.png"),
+  },
+  {
+    id: 2,
+    title: "Man2",
+    imageSource: require("../../assets/avatars/man2.png"),
+  },
+  {
+    id: 3,
+    title: "Man3",
+    imageSource: require("../../assets/avatars/man3.png"),
+  },
+  {
+    id: 4,
+    title: "Man4",
+    imageSource: require("../../assets/avatars/man4.png"),
+  },
+  {
+    id: 5,
+    title: "Man5",
+    imageSource: require("../../assets/avatars/man5.png"),
+  },
+  {
+    id: 6,
+    title: "Man6",
+    imageSource: require("../../assets/avatars/man6.png"),
+  },
+  {
+    id: 7,
+    title: "Woman1",
+    imageSource: require("../../assets/avatars/woman1.png"),
+  },
+  {
+    id: 8,
+    title: "Woman2",
+    imageSource: require("../../assets/avatars/woman2.png"),
+  },
+  {
+    id: 9,
+    title: "Woman3",
+    imageSource: require("../../assets/avatars/woman3.png"),
+  },
+  {
+    id: 10,
+    title: "Woman4",
+    imageSource: require("../../assets/avatars/woman4.png"),
+  },
+  {
+    id: 11,
+    title: "Woman5",
+    imageSource: require("../../assets/avatars/woman5.png"),
+  },
+];
+
 export const getProfilePictureSource = (id) => {
   const profilePicture = profilePictures.find((picture) => picture.id === id);
   return profilePicture.imageSource;
+};
+
+export const getAvatarPictureSource = (id) => {
+  const avatarPicture = avatarPictures.find((picture) => picture.id === id);
+  return avatarPicture.imageSource;
 };
 
 export const getPlantPicture = (id) => {

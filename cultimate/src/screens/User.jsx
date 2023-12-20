@@ -13,7 +13,7 @@ import GridIconos from "../components/GridIconos";
 import Gear from "../../assets/gear-solid.svg";
 import Mas from "../../assets/gear-solid.svg";
 import { getUserInfo } from "../api/user";
-import { getProfilePictureSource } from "../utils/user";
+import { getAvatarPictureSource } from "../utils/user";
 import { useIsFocused } from "@react-navigation/native";
 import { useModoOscuro } from "../context/ModoOscuroContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -28,34 +28,7 @@ const User = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const [user, setUser] = useState([]);
   const { modoOscuroActivado } = useModoOscuro();
-  const [profilePicture, setProfilePicture] = useState(null);
-
-  const elements = [
-    { id: 1, title: "balcon", imageSource: require("../../assets/fresa.png") },
-    { id: 2, title: "cuarto", imageSource: require("../../assets/mora.png") },
-    {
-      id: 3,
-      title: "cocina",
-      imageSource: require("../../assets/tomate.png"),
-    },
-    {
-      id: 4,
-      title: "terraza",
-      imageSource: require("../../assets/pepino.png"),
-    },
-    {
-      id: 5,
-      title: "Comedor",
-      imageSource: require("../../assets/pimientos.png"),
-    },
-    { id: 6, title: "Agru6", imageSource: require("../../assets/fresa.png") },
-    {
-      id: 7,
-      title: "Livingroom",
-      imageSource: require("../../assets/mora.png"),
-    },
-    // Puedes agregar más logros aquí
-  ];
+  const [avatarPicture, setAvatarPicture] = useState(null);
 
   const isFocused = useIsFocused();
 
@@ -63,33 +36,11 @@ const User = ({ navigation }) => {
     const userinfo = await getUserInfo();
     console.log(await userinfo);
     setUser(await userinfo);
-    setProfilePicture(getProfilePictureSource(await userinfo.profilePictureId));
-  };
-
-  const setElementsInfo = async () => {
-    try {
-      const users = await getUserInfo();
-      const api_call = await fetch(
-        `${config.API}/agrupaciones/agru?id=${encodeURIComponent(users.id)}`,
-        { method: "GET" }
-      );
-      const result = await api_call.json();
-      console.log(await result);
-      //elements = await result
-      console.log("elements");
-      console.log(elements);
-    } catch (e) {
-      console.error(e + "errorAAAAAAAAAAAAAAAAAA");
-      Alert.alert("Network error");
-    }
-  };
-  const handleSettings = () => {
-    navigation.navigate("Settings");
+    setAvatarPicture(getAvatarPictureSource(await userinfo.profilePictureId));
   };
 
   useEffect(() => {
     setUserInfo();
-    setElementsInfo();
   }, []);
 
   useEffect(() => {
@@ -121,9 +72,9 @@ const User = ({ navigation }) => {
                 })
               }
             >
-              {profilePicture ? (
+              {avatarPicture ? (
                 <Image
-                  source={profilePicture} // Ruta de la imagen
+                  source={avatarPicture} // Ruta de la imagen
                   style={styles.profileImage}
                 />
               ) : (

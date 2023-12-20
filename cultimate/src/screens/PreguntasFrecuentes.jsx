@@ -114,7 +114,7 @@ const getStyles = (modoOscuroActivado) => {
     backgroundLayer: {
       backgroundColor: "#09873D",
       width: "100%",
-      height: "100%",
+      height: "50%",
       position: "absolute",
     },
     header: {
