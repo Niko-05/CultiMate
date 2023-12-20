@@ -92,33 +92,50 @@ const PublicationScreen = ({ route }) => {
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           >
             <View style={styles.publicacionContainer}>
-              <Text style={styles.titulo}>Tendria que ponerse aqui el titulo</Text>
+              <View style={styles.constainer_row}>
+                <Icon name="account-circle" style={styles.iconoUsuario} />
+                <Text style={styles.titulo}>Tendria que ponerse aqui el titulo</Text>
+              </View>
               <Text style={styles.cuerpo}>Por para ello habia que usar un metodo del backend nuevo que no está ne el docker por lo que wacho tiene que actualizar el docker para que peuda usar el metodo gracias</Text>
               <View style={styles.comentarioContainer}>
-                    <TouchableOpacity onPress={openRespuestaModal} style={styles.comentarContainer}>
-                      <View style={styles.ComentarContainer}>
-                        <Icon name="comment" style={styles.iconoComentario} />
-                        <Text style={styles.textoComentario}>Añadir comentario</Text>
-                      </View>
-                    </TouchableOpacity>
-                    {isRespuestaModalVisible && (
-                      <NewRespuestaModal
-                        publicacionId={publicacionid}
-                        isVisible={isRespuestaModalVisible}
-                        onClose={closeRespuestaModal}
-                        onRespuestaCreated={obtenerRespuestas} // Puedes pasar cualquier dato necesario
-                      />
-                    )}
+                <TouchableOpacity onPress={openRespuestaModal} style={styles.comentarContainer}>
+                  <View style={styles.ComentarContainer}>
+                    <Icon name="comment" style={styles.iconoComentario} />
+                    <Text style={styles.textoComentario}>Añadir comentario</Text>
                   </View>
+                </TouchableOpacity>
+                {isRespuestaModalVisible && (
+                  <NewRespuestaModal
+                    publicacionId={publicacionid}
+                    isVisible={isRespuestaModalVisible}
+                    onClose={closeRespuestaModal}
+                    onRespuestaCreated={obtenerRespuestas} // Puedes pasar cualquier dato necesario
+                  />
+                )}
+              </View>
             </View>
+            {respuestas.length === 0 ? (
+              <View style={styles.avisoContainer}>
+                <View style={styles.row}/>
+                <Text style={styles.avisoTextoMargin}>Aún no hay comentarios.</Text>
+                <Text style={styles.avisoTexto}>¡Añade uno!</Text>
+              </View>
+            ) : null}
             {respuestas &&
               respuestas.map((respuesta) => (
-                <View key={respuesta.id} style={styles.respuestaContainer}>
-                  <View style={styles.respuestaHeader}>
-                    <Text style={styles.respuestaUsuario}>Usuario #{respuesta.usuario_id}</Text>
+                
+                <>
+                <View style={styles.row}/>
+                  <View key={respuesta.id} style={styles.respuestaContainer}>
+                    <View style={styles.respuestaHeader}>
+                      <View style={styles.constainer_row}>
+                        <Icon name="account-circle" style={styles.iconoRespuesta} />
+                        <Text style={styles.respuestaUsuario}>Usuario {respuesta.autor}</Text>
+                      </View>
+                    </View>
+                    <Text style={styles.respuestaTexto}>{respuesta.cuerpo}</Text>
                   </View>
-                  <Text style={styles.respuestaTexto}>{respuesta.cuerpo}</Text>
-                </View>
+                </>
               ))}
           </ScrollView>
         </View>
@@ -129,9 +146,43 @@ const PublicationScreen = ({ route }) => {
 
 // Estilos existentes
 const styles = StyleSheet.create({
+  avisoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  avisoTexto: {
+    fontSize: 16,
+    textAlign: 'center',
+  },  
+  avisoTextoMargin: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginHorizontal: 20,
+    marginTop: 8,
+  },  
   container: {
     flex: 1,
     backgroundColor: '#09873D',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  iconoRespuesta: {
+    fontSize: 28,
+    marginRight: 8,
+  },
+  iconoUsuario: {
+    fontSize: 40,
+    marginRight: 8,
+  },
+  constainer_row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   header: {
     backgroundColor: '#09873D',
@@ -150,7 +201,7 @@ const styles = StyleSheet.create({
   },
   comentarioContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     marginTop: 8,
   },
   iconoComentario: {
@@ -161,6 +212,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 8,
+    paddingLeft: 50,
   },
   container2: {
     backgroundColor: '#fff',
@@ -182,34 +234,28 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
     borderRadius: 8,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   scrollView: {
     flex: 1,
     height: '100%',
   },
   titulo: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    flexShrink: 1,
     marginBottom: 8,
+    justifyContent: 'flex-start',
   },
   cuerpo: {
-    fontSize: 16,
+    fontSize: 18,
+    color: '#333',
+    paddingLeft: 50,
   },
   respuestaContainer: {
     marginBottom: 16,
     padding: 16,
     backgroundColor: '#fff', // Color de fondo
     borderRadius: 8,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   respuestaHeader: {
     flexDirection: 'row',
@@ -224,6 +270,7 @@ const styles = StyleSheet.create({
   respuestaTexto: {
     fontSize: 16,
     color: '#333', // Color del texto
+    paddingLeft: 37
   },
 });
 
