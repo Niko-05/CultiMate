@@ -15,7 +15,7 @@ import { getPlantPicture } from "../utils/user";
 import * as SecureStore from "expo-secure-store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useModoOscuro } from "../context/ModoOscuroContext";
-import NoRegada from "../../assets/iconosSVG/GotaSinRegar.svg"
+import NoRegada from "../../assets/iconosSVG/GotaSinRegar.svg";
 
 const gridData2 = [
   {
@@ -254,21 +254,21 @@ const HuertoSimulado = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
+        <TouchableOpacity
+          style={[styles.FAQButton, { top: insets.top + 10 }]}
+          onPress={() => navigation.navigate("PreguntasFrecuentes")}
+        >
+          <Text style={styles.FAQButtonText}>FAQ</Text>
+        </TouchableOpacity>
         <Image
           source={require("../../assets/lineales/mora-linea-blanca.png")}
           style={styles.plantImage}
         />
         <Text style={styles.heading}>MI HUERTO</Text>
-        <TouchableOpacity
-          style={styles.FAQButton}
-          onPress={() => navigation.navigate("PreguntasFrecuentes")}
-        >
-          <Text style={styles.FAQButtonText}>FAQ</Text>
-        </TouchableOpacity>
       </View>
       <View style={styles.infoLayer}>
         <ScrollView>
-          <View style={{ marginTop: 20 }}>
+          <View>
             {/* Contenido principal */}
             <View style={styles.grid}>
               {filledGridData.map((planta, index) => (
@@ -286,16 +286,16 @@ const HuertoSimulado = ({ navigation }) => {
                         source={planta.centerImage}
                         style={styles.centeredImage}
                       />
-                      {planta.regada == 0 ?
+                      {planta.regada == 0 ? (
                         <TouchableOpacity
                           onPress={() => handleWateringPress(planta)}
                           style={styles.topRightImage}
                         >
                           <NoRegada width={34} height={34} />
                         </TouchableOpacity>
-                        :
+                      ) : (
                         <View></View>
-                      }
+                      )}
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity
@@ -353,7 +353,7 @@ const getStyles = (modoOscuroActivado) => {
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
       alignItems: "center",
-      paddingTop: 30
+      paddingTop: 30,
     },
     plantImage: {
       marginTop: 10,
@@ -405,7 +405,7 @@ const getStyles = (modoOscuroActivado) => {
       backgroundColor: "#D1EAD0",
       padding: 10,
       borderRadius: 50,
-      margin: 30,
+      marginLeft: 30,
       alignItems: "center",
       position: "absolute",
     },
