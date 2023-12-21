@@ -271,7 +271,9 @@ const HuertoSimulado = ({ navigation }) => {
           onPress={() => navigation.navigate("PreguntasFrecuentes")}
         >
           <Text style={styles.FAQButtonText}>FAQ</Text>
+          
         </TouchableOpacity>
+        <Image source={require('../../assets/lineales/CHAMPIS_LINEA_BLANCA.png')} style={styles.plantImagenblanca} />
       </View>
       <View style={styles.infoLayer}>
         <ScrollView>
@@ -428,20 +430,31 @@ const getStyles = (modoOscuroActivado) => {
     },
     maceta: {width: 108,
       height: 137,
-      resizeMode: 'contain'},
-    FAQButton: {
-      backgroundColor: "#D1EAD0",
-      padding: 10,
-      borderRadius: 50,
-      right: 30,
-      alignItems: "center",
-      position: "absolute",
+      resizeMode: 'contain'
     },
-    FAQButtonText: {
-      color: "black",
-      fontSize: 16,
-      
-    },
+      FAQButton: {
+        backgroundColor: "#D1EAD0",
+        padding: 10,
+        borderRadius: 50,
+        left: 10, // Move FAQButton to the left
+        alignItems: "center",
+        justifyContent: 'center', // Center the content vertically
+        position: "absolute",
+        flexDirection: 'row', // Align items in a row
+      },
+  
+      FAQButtonText: {
+        color: "black",
+        fontSize: 16,
+      },
+  
+      plantImagenblanca: {
+        marginLeft: 210, // Move plantImagenblanca to the right
+        marginRight: 0, // Add margin to separate FAQ button and plant image
+        width: 240, // Ajusta al tamaño que necesites
+        height: 240,
+        position: 'absolute',
+      },
     layer: {
       width: 118,
       height: 150,

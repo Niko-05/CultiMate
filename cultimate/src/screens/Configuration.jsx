@@ -44,12 +44,6 @@ function AccountSettings({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.top}>
-        <TouchableOpacity
-          style={[styles.arrow, { marginTop: insets.top }]}
-          onPress={() => navigation.navigate("navigation")}
-        >
-          <ArrowBack />
-        </TouchableOpacity>
         <Image
           source={require("../../assets/login/eggplant_transparent.png")}
           style={styles.eggplant}
