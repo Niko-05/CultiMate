@@ -67,7 +67,10 @@ const Ventanas = () => {
       <Stack.Screen
         name="ConfigurationScreen"
         component={Configuration}
-        options={{ headerShown: false }}
+        options={{ headerTransparent: true,
+          headerTitle: "",
+          headerTintColor: "#fff",        
+          }}
       />
       <Stack.Screen
         name="ProfilePicture"
@@ -98,6 +101,7 @@ const Ventanas = () => {
         options={{
           headerTransparent: true,
           headerTitle: "",
+          headerTintColor: "#fff",  
         }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />

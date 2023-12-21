@@ -91,6 +91,11 @@ export const profilePictures = [
     title: "Menta",
     imageSource: require("../../assets/menta.png"),
   },
+  {
+    id: 17,
+    title: "Rabano",
+    imageSource: require("../../assets/rabano.png"),
+  },
 ];
 export const pasoPlanta = [
   {
