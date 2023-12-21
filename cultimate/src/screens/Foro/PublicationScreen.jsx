@@ -150,7 +150,7 @@ const PublicationScreen = ({ route }) => {
             ) : null}
             {respuestas &&
               respuestas.map((respuesta) => (
-                
+                <View key={respuesta.id} style={styles.respuestaContainer}>
                 <>
                 <View style={styles.row}/>
                   <View key={respuesta.id} style={styles.respuestaContainer}>
@@ -163,6 +163,7 @@ const PublicationScreen = ({ route }) => {
                     <Text style={styles.respuestaTexto}>{respuesta.cuerpo}</Text>
                   </View>
                 </>
+                </View>
               ))}
           </ScrollView>
         </View>
