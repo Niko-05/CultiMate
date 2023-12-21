@@ -61,8 +61,6 @@ const NewPlant = ({ navigation }) => {
         <View style={styles.infoLayer}>
           <View style={{marginTop: 20}}>
             <ListaPlanta data={data} navigation={navigation} favoritos = {favoritos}/>
-           
-            <SuggestionModal isVisible={isModalVisible} closeModal={toggleModal} />
           </View>
         </View>
       </ScrollView>
