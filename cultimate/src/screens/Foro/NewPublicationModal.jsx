@@ -33,6 +33,8 @@ const NewPublicationModal = ({ route, isVisible, onClose }) => {
         cuerpo: contenido,
         userId: userInfoResponse.id,
         onClose: onClose,
+        autor: userInfoResponse.username,
+        ProfilePictureId: userInfoResponse.profilePictureId,
       };
 
       const response = await fetch(

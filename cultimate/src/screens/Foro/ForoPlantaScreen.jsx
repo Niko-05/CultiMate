@@ -34,7 +34,6 @@ const ForoPlantaScreen = ({ route, navigation }) => {
     try {
       const response = await fetch(`${config.API}/publicacion/foro/${foroId}`);
       const data = await response.json();
-      console.log(data);
       setPublicaciones(data);
       setHasPublications(data.length > 0);
     } catch (error) {
@@ -222,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     borderBottomColor: '#ddd',
   },
 });

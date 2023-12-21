@@ -11,14 +11,16 @@ import {
 import config from "../../../config";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NewRespuestaModal from './NewRespuestaModal';
+import { createIconSetFromFontello } from "react-native-vector-icons";
 
 
 const PublicationScreen = ({ route }) => {
   const { publicacionId, nombreplanta } = route.params;
-  console.log('PublicacionId:', publicacionId);
   const [refreshing, setRefreshing] = useState(false);
   const [publicacion, setPublicacion] = useState({});
   const [UserInfo, setUserInfo] = useState([]);
+  const [autor, setAutor] = useState(''); // Agrega este estado
+  const [profilePictureId, setProfilePictureId] = useState(''); // Agrega este estado
   const [respuestas, setRespuestas] = useState([]);
   const [username, setUsername] = useState("");
   const [isRespuestaModalVisible, setIsRespuestaModalVisible] = useState(false);
@@ -27,21 +29,28 @@ const PublicationScreen = ({ route }) => {
     setIsRespuestaModalVisible(true);
   };
 
+  useEffect(() => {
+    obtenerRespuestas();
+    obtenerPublicacionbyId();
+  }, [publicacionId]);
+
   const obtenerPublicacionbyId = async () => {
     try {
-      const response = await fetch(`${config.API}/publicacion/usuario/${publicacionId}`);
+      setRefreshing(true); // Activamos el indicador de actualización
+      const response = await fetch(`${config.API}/publicacion/publi/${publicacionId}`);
       const data = await response.json();
-
+  
       if (response.ok) {
-        setPublicacion(data);
-        console.log('Publicacion:', data);
+        setPublicacion(data[0]); // Actualiza el estado con el objeto de publicación
+        setAutor(data[0].autor); // Actualiza el estado del autor
+        setProfilePictureId(data[0].ProfilePictureId); // Actualiza el estado del ProfilePictureId
       } else {
         console.error('Error al obtener publicacion', response.status);
       }
     } catch (error) {
       console.error('Error al obtener publicacion', error);
     } finally {
-      setRefreshing(false);
+      setRefreshing(false); // Desactivamos el indicador de actualización, independientemente de si hubo éxito o error
     }
   };
 
@@ -61,7 +70,6 @@ const PublicationScreen = ({ route }) => {
 
       if (response.ok) {
         setRespuestas(data);
-        console.log('Respuestas:', data);
       } else {
         console.error('Error al obtener respuestas', response.status);
       }
@@ -103,7 +111,6 @@ const PublicationScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header} />
-      <Text style={styles.foroTitle}>FORO {nombreplanta.toUpperCase()}</Text>
       <View style={styles.greenBackground}>
         <View style={styles.container2}>
           <ScrollView
@@ -150,7 +157,7 @@ const PublicationScreen = ({ route }) => {
                     <View style={styles.respuestaHeader}>
                       <View style={styles.constainer_row}>
                         <Icon name="account-circle" style={styles.iconoRespuesta} />
-                        <Text style={styles.respuestaUsuario}>Usuario {respuesta.autor}</Text>
+                        <Text style={styles.respuestaUsuario}>{respuesta.autor}</Text>
                       </View>
                     </View>
                     <Text style={styles.respuestaTexto}>{respuesta.cuerpo}</Text>
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     borderBottomColor: '#ddd',
   },
   iconoRespuesta: {
@@ -201,19 +208,18 @@ const styles = StyleSheet.create({
   },
   constainer_row: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'flex-start',
+    alignItems: 'flex-start', 
   },
   header: {
     backgroundColor: '#09873D',
     padding: 16,
-    height: 130,
+    height: 80,
     justifyContent: 'flex-end',
   },
   foroTitle: {
     color: "#FFF",
-    fontFamily: "Integral CF",
-    fontSize: 26,
+    fontSize: 24,
     position: "absolute",
     top: 80,
     left: 30,
@@ -231,8 +237,7 @@ const styles = StyleSheet.create({
   ComentarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
-    paddingLeft: 50,
+    marginTop: 33,
   },
   container2: {
     backgroundColor: '#fff',
@@ -282,8 +287,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 8,
   },
+  textoComentario: {
+    fontSize: 16,
+    color: '#000',
+    fontWeight: 'bold',
+  }, 
   respuestaUsuario: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#3498db', // Color del usuario
     fontWeight: 'bold',
   },
