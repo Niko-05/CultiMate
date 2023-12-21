@@ -27,6 +27,7 @@ const imagenes = {
   calabacin: require("../../../assets/calabacin.png"),
   brocoli: require("../../../assets/brocoli.png"),
   albahaca: require("../../../assets/albahaca.png"),
+  rabano: require("../../../assets/rabano.png"),
 };
 
 const ForosScreen = ({ navigation }) => {
