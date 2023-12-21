@@ -229,7 +229,8 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 15,
     borderColor: "black",
-    padding: 22,
+    paddingVertical: 10,
+    paddingHorizontal: 22,
     borderWidth: 1,
     backgroundColor: "white",
     width: 244,

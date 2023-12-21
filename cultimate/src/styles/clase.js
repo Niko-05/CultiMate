@@ -53,7 +53,7 @@ export const GuiaPlantadoStyles = StyleSheet.create({
     marginLeft: 10,
   },
   infoText: {
-    fontSize: 16,
+    fontSize: 14,
     flexWrap: 'wrap',
     textAlign: 'justify',
     paddingLeft: 10,

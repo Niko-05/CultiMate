@@ -6,12 +6,14 @@ import {
   ScrollView,
   RefreshControl,
   TouchableOpacity,
+  Image
   
 } from "react-native";
 import config from "../../../config";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NewRespuestaModal from './NewRespuestaModal';
 import { createIconSetFromFontello } from "react-native-vector-icons";
+import { getAvatarPictureSource } from "../../utils/user";
 
 
 const PublicationScreen = ({ route }) => {
@@ -120,10 +122,15 @@ const PublicationScreen = ({ route }) => {
           >
             <View style={styles.publicacionContainer}>
               <View style={styles.constainer_row}>
-                <Icon name="account-circle" style={styles.iconoUsuario} />
-                <Text style={styles.titulo}>{publicacion.titulo}</Text>
+                <View style={{borderRadius: 15, marginRight: 10, marginTop: 3}}>
+                  <Image source={getAvatarPictureSource(profilePictureId)} style={{ width: 70, height: 70, borderRadius: 15, }} />
+                </View>
+                <View>
+                  <Text style={styles.titulo}>{publicacion.titulo}</Text>
+                  <Text style={styles.cuerpo}>{publicacion.cuerpo}</Text>
+                </View>
               </View>
-              <Text style={styles.cuerpo}>{publicacion.cuerpo}</Text>
+              
               <View style={styles.comentarioContainer}>
                 <TouchableOpacity onPress={openRespuestaModal} style={styles.comentarContainer}>
                   <View style={styles.ComentarContainer}>
@@ -156,7 +163,9 @@ const PublicationScreen = ({ route }) => {
                   <View key={respuesta.id} style={styles.respuestaContainer}>
                     <View style={styles.respuestaHeader}>
                       <View style={styles.constainer_row}>
-                        <Icon name="account-circle" style={styles.iconoRespuesta} />
+                        <View style={{borderRadius: 15, marginRight: 10, marginTop: 3}}>
+                          <Image source={getAvatarPictureSource(respuesta.ProfilePictureId)} style={{ width: 40, height: 40, borderRadius: 15, }} />
+                        </View>
                         <Text style={styles.respuestaUsuario}>{respuesta.autor}</Text>
                       </View>
                     </View>
@@ -257,7 +266,7 @@ const styles = StyleSheet.create({
   },
   publicacionContainer: {
     marginBottom: 16,
-    padding: 16,
+    paddingVertical: 16,
     backgroundColor: '#fff',
     borderRadius: 8,
   },
@@ -275,7 +284,6 @@ const styles = StyleSheet.create({
   cuerpo: {
     fontSize: 18,
     color: '#333',
-    paddingLeft: 50,
   },
   respuestaContainer: {
     marginBottom: 16,
@@ -301,7 +309,7 @@ const styles = StyleSheet.create({
   respuestaTexto: {
     fontSize: 16,
     color: '#333', // Color del texto
-    paddingLeft: 37
+    paddingLeft: 17
   },
 });
 
