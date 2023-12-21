@@ -134,6 +134,7 @@ const ListaPlanta = (props) => {
         numColumns={2}
         columnWrapperStyle={styles.row}
         extraData={forceRender} // Este extraData forzará el renderizado cuando cambie
+        scrollEnabled={false}
       />
 
       {loading && (
