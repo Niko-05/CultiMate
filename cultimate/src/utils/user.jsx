@@ -94,7 +94,7 @@ export const profilePictures = [
   {
     id: 17,
     title: "Rabano",
-    imageSource: require("../../assets/rabano.png"),
+    imageSource: require("../../assets/rabanos.png"),
   },
 ];
 export const pasoPlanta = [
