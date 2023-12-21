@@ -46,6 +46,7 @@ const PublicationScreen = ({ route }) => {
         setPublicacion(data[0]); // Actualiza el estado con el objeto de publicación
         setAutor(data[0].autor); // Actualiza el estado del autor
         setProfilePictureId(data[0].ProfilePictureId); // Actualiza el estado del ProfilePictureId
+        console.log(data);
       } else {
         console.error('Error al obtener publicacion', response.status);
       }
@@ -123,7 +124,13 @@ const PublicationScreen = ({ route }) => {
             <View style={styles.publicacionContainer}>
               <View style={styles.constainer_row}>
                 <View style={{borderRadius: 15, marginRight: 10, marginTop: 3}}>
-                  <Image source={getAvatarPictureSource(profilePictureId)} style={{ width: 70, height: 70, borderRadius: 15, }} />
+                  {
+                    publicacion.ProfilePictureId ?
+                      <Image source={getAvatarPictureSource(publicacion.ProfilePictureId)} style={{ width: 70, height: 70, borderRadius: 15, }} />
+                    :
+                      <View></View>
+                  }
+                  
                 </View>
                 <View>
                   <Text style={styles.titulo}>{publicacion.titulo}</Text>
@@ -286,7 +293,6 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   respuestaContainer: {
-    marginBottom: 16,
     padding: 16,
     backgroundColor: '#fff', // Color de fondo
     borderRadius: 8,
