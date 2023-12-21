@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   profileImage: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 100,
     margin: 8,
   },

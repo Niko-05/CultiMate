@@ -62,7 +62,7 @@ const ForosScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.backgroundLayer}>
         <Image
-          source={require("../../../assets/lineales/mora-linea-blanca.png")}
+          source={require("../../../assets/lineales/RABANO_LINEA_BLANCA.png")}
           style={styles.plantImage}
         />
       </View>
