@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getUserInfo } from '../../api/user';
 import { getProfilePictureSource } from '../../utils/user';
 import NewPublication from './NewPublicationModal';
+import { getAvatarPictureSource } from "../../utils/user";
 
 const ForoPlantaScreen = ({ route, navigation }) => {
   const { foroId, nombreplanta } = route.params;
@@ -89,14 +90,14 @@ const ForoPlantaScreen = ({ route, navigation }) => {
                     <View style={styles.publicacionHeader}></View>
                     <View style={{flexDirection: "row"}}>
                       <View style={{borderRadius: 15, marginRight: 10, marginTop: 3}}>
-                        <Image source={require('../../../assets/zanahoria.png')} style={{ width: 20, height: 20 }} />
+                        <Image source={getAvatarPictureSource(item.ProfilePictureId)} style={{ width: 50, height: 50, borderRadius: 15, }} />
                       </View>
-                      <View>
+                      <View style={{paddingTop: 7}}>
                         <Text style={styles.autor}>{item.autor}</Text>
                       </View>
                     </View>
                     <Text style={styles.titulo}>{item.titulo}</Text>
-                    <View style={{flexDirection: "row", alignSelf: 'flex-end', marginTop: 5, alignItems: "center"}}>
+                    <View style={{flexDirection: "row", alignSelf: 'flex-end', marginTop: 5}}>
                       <Icon name="comment" style={styles.iconoComentario} />
                       <Text style={styles.cuerpo}>{item.contador_respuestas}</Text>
                     </View>
@@ -174,9 +175,10 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 7
   },
   autor: {
-    fontSize: 18,
+    fontSize: 20,
     marginBottom: 8,
   },
   cuerpo: {
