@@ -7,7 +7,7 @@ import {
   Image,
   Switch,
   TouchableOpacity,
-  Platform,
+  Platform, Alert
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ArrowBack from "../../assets/login/arrow_back.svg";
@@ -20,7 +20,19 @@ function AccountSettings({ navigation }) {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [volumeEnabled, setVolumeEnabled] = useState(false);
   const [language, setLanguage] = useState("es");
-
+  const showAlert = () => {
+    Alert.alert(
+      'Hey',
+      'Esta funcionalidad aun no esta disponible',
+      [
+        {
+          text: 'Aceptar',
+          onPress: () => console.log('Alerta aceptada'),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
   const LANGUAGES = [
     { label: "Español", value: "es" },
     { label: "English", value: "en" },
@@ -60,7 +72,7 @@ function AccountSettings({ navigation }) {
             trackColor={{ false: "#939393", true: "#DBDBDB" }}
             thumbColor={darkModeEnabled ? "#2EC26A" : "#DBDBDB"}
             ios_backgroundColor="#939393"
-            onValueChange={(value) => setDarkModeEnabled(value)}
+            onValueChange={showAlert}
             value={darkModeEnabled}
           />
         </View>
@@ -71,7 +83,7 @@ function AccountSettings({ navigation }) {
             trackColor={{ false: "#939393", true: "#DBDBDB" }}
             thumbColor={notificationsEnabled ? "#2EC26A" : "#DBDBDB"}
             ios_backgroundColor="#939393"
-            onValueChange={(value) => setNotificationsEnabled(value)}
+            onValueChange={showAlert}
             value={notificationsEnabled}
           />
         </View>
@@ -82,7 +94,7 @@ function AccountSettings({ navigation }) {
             trackColor={{ false: "#939393", true: "#DBDBDB" }}
             thumbColor={volumeEnabled ? "#2EC26A" : "#DBDBDB"}
             ios_backgroundColor="#939393"
-            onValueChange={(value) => setVolumeEnabled(value)}
+            onValueChange={showAlert}
             value={volumeEnabled}
           />
         </View>
@@ -91,7 +103,7 @@ function AccountSettings({ navigation }) {
           <RNPickerSelect
             placeholder={{}}
             value={language}
-            onValueChange={(value) => setLanguage(value)}
+            onValueChange={showAlert}
             items={LANGUAGES}
             Icon={() => <Dropdown />}
             useNativeAndroidPickerStyle={false}

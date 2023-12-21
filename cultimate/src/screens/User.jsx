@@ -104,10 +104,6 @@ const User = ({ navigation }) => {
           <Text>MIS DATOS PERSONALES</Text>
           <ArrowRight />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text>MIS FAVORITOS</Text>
-          <ArrowRight />
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("ConfigurationScreen")}
