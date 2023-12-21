@@ -75,8 +75,6 @@ const Ventanas = () => {
         component={Configuration}
         options={{ headerShown: false}}
         
-        options={{ headerShown: false}}
-        
       />
       <Stack.Screen
         name="ProfilePicture"
@@ -107,11 +105,6 @@ const Ventanas = () => {
           headerBackTitle: " ",
           headerTitle: "",
         }}
-        options={{
-          headerTransparent: true,
-          headerBackTitle: " ",
-          headerTitle: "",
-        }}
       />
       <Stack.Screen name="CrearAgrupaciones" component={CrearAgrupaciones} />
       <Stack.Screen name="PublicationScreen" component={PublicationScreen} options={{ 
@@ -119,13 +112,6 @@ const Ventanas = () => {
         headerBackTitle: " ", 
         headerTitle: ""
         }} />
-      <Stack.Screen name="NewRespuestaModal" component={NewRespuestaModal} />
-      <Stack.Screen name="PublicationScreen" component={PublicationScreen} options={{ 
-        headerTransparent: true, 
-        headerBackTitle: " ", 
-        headerTitle: ""
-        }} />
-      <Stack.Screen name="NewRespuestaModal" component={NewRespuestaModal} />
       <Stack.Screen name="ForosScreen" component={ForosScreen} />
       <Stack.Screen name="ForoPlantaScreen" component={ForoPlantaScreen} options={{
         headerTransparent: true,
