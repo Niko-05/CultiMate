@@ -22,6 +22,7 @@ const Infoplanta = ({navigation}) => {
   const route = useRoute();
   const { id, data } = route.params;
   const [guia, setGuia] = useState(null);
+  const [enfermedades, setEnfermedades] = useState(null);
   const item = data.find((item) => item.id === id);
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const [picture, setPicture] = useState(null);
@@ -128,6 +129,16 @@ const Infoplanta = ({navigation}) => {
     setGuia(result[0]);
   }
 
+  const getEnfermedades = async () => {
+    const api_call = await fetch(`${config.API}/planta/enfermedades/${id}`, {
+      method: 'GET',
+    });
+
+    const result = await api_call.json();
+    setEnfermedades(result[0]);
+
+  }
+
   const setUserInfo = async () => {
     try {
       const userInfoResponse = await getUserInfo();
@@ -190,6 +201,7 @@ const Infoplanta = ({navigation}) => {
 
   useEffect(() => {
     getGuia();
+    getEnfermedades();
     setPicture(getPlantPicture(item.id));
   }, [id]);
 
@@ -262,6 +274,8 @@ const Infoplanta = ({navigation}) => {
           <AccordionSection title="PLANTADO" content={`Inicio del plantado en ${months[guia.inicio_periodo]} - Final del plantado en ${months[guia.fin_periodo]}`}/>
           <View style={styles.row}></View>
           <AccordionSection title="MACETA" content={`Recomendamos plantar en macetas de ${guia.tam_maceta} litros`}/>
+          <View style={styles.row}></View>
+          <AccordionSection title="ENFERMEDADES COMUNES" content={`Las enfermedades y plagas más comunes son:\n\n\n ${enfermedades.nombre}\n\n Sintomas: ${enfermedades.sintomas}\n\n Tratamiento: ${enfermedades.tratamiento}`}/>
           <View style={styles.row}></View>
           <AccordionSection title="CALENDARIO DE CRECIMIENTO" content={renderOptimalMonths}/>
 

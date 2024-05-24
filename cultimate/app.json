@@ -30,8 +30,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "5223b8e7-270d-448f-be19-de3d445bb2c3"
+        "projectId": "a6851f29-b1cc-404f-90ac-9ba11c2dd1fc"
       }
-    }
+    },
+    "owner": "niko-05"
   }
 }
