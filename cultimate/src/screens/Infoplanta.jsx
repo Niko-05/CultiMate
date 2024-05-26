@@ -201,25 +201,28 @@ const Infoplanta = ({navigation}) => {
   
 
   useEffect(() => {
-    getGuia();
     getEnfermedades();
+    getGuia();
     setPicture(getPlantPicture(item.id));
   }, [id]);
 
-  const formatEnfermedadesContent = async () => {
-    if (!enfermedades) {
-        try {
-            await getEnfermedades(); // Fetch enfermedades if it's not available
-        } catch (error) {
-            console.error('Error fetching enfermedades:', error);
-            return ''; // Return empty string if there's an error fetching data
-        }
-    }
+  const formatEnfermedadesContent = () => {
+    console.log(enfermedades);
 
-    return enfermedades.map(enfermedad => (
-        `Nombre: ${enfermedad.nombre}\nSintomas: ${enfermedad.sintomas}\nTratamiento: ${enfermedad.tratamiento}\n\n`
-    )).join('');
-};
+    setTimeout(() => {}, 1500);
+
+    try{
+      let enf = enfermedades.map(enfermedad => (
+        `${enfermedad.nombre}\n\nSintomas: ${enfermedad.sintomas}\n\nTratamiento: ${enfermedad.tratamiento}\n\n\n`
+      )).join('');
+
+      console.log(enf);
+
+      return enf;
+    } catch (error){
+      return '';
+    }
+  };
 
   if (!guia) {
     return (
