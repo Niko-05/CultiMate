@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useFocusEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, Alert, Animated, Dimensions } from "react-native";
 import Collapsible from 'react-native-collapsible';
 import { useRoute } from "@react-navigation/native";
@@ -135,8 +135,8 @@ const Infoplanta = ({navigation}) => {
     });
 
     const result = await api_call.json();
-    setEnfermedades(result[0]);
-
+    console.log(result);
+    setEnfermedades(result);
   }
 
   const setUserInfo = async () => {
@@ -198,12 +198,28 @@ const Infoplanta = ({navigation}) => {
     }
   };
   
+  
 
   useEffect(() => {
     getGuia();
     getEnfermedades();
     setPicture(getPlantPicture(item.id));
   }, [id]);
+
+  const formatEnfermedadesContent = async () => {
+    if (!enfermedades) {
+        try {
+            await getEnfermedades(); // Fetch enfermedades if it's not available
+        } catch (error) {
+            console.error('Error fetching enfermedades:', error);
+            return ''; // Return empty string if there's an error fetching data
+        }
+    }
+
+    return enfermedades.map(enfermedad => (
+        `Nombre: ${enfermedad.nombre}\nSintomas: ${enfermedad.sintomas}\nTratamiento: ${enfermedad.tratamiento}\n\n`
+    )).join('');
+};
 
   if (!guia) {
     return (
@@ -275,7 +291,7 @@ const Infoplanta = ({navigation}) => {
           <View style={styles.row}></View>
           <AccordionSection title="MACETA" content={`Recomendamos plantar en macetas de ${guia.tam_maceta} litros`}/>
           <View style={styles.row}></View>
-          <AccordionSection title="ENFERMEDADES COMUNES" content={`Las enfermedades y plagas más comunes son:\n\n\n ${enfermedades.nombre}\n\n Sintomas: ${enfermedades.sintomas}\n\n Tratamiento: ${enfermedades.tratamiento}`}/>
+          <AccordionSection title="ENFERMEDADES COMUNES" content={`Las enfermedades y plagas más comunes son:\n\n\n ${formatEnfermedadesContent()}`}/>
           <View style={styles.row}></View>
           <AccordionSection title="CALENDARIO DE CRECIMIENTO" content={renderOptimalMonths}/>
 
