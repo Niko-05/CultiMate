@@ -29,6 +29,8 @@ import ArrowBack from "../../assets/login/arrow_back.svg";
 import Edit from "../../assets/login/edit.svg";
 import InputField from "../components/InputField";
 
+const bcrypt = require('bcryptjs');
+
 function AccountSettings({ navigation }) {
   const insets = useSafeAreaInsets();
   const [user, setUser] = useState({});
@@ -97,7 +99,7 @@ function AccountSettings({ navigation }) {
     if (newPassword !== newPasswordConfirm) {
       throw new Error("The new passwords don't match");
     }
-    if (password !== user.password) {
+    if (!bcrypt.compare(password, user.password)) {
       throw new Error("The current password is incorrect");
     }
     const result = await changePassword(newPassword);
