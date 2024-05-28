@@ -6,18 +6,16 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  StyleSheet,
   ActivityIndicator,
   Linking,
   Alert,
 } from "react-native";
 import config from "../../config";
 
-
 import { useNavigation } from "@react-navigation/native";
 
-const Tienda = () => {
-  const [products, setProducts] = useState([]);
+const Recetas = () => {
+  const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const { modoOscuroActivado } = useModoOscuro();
   const styles = getStyles(modoOscuroActivado);
@@ -25,11 +23,10 @@ const Tienda = () => {
 
   const fetchData = async () => {
     try {
-      const api_call = await fetch(`${config.API}/productos`, {
+      const api_call = await fetch(`${config.API}/recetas`, {
         method: "GET",
       });
       if (!api_call.ok) {
-        // Handle non-OK response status
         Alert.alert(
           "API error",
           `Failed to fetch user data. Status: ${api_call.status}`
@@ -37,8 +34,8 @@ const Tienda = () => {
         return;
       }
       const response = await api_call.json();
-      setProducts(response); // Set the fetched product data
-      setLoading(false); // Set loading to false once data is fetched
+      setRecipes(response);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
@@ -49,10 +46,7 @@ const Tienda = () => {
     fetchData();
   }, []);
 
-  const openProductLink = (productUrl) => {
-    // Open URL in the default browser
-    Linking.openURL(productUrl);
-  };
+  const recipeHandling = () => {}
 
   if (loading) {
     return (
@@ -66,29 +60,26 @@ const Tienda = () => {
     <View style={styles.container}>
       <View style={styles.top}>
         <Image
-          source={require("../../assets/brocoli_transparent.png")}
-          style={styles.brocoli}
+          source={require("../../assets/lineales/AGUACATES_LINEA_BLANCA.png")}
+          style={styles.awacate}
         />
-        <Text style={styles.titulo}>TIENDA</Text>
+        <Text style={styles.titulo}>RECETAS</Text>
       </View>
       <View style={styles.modal}>
         <ScrollView contentContainerStyle={styles.scrollView}>
-          {products.map((product) => (
+          {recipes.map((recipe) => (
             <TouchableOpacity
-              key={product.id}
+              key={recipe.id}
               style={styles.productContainer}
-              onPress={() => openProductLink(product.url)}
+              //onPress={}
             >
               <Image
-                source={{ uri: product.imagen }}
+                source={{ uri: recipe.imagen }}
                 style={styles.productImage}
               />
-              <Text style={styles.productName}>{product.nombre}</Text>
-              <View style={styles.priceContainer}>
-                <Text style={styles.productPrice}>{product.precio}€</Text>
-              </View>
+              <Text style={styles.productName}>{recipe.nombre}</Text>
               <Text style={styles.productDescription}>
-                {product.descripcion}
+                {recipe.descripcion}
               </Text>
             </TouchableOpacity>
           ))}
@@ -98,7 +89,7 @@ const Tienda = () => {
   );
 };
 
-const getStyles = (modoOscuroActivado) => {
+const getStyles = () => {
   return {
     container: {
       flex: 1,
@@ -123,7 +114,7 @@ const getStyles = (modoOscuroActivado) => {
       borderTopRightRadius: 15,
       paddingBottom: 75,
     },
-    brocoli: {
+    awacate: {
       width: 192,
       height: 203,
       position: "absolute",
@@ -174,7 +165,6 @@ const getStyles = (modoOscuroActivado) => {
     productPrice: {
       fontSize: 16,
       fontFamily: "Inter-Bold",
-      //color: modoOscuroActivado ? darkModeText : lightModeText,
       color: "#FFFFFF",
     },
     productDescription: {
@@ -186,4 +176,4 @@ const getStyles = (modoOscuroActivado) => {
   };
 };
 
-export default Tienda;
+export default Recetas;

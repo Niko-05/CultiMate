@@ -6,7 +6,6 @@ import RegisterScreen1 from "../screens/login/RegisterScreen1";
 import RegisterScreen2 from "../screens/login/RegisterScreen2";
 import LoginScreen from "../screens/login/LoginScreen";
 import GuiasPlantado from "../screens/GuiasPlantado";
-import HuertoSimulado from "../screens/huertoSimulado";
 import ConfigScreen from "../screens/ConfigScreen";
 import AccountSettingsScreen from "../screens/AccountSettings";
 import ProfilePicture from "../screens/ProfilePicture";

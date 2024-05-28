@@ -1,13 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-//screens
+import { StyleSheet, View, Image } from "react-native";
+
 import ForosScreen from "../screens/Foro/ForosScreen";
 import newPlant from "../screens/NewPlant";
 import user from "../screens/User";
-import GuiasPlantado from "../screens/GuiasPlantado";
 import HuertoSimulado from "../screens/huertoSimulado";
 import Tienda from "../screens/tienda";
+import Recetas from "../screens/recetas";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 
@@ -19,8 +19,6 @@ import ActivePlants from "../../assets/iconosSVG/IconoPlantas_Relleno.svg"
 import InactivePlants from "../../assets/iconosSVG/IconoPlantas.svg"
 import ActiveShop from "../../assets/iconosSVG/IconoTienda_Relleno.svg"
 import InactiveShop from "../../assets/iconosSVG/IconoTienda.svg"
-
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
@@ -120,7 +118,7 @@ function MyTabs() {
 
       <Tab.Screen
         name="Recetas"
-        component={user}
+        component={Recetas}
         options={{
           tabBarIcon: ({ focused }) => (
             focused ?
