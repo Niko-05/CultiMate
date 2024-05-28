@@ -119,7 +119,42 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Usuario"
+        name="Recetas"
+        component={user}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            focused ?
+              <View>
+                <Image
+                  source={require("../../assets/iconosSVG/recetas_Relleno.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 32,
+                    height: 32,
+                    tintColor: "#FFFFFF",
+                  }}
+                />
+              </View>
+            :
+              <View>
+                <Image
+                  source={require("../../assets/iconosSVG/recetas.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 30,
+                    height: 30,
+                    tintColor: "#FFFFFF",
+                  }}
+                />
+              </View>
+          ),
+          headerShown: false,
+          headerTintColor: "green",
+        }}
+      />
+
+      <Tab.Screen
+        name="Usuarios"
         component={user}
         options={{
           tabBarIcon: ({ focused }) => (
