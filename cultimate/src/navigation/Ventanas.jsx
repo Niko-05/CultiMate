@@ -19,6 +19,7 @@ import CrearAgrupaciones from "../screens/CrearAgrupaciones";
 import ListaPlantadas from "../screens/ListaPlantadas";
 import Configuration from "../screens/Configuration";
 import PublicationScreen from "../screens/Foro/PublicationScreen";
+import Receta from "../screens/receta";
 
 const Stack = createStackNavigator();
 const Ventanas = () => {
@@ -85,6 +86,16 @@ const Ventanas = () => {
           headerTitle: "",
         }}
       />
+
+      <Stack.Screen
+        name="Receta"
+        component={Receta}
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+        }}
+      /> 
+
       <Stack.Screen 
         name="GuiaPlantado" 
         component={GuiaPlantado}

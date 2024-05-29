@@ -294,7 +294,7 @@ const Infoplanta = ({navigation}) => {
           <View style={styles.row}></View>
           <AccordionSection title="MACETA" content={`Recomendamos plantar en macetas de ${guia.tam_maceta} litros`}/>
           <View style={styles.row}></View>
-          <AccordionSection title="ENFERMEDADES COMUNES" content={`Las enfermedades y plagas más comunes son:\n\n\n ${formatEnfermedadesContent()}`}/>
+          <AccordionSection title="ENFERMEDADES COMUNES" content={`Las enfermedades y plagas más comunes son:\n\n\n${formatEnfermedadesContent()}`}/>
           <View style={styles.row}></View>
           <AccordionSection title="CALENDARIO DE CRECIMIENTO" content={renderOptimalMonths}/>
 

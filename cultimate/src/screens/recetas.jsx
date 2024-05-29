@@ -46,8 +46,6 @@ const Recetas = () => {
     fetchData();
   }, []);
 
-  const recipeHandling = () => {}
-
   if (loading) {
     return (
       <View style={styles.container}>
@@ -68,19 +66,17 @@ const Recetas = () => {
       <View style={styles.modal}>
         <ScrollView contentContainerStyle={styles.scrollView}>
           {recipes.map((recipe) => (
+            
             <TouchableOpacity
               key={recipe.id}
               style={styles.productContainer}
-              //onPress={}
+              onPress={() =>  navigation.navigate("Receta", {id: recipe.id, data: recipes})}
             >
               <Image
                 source={{ uri: recipe.imagen }}
                 style={styles.productImage}
               />
               <Text style={styles.productName}>{recipe.nombre}</Text>
-              <Text style={styles.productDescription}>
-                {recipe.descripcion}
-              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -143,29 +139,12 @@ const getStyles = () => {
       width: "100%", // Adjust image size as needed
       aspectRatio: 1, // Adjust image size as needed
       resizeMode: "contain",
-      marginBottom: 10,
     },
     productName: {
       fontSize: 16,
       fontFamily: "Inter-Bold",
-      marginTop: 5,
-      marginBottom: 5,
       color: "black",
-    },
-    priceContainer: {
-      backgroundColor: "#2EC26A",
-      borderRadius: 5,
-      paddingVertical: 5,
-      paddingHorizontal: 10,
-      marginTop: 5,
-      marginBottom: 5,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    productPrice: {
-      fontSize: 16,
-      fontFamily: "Inter-Bold",
-      color: "#FFFFFF",
+      textAlign: "center",
     },
     productDescription: {
       fontSize: 14,
